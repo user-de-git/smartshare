@@ -86,12 +86,12 @@ public class CUserRegistration extends Activity {
         String userCountryName = ((EditText) findViewById(R.id.countryNameText)).getText().toString();
         String userPostalCode = ((EditText) findViewById(R.id.postalCodeText)).getText().toString();
 
-        if ( userPasswordFirst != userPasswordSecond )
+        if ( !userPasswordFirst.equals(userPasswordSecond) )
         {
             // Here you can ask the user to try again, using return; for that
             Toast.makeText(getApplicationContext(), "Please correct password.", Toast.LENGTH_SHORT).show();
             ((EditText) findViewById(R.id.passwordText)).setHighlightColor(Color.RED);
-            ((EditText) findViewById(R.id.verifyPasswordText)).setHighlightColor(Color.RED);
+            ((EditText) findViewById(R. id.verifyPasswordText)).setHighlightColor(Color.RED);
             return;
         }
 
