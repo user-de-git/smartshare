@@ -111,6 +111,15 @@ public class CUserRegistration extends Activity {
         userTable.put("userPostalCode", userPostalCode);
         userTable.saveInBackground();
 
+        //get table
+        ParseObject userLoginTable = new ParseObject("User");
+
+        //store values
+        userLoginTable.put("password", userPasswordSecond);
+        userLoginTable.put("email", userEmailAddress);
+        userLoginTable.put("username", userEmailAddress);
+        userLoginTable.saveInBackground();
+
         // Here you can ask the user to try again, using return; for that
         Toast.makeText(getApplicationContext(), " Registration Success :) Please Login ", Toast.LENGTH_SHORT).show();
 
