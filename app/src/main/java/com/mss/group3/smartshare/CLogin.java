@@ -23,40 +23,12 @@ public class CLogin extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clogin);
+
         Parse.enableLocalDatastore(this);
-
-        // Add your initialization code here
         Parse.initialize(this);
-
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
-        // Optionally enable public read access.
-        // defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
-//
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void buttonPress(View view) {
@@ -65,7 +37,7 @@ public class CLogin extends AppCompatActivity {
         ParseUser.logInInBackground(uname, pword, new LogInCallback() {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
-                    Intent CUserType = new Intent(CLogin.this,CUserType.class);
+                    Intent CUserType = new Intent(CLogin.this, CUserType.class);
                     startActivity(CUserType);
                 } else {
                     String text = "Login failed";
@@ -74,4 +46,15 @@ public class CLogin extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * The following method will get triggered on sign up click
+     */
+    public void signUpEvent( View view )
+    {
+        //go to user registration page
+        startActivity(new Intent(CLogin.this, CUserRegistration.class));
+    }
+
+
 }
