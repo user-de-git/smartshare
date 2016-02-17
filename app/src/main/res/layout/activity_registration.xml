@@ -82,8 +82,7 @@
 
                     android:layout_weight="1"
                     android:hint="LastName"
-                    android:inputType="textPersonName"
-                     />
+                    android:inputType="textPersonName" />
 
             </TableRow>
 
@@ -97,8 +96,7 @@
 
                     android:layout_weight="1"
                     android:hint="Email"
-                    android:inputType="textEmailAddress"
-                     />
+                    android:inputType="textEmailAddress" />
 
                 <EditText
                     android:id="@+id/contactText"
@@ -107,8 +105,7 @@
 
                     android:layout_weight="1"
                     android:hint="Phone Number"
-                    android:inputType="phone"
-                     />
+                    android:inputType="phone" />
             </TableRow>
 
             <TableRow>
@@ -132,8 +129,7 @@
 
                     android:layout_weight="1"
                     android:hint="Password"
-                    android:inputType="textPassword"
-                     />
+                    android:inputType="textPassword" />
             </TableRow>
 
         </TableLayout>
@@ -252,12 +248,12 @@
     </LinearLayout>
 
     <Button
-        android:layout_marginTop="20dp"
         android:id="@+id/registrationButton"
+        style="@style/buttonStyle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/buttonStyle2"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:onClick="userRegistrationButtonPress"
         android:text="Sign up !" />
 

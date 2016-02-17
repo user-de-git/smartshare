@@ -5,4 +5,29 @@
     <string name="action_settings">Settings</string>
     <string name="sign_up"><u>Signup</u></string>
     <string name="no_account">Don\'t have an account ?</string>
+    <string-array name="vehicle_type">
+
+        <item>Truck</item>
+        <item>Compact</item>
+        <item>Family</item>
+    </string-array>
+    <string-array name="vehicle_capacity">
+
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+    </string-array>
+    <string-array name="vehicle_range">
+
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>45</item>
+    </string-array>
 </resources>

@@ -29,8 +29,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CUserType"></activity>
-        <activity android:name=".COwner"></activity>
         <activity android:name=".CVehicleRegistration"></activity>
+        <activity android:name=".COwner"></activity>
         <activity android:name=".CUserRegistration"></activity>
 
     </application>
