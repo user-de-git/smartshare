@@ -58,7 +58,6 @@ public class CVehicleRegistration extends Activity{
         spinner_vehicletype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 vehicle_type = (String) parent.getItemAtPosition(pos);
-                Toast.makeText(getBaseContext(), parent.getItemAtPosition(pos) + "", Toast.LENGTH_SHORT).show();
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -72,7 +71,6 @@ public class CVehicleRegistration extends Activity{
         spinner_vehiclecapacity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 vehicle_capacity = Integer.parseInt((String) parent.getItemAtPosition(pos));
-                Toast.makeText(getBaseContext(), parent.getItemAtPosition(pos) + "", Toast.LENGTH_SHORT).show();
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -86,7 +84,6 @@ public class CVehicleRegistration extends Activity{
         spinner_vehiclerange.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 vehicle_share_range = Integer.parseInt(((String) parent.getItemAtPosition(pos)));
-                Toast.makeText(getBaseContext(), parent.getItemAtPosition(pos) + "", Toast.LENGTH_SHORT).show();
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
