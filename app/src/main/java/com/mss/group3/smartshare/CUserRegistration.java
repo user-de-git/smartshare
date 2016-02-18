@@ -8,7 +8,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 
 /**
@@ -96,34 +99,41 @@ public class CUserRegistration extends Activity {
         }
 
         //get table
-        ParseObject userTable = new ParseObject("UserRegistrationTable");
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        currentUser.logOut();
+        ParseUser userTable = new ParseUser();
 
         //store values
+        userTable.setUsername(userEmailAddress);
+        userTable.setPassword(userPasswordSecond);
+        userTable.setEmail(userEmailAddress);
+
         userTable.put("userFirstName", userFirstName);
         userTable.put("userLastName", userLastName);
-        userTable.put("userPassword", userPasswordSecond);
-        userTable.put("userEmailAddress", userEmailAddress);
         userTable.put("userContactNumber", userContactNumber);
         userTable.put("userAddressLineOne", userAddressLineOne);
         userTable.put("userCityName", userCityName);
         userTable.put("userCountryName", userCountryName);
         userTable.put("userCountryName", userCountryName);
         userTable.put("userPostalCode", userPostalCode);
-        userTable.saveInBackground();
 
-        //get table
-        ParseObject userLoginTable = new ParseObject("User");
+        userTable.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
 
-        //store values
-        userLoginTable.put("password", userPasswordSecond);
-        userLoginTable.put("email", userEmailAddress);
-        userLoginTable.put("username", userEmailAddress);
-        userLoginTable.saveInBackground();
+                    Toast.makeText(getApplicationContext(), "Registration Success", Toast.LENGTH_SHORT).show();
 
-        // Here you can ask the user to try again, using return; for that
-        Toast.makeText(getApplicationContext(), " Registration Success :) Please Login ", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(CUserRegistration.this, CLogin.class));
+                } else {
+                    Toast.makeText(getApplicationContext(), "Registration Failed" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
-        //Go Back to Login
-        startActivity(new Intent(CUserRegistration.this, CLogin.class));
+                }
+            }
+        });
+
+
+
+
     }
 }
