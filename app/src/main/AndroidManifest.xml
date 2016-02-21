@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mss.group3.smartshare">
+    package="com.mss.group3.smartshare"
+    >
+
+
+
+
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -20,7 +25,7 @@
             android:value="@string/parse_client_key" />
 
         <activity
-            android:name="com.mss.group3.smartshare.CLogin"
+            android:name=".controller.MainController"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -28,10 +33,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CUserType"></activity>
-        <activity android:name=".CVehicleRegistration"></activity>
-        <activity android:name=".COwner"></activity>
-        <activity android:name=".CUserRegistration"></activity>
+        <activity android:name=".model.Login"></activity>
+        <activity android:name=".controller.LoginController"></activity>
+
+        <activity android:name=".UserType"></activity>
+        <activity android:name=".VehicleRegistration"></activity>
+        <activity android:name=".Owner"></activity>
+        <activity android:name=".UserRegistration"></activity>
 
     </application>
 

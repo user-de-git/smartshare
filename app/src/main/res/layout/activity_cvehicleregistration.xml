@@ -6,7 +6,7 @@
     android:background="#FFFFFF"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".CUserRegistration">
+    tools:context=".UserRegistration">
 
     <LinearLayout
         android:layout_width="match_parent"
