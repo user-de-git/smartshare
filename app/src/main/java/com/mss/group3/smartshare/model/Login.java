@@ -10,39 +10,25 @@ import com.parse.ParseUser;
  */
 public class Login {
 
-    private String sUserName;
-    private String sUserPassword;
+    private String userName;
+    private String userPassword;
 
     public String getUserName()
     {
-        return sUserName;
+        return userName;
     }
 
-    public String getsUserPassword()
+    public String getUserPassword()
     {
-        return sUserName;
+        return userPassword;
     }
 
-    public void setsUserName(String sUserName) {
-        this.sUserName = sUserName;
+    public void setUserName(String sUserName) {
+        this.userName = sUserName;
     }
 
-    public void setsUserPassword(String sUserPassword) {
-        this.sUserPassword = sUserPassword;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
-    public boolean verifyUserDetails()
-    {
-        final boolean[] _success = new boolean[1];
-        ParseUser.logInInBackground(getUserName(), getsUserPassword(), new LogInCallback() {
-            public void done(ParseUser user, ParseException e) {
-                if (user != null) {
-                    _success[0] = true;
-                } else {
-                    _success[0] = false;
-                }
-            }
-        });
-        return  _success[0];
-    }
 }

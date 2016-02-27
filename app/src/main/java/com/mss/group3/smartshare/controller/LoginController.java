@@ -7,8 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.mss.group3.smartshare.R;
-import com.mss.group3.smartshare.UserRegistration;
-import com.mss.group3.smartshare.UserType;
+import com.mss.group3.smartshare.model.UserType;
 import com.mss.group3.smartshare.model.Login;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -28,39 +27,39 @@ public class LoginController extends Activity {
         //the first screen to be initialized is login
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-
         //initialize login
         login = new Login();
     }
 
     public void loginButtonClick(View view ) {
 
-        login.setsUserName(((EditText) findViewById(R.id.userName)).getText().toString());
-        login.setsUserPassword(((EditText) findViewById(R.id.userPassword)).getText().toString());
+        login.setUserName(((EditText) findViewById(R.id.userName)).getText().toString());
+        login.setUserPassword(((EditText) findViewById(R.id.userPassword)).getText().toString());
 
-        boolean loginresult = login.verifyUserDetails();
+        ParseUser.logInInBackground(login.getUserName(), login.getUserPassword(), new LogInCallback() {
+            public void done(ParseUser user, ParseException e) {
+                if (user != null) {
+                    //login screen initialization
+                    Intent myIntent = new Intent(LoginController.this, UserType.class);
+                    startActivity(myIntent);
 
-        if(loginresult)
-        {
-            //login screen initialization
-            Intent myIntent = new Intent(LoginController.this, UserType.class);
-            startActivity(myIntent);
-        }
-        else
-        {
+                } else {
 
-        }
+                }
+            }
+        });
 
     }
 
-
     public void signUpButtonClick(View view ) {
 
-
         //login screen initialization
-            Intent myIntent = new Intent(LoginController.this, UserRegistration.class);
+            Intent myIntent = new Intent(LoginController.this, UserRegistrationController.class);
             startActivity(myIntent);
+    }
 
+    public void forgotPasswordButtonClick(View view ) {
+        //need to implement
 
     }
 

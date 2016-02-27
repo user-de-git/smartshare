@@ -36,10 +36,10 @@
         <activity android:name=".model.Login"></activity>
         <activity android:name=".controller.LoginController"></activity>
 
-        <activity android:name=".UserType"></activity>
-        <activity android:name=".VehicleRegistration"></activity>
-        <activity android:name=".Owner"></activity>
-        <activity android:name=".UserRegistration"></activity>
+        <activity android:name=".model.UserType"></activity>
+        <activity android:name=".controller.PostVehicleController"></activity>
+        <activity android:name=".controller.OwnerController"></activity>
+        <activity android:name=".controller.UserRegistrationController"></activity>
 
     </application>
 
