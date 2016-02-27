@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.mss.group3.smartshare.R;
-import com.mss.group3.smartshare.model.UserType;
 import com.mss.group3.smartshare.model.Login;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -40,7 +39,8 @@ public class LoginController extends Activity {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     //login screen initialization
-                    Intent myIntent = new Intent(LoginController.this, UserType.class);
+                    Intent myIntent = new Intent(LoginController.this, UserTypeController.class);
+
                     startActivity(myIntent);
 
                 } else {

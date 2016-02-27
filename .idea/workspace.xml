@@ -10,38 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fac3b105-c5b0-4323-b8f3-9affdbfc0d0c" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\.idea\libraries\appcompat_v7_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\.idea\libraries\bolts_android_1_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\.idea\libraries\bolts_applinks_1_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\.idea\libraries\bolts_tasks_1_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\.idea\libraries\design_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\.idea\libraries\parse_android_1_13_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\.idea\libraries\recyclerview_v7_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\.idea\libraries\support_annotations_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\.idea\libraries\support_v4_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\java\com\mss\group3\smartshare\model\Owner.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\java\com\mss\group3\smartshare\utility\LocationServices.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\java\com\mss\group3\smartshare\utility\ParseServices.java" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\java\com\mss\group3\smartshare\Owner.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/OwnerController.java" />
-      <change type="MOVED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\java\com\mss\group3\smartshare\UserRegistration.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/UserRegistrationController.java" />
-      <change type="MOVED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\java\com\mss\group3\smartshare\UserType.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/UserType.java" />
-      <change type="MOVED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\java\com\mss\group3\smartshare\VehicleAdaptor.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/VehicleAdaptor.java" />
-      <change type="MOVED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\java\com\mss\group3\smartshare\VehicleDataStore.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/VehicleDataStore.java" />
-      <change type="MOVED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\java\com\mss\group3\smartshare\VehicleRegistration.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/PostVehicleController.java" />
-      <change type="MOVED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\res\layout\activity_cowner.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/owner.xml" />
-      <change type="MOVED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\res\layout\activity_cusertype.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/usertype.xml" />
-      <change type="MOVED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\res\layout\activity_cvehicleregistration.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/vehicleregistration.xml" />
-      <change type="MOVED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\res\layout\activity_registration.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/userregistration.xml" />
-      <change type="MOVED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\res\layout\list_item_vehicle.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/listitemvehicle.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/UserTypeController.java" />
+      <change type="DELETED" beforePath="C:\Users\inder\AndroidStudioProjects\smartshare\app\src\main\java\com\mss\group3\smartshare\model\UserType.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/fileSnapshots.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/outputFileStates.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/Login.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/Login.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/FindVehicleController.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/FindVehicleController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/LoginController.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/SignUp.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/SignUp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/usertype.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/usertype.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/vehicleregistration.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/vehicleregistration.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MyApplication.iws" />
@@ -65,26 +45,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/LoginController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.20498616">
-              <caret line="38" column="66" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="27" column="37" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1200#1574#0" expanded="true" />
-                <element signature="e#1573#1574#0" expanded="true" />
+                <element signature="e#1151#1536#0" expanded="true" />
+                <element signature="e#1535#1536#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="View.java" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-23/android/view/View.java">
+      <file leaf-file-name="MainController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="19462" column="0" selection-start-line="19462" selection-start-column="0" selection-end-line="19462" selection-end-column="0" />
-              <folding />
+              <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -101,49 +83,47 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OwnerController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/OwnerController.java">
+      <file leaf-file-name="UserTypeController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/UserTypeController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="28" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SignUp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/SignUp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="65" column="11" selection-start-line="53" selection-start-column="7" selection-end-line="65" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#675#676#0" expanded="true" />
-                <element signature="e#713#714#0" expanded="true" />
-                <element signature="e#1589#1890#0" expanded="true" />
-                <element signature="e#1889#1890#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/UserType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="42" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="42" />
+              <caret line="19" column="40" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PostVehicle.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/PostVehicle.java">
+      <file leaf-file-name="OwnerController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/OwnerController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="24" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="24" />
+              <caret line="19" column="28" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="owner.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/owner.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.117647">
+              <caret line="11" column="46" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vehicleregistration.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vehicleregistration.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.61764705">
+              <caret line="229" column="40" selection-start-line="229" selection-start-column="29" selection-end-line="229" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -153,7 +133,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/PostVehicleController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="133" column="9" selection-start-line="133" selection-start-column="9" selection-end-line="133" selection-end-column="9" />
+              <caret line="37" column="47" selection-start-line="32" selection-start-column="3" selection-end-line="37" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -161,17 +141,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Login.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/Login.java">
+      <file leaf-file-name="findvehicle.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/findvehicle.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.0295302">
+              <caret line="218" column="43" selection-start-line="218" selection-start-column="43" selection-end-line="218" selection-end-column="43" />
+              <folding>
+                <element signature="e#306#339#0" expanded="true" />
+                <element signature="e#364#399#0" expanded="true" />
+                <element signature="e#425#460#0" expanded="true" />
+                <element signature="e#484#517#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FindVehicleController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/FindVehicleController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+              <caret line="52" column="22" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#450#451#0" expanded="true" />
-                <element signature="e#491#492#0" expanded="true" />
-                <element signature="e#547#548#0" expanded="true" />
-                <element signature="e#595#596#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1779,10 +1773,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/CLogin.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/CVehicleRegistration.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/GPSService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/linearlayoutregister.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/textbox.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_registration.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/CUserRegistration.java" />
@@ -1826,7 +1816,14 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/SignUp.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/UserRegistrationController.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/Login.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/usertype.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/vehicleregistration.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/UserTypeController.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/UserTypeController.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/LoginController.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/findvehicle.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/owner.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/FindVehicleController.java" />
       </list>
     </option>
   </component>
@@ -2178,7 +2175,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="5eab0e99" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="emulator-5554" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_23_x86" />
     <property name="last_opened_file_path" value="D:/" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -2186,6 +2183,7 @@
     <property name="FullScreen" value="false" />
     <property name="ignore_missing_gitignore" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="476" />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.WIDTH" value="315" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -2436,7 +2434,13 @@
       <option name="project" value="LOCAL" />
       <updated>1456075508294</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Refactoring of code to follow mvc.">
+      <created>1456557076854</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1456557076854</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2459,11 +2463,11 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900944" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10966981" sideWeight="0.49352053" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3773585" sideWeight="0.8774298" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2818396" sideWeight="0.49352053" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5790094" sideWeight="0.4913607" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10966981" sideWeight="0.5064795" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.04245283" sideWeight="0.5064795" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14268868" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -2475,7 +2479,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21436284" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.04245283" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.04245283" sideWeight="0.49352053" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.08423326" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2501,34 +2505,17 @@
     <MESSAGE value="Added code for sign up and auto location" />
     <MESSAGE value="Location Services Merge" />
     <MESSAGE value="Refactoring of code to follow mvc. I have created common structure and modified login to mvc." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring of code to follow mvc. I have created common structure and modified login to mvc." />
+    <MESSAGE value="Refactoring of code to follow mvc." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring of code to follow mvc." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/SignUp.java</url>
           <line>67</line>
           <properties />
           <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/LoginController.java</url>
-          <line>42</line>
-          <properties />
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/LoginController.java</url>
-          <line>36</line>
-          <properties />
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/LoginController.java</url>
-          <line>40</line>
-          <properties />
-          <option name="timeStamp" value="38" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -2539,36 +2526,11 @@
           <properties />
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="39" />
+      <option name="time" value="40" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vehicleregistration.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="157" column="16" selection-start-line="157" selection-start-column="16" selection-end-line="157" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/FindVehicleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/interfaces/IVehicle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/interfaces/ISchedule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2639,13 +2601,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/common/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13333334">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/interfaces/ILocation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13333334">
@@ -2657,6 +2612,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.08">
           <caret line="3" column="46" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2784,17 +2742,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/login.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-38.5">
-          <caret line="87" column="46" selection-start-line="87" selection-start-column="46" selection-end-line="87" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/common/ErrorMessages.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.091412745">
@@ -2811,32 +2758,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/userregistration.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-56.294117">
-          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/VehicleDataStore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/MainController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2856,41 +2782,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/PostVehicleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="133" column="9" selection-start-line="133" selection-start-column="9" selection-end-line="133" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.parse/parse-android/1.13.0/f43cc29ff26f12c25bcc55eed39e9c7633cb2982/parse-android-1.13.0-sources.jar!/com/parse/ParseTaskUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding>
-            <element signature="e#2648#2803#0" expanded="true" />
-            <element signature="e#2802#2803#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/model/UserType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="42" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/OwnerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="28" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2648#2803#0" expanded="false" />
+            <element signature="e#2802#2803#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2899,23 +2797,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="65" column="11" selection-start-line="53" selection-start-column="7" selection-end-line="65" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#675#676#0" expanded="true" />
-            <element signature="e#713#714#0" expanded="true" />
-            <element signature="e#1589#1890#0" expanded="true" />
-            <element signature="e#1889#1890#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/UserRegistrationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="108" column="95" selection-start-line="108" selection-start-column="10" selection-end-line="108" selection-end-column="95" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2949,14 +2831,149 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/LoginController.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/common/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20498616">
-          <caret line="38" column="66" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/login.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.588235">
+          <caret line="75" column="38" selection-start-line="66" selection-start-column="6" selection-end-line="75" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/userregistration.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45639536">
+          <caret line="242" column="46" selection-start-line="242" selection-start-column="20" selection-end-line="242" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/usertype.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.856833">
+          <caret line="36" column="47" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/UserRegistrationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="108" column="95" selection-start-line="108" selection-start-column="10" selection-end-line="108" selection-end-column="95" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1200#1574#0" expanded="true" />
-            <element signature="e#1573#1574#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/UserTypeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="40" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="37" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1151#1536#0" expanded="true" />
+            <element signature="e#1535#1536#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/OwnerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="28" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/owner.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.117647">
+          <caret line="11" column="46" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/PostVehicleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="47" selection-start-line="32" selection-start-column="3" selection-end-line="37" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/mss/group3/smartshare/controller/FindVehicleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="52" column="22" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/vehicleregistration.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.61764705">
+          <caret line="229" column="40" selection-start-line="229" selection-start-column="29" selection-end-line="229" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/findvehicle.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0295302">
+          <caret line="218" column="43" selection-start-line="218" selection-start-column="43" selection-end-line="218" selection-end-column="43" />
+          <folding>
+            <element signature="e#306#339#0" expanded="true" />
+            <element signature="e#364#399#0" expanded="true" />
+            <element signature="e#425#460#0" expanded="true" />
+            <element signature="e#484#517#0" expanded="true" />
           </folding>
         </state>
       </provider>
