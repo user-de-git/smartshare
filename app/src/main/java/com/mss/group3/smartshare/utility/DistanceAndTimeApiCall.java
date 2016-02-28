@@ -52,7 +52,7 @@ public class DistanceAndTimeApiCall {
     public void calculate()
     {
 
-        new Thread(new Runnable(){
+        Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
                 try {
@@ -61,8 +61,15 @@ public class DistanceAndTimeApiCall {
                     ex.printStackTrace();
                 }
             }
-        }).start();
+        });
 
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public double getDistance()
