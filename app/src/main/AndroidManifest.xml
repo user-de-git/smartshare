@@ -35,7 +35,7 @@
         </activity>
 
         <activity android:name=".controller.LoginController"></activity>
-
+        <activity android:name=".controller.UpdateVehicleController"></activity>
         <activity android:name=".controller.UserTypeController"></activity>
         <activity android:name=".controller.PostVehicleController"></activity>
         <activity android:name=".controller.OwnerController"></activity>

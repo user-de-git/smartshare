@@ -334,14 +334,13 @@
         </TableRow>
 </TableLayout>
     <Button
-        android:id="@+id/button_addVehicle"
+        android:id="@+id/button_addModifyVehicle"
         style="@style/buttonStyle2"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:onClick="addVehicle"
-        android:text="Add Vehicle" />
+         />
 </LinearLayout>
 </ScrollView>
 </LinearLayout>

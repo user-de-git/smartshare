@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
 import com.mss.group3.smartshare.model.UserSingleton;
@@ -20,6 +22,7 @@ import java.util.List;
 
 public class OwnerController extends Activity {
 
+    public static final String VEHICLE_ID = "VehicleId";
     private ListView lvProduct;
     private VehicleAdaptor adapter;
     private List<VehicleDataStore> mProductList;
@@ -52,6 +55,19 @@ public class OwnerController extends Activity {
 
                 adapter = new VehicleAdaptor(getApplicationContext(), mProductList);
                 lvProduct.setAdapter(adapter);
+
+                lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //Do something
+                        //Ex: display msg with product id get from view.getTag
+                        Intent myIntent = new Intent(OwnerController.this, UpdateVehicleController.class);
+                        myIntent.putExtra(VEHICLE_ID,(String)view.getTag());
+                        startActivity(myIntent);
+                        //Toast.makeText(getApplicationContext(), "Clicked product id =" + view.getTag(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
     }

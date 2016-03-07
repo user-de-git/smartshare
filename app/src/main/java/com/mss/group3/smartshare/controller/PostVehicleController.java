@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -34,6 +35,7 @@ public class PostVehicleController extends Activity{
     TimePickerDialog timePickerDialog;
     DatePickerDialog datePickerDialog;
     TextView get_StartDateTime,get_EndDateTime;
+    Button button;
     String vehicle_type;
     int vehicle_capacity;
     int vehicle_share_range;
@@ -56,6 +58,14 @@ public class PostVehicleController extends Activity{
         adaptor_vehicletype = ArrayAdapter.createFromResource(this,R.array.vehicle_type,android.R.layout.simple_spinner_item);
         adaptor_vehicletype.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_vehicletype.setAdapter(adaptor_vehicletype);
+        button = (Button) findViewById(R.id.button_addModifyVehicle);
+        button.setText("Add Vehicle");
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                addVehicle(v);
+            }
+        });
+
         spinner_vehicletype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 pv.setVehicle_type((String) parent.getItemAtPosition(pos));
@@ -94,6 +104,7 @@ public class PostVehicleController extends Activity{
 
             }
         });
+
 
 
     }
@@ -158,6 +169,10 @@ public class PostVehicleController extends Activity{
         pv.setEndDateTime(((EditText) findViewById(R.id.get_EndDateTime)).getText().toString());
         pv.setCurrent_location(((EditText) findViewById(R.id.et_city)).getText().toString() + ", " +
                 ((EditText) findViewById(R.id.et_postalCode)).getText().toString());
+        pv.setAddress(((EditText) findViewById(R.id.et_address)).getText().toString());
+        pv.setCity(((EditText) findViewById(R.id.et_city)).getText().toString());
+        pv.setPostal_code(((EditText) findViewById(R.id.et_postalCode)).getText().toString());
+        pv.setProvince(((EditText) findViewById(R.id.et_province)).getText().toString());
 
         testObject = new ParseObject("VehicleTable");
         testObject.put("VIN", pv.getVin());
@@ -166,7 +181,11 @@ public class PostVehicleController extends Activity{
         testObject.put("Capacity", pv.getVehicle_capacity());
         testObject.put("Vehicle_type", pv.getVehicle_type());
         testObject.put("vehicle_range", pv.getVehicle_share_range());
-        testObject.put("PostalCode",pv.getCurrent_location());
+        testObject.put("Address",pv.getAddress());
+        testObject.put("City",pv.getCity());
+        testObject.put("Province",pv.getProvince());
+        testObject.put("Postal_Code",pv.getPostal_code());
+        testObject.put("PostalCode",pv.getCurrent_location()); // This is the combined address
         testObject.put("FromDate",pv.getStartDateTime());
         testObject.put("ToDate", pv.getEndDateTime());
         testObject.put("Owner_email", userSingleton.emailAddress);
