@@ -37,48 +37,7 @@ public class FindVehicleController extends Activity {
 
     public void setDateTime(View v) {
 
-        calendar = Calendar.getInstance();
 
-        switch (v.getId()){
-            case R.id.button_setStartTime:{
-
-                timePickerDialog = new TimePickerDialog(FindVehicleController.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        get_start_time.setText(hourOfDay + ":"+minute);
-                    }
-                },calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), android.text.format.DateFormat.is24HourFormat(FindVehicleController.this));
-
-                timePickerDialog.show();
-                break;
-            }
-            case R.id.button_setEndTime:{
-
-                timePickerDialog = new TimePickerDialog(FindVehicleController.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        get_end_time.setText(hourOfDay + ":"+minute);
-                    }
-                },calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), android.text.format.DateFormat.is24HourFormat(FindVehicleController.this));
-
-                timePickerDialog.show();
-                break;
-            }
-
-            case R.id.button_setDate:{
-
-                datePickerDialog = new DatePickerDialog(FindVehicleController.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String dateString = (monthOfYear+1) +"/" + dayOfMonth + "/" + year;
-                        get_date.setText(dateString);
-                    }
-                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-
-                datePickerDialog.show();
-                break;
-            }
-        }
     }
 
 

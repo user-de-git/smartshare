@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.model.UserSingleton;
 import com.mss.group3.smartshare.model.VehicleAdaptor;
 import com.mss.group3.smartshare.model.VehicleDataStore;
 import com.parse.FindCallback;
@@ -40,11 +41,13 @@ public class OwnerController extends Activity {
 
     public void getData() {
         mProductList.clear();
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        query.whereEqualTo("Owner_email", userSingleton.emailAddress);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 for (ParseObject p : list) {
-                    mProductList.add(new VehicleDataStore(p.getObjectId(), p.getString("Vehicle_type"), p.getInt("Capacity"), p.getString("Date")));
+                    mProductList.add(new VehicleDataStore(p.getObjectId(), p.getString("Vehicle_type"), p.getInt("Capacity"), p.getDate("ToDate")  )  );
                 }
 
                 adapter = new VehicleAdaptor(getApplicationContext(), mProductList);

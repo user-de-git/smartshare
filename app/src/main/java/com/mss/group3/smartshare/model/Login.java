@@ -12,6 +12,7 @@ public class Login {
 
     private String userName;
     private String userPassword;
+    UserSingleton userSingleton = UserSingleton.getInstance();
 
     public String getUserName()
     {
@@ -24,6 +25,9 @@ public class Login {
     }
 
     public void setUserName(String sUserName) {
+
+
+        userSingleton.emailAddress = sUserName;
         this.userName = sUserName;
     }
 
