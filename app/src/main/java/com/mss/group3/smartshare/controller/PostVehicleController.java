@@ -14,6 +14,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.model.Login;
+import com.mss.group3.smartshare.model.PostVehicle;
+import com.mss.group3.smartshare.model.UserSingleton;
 import com.parse.ParseObject;
 
 import java.util.Calendar;
@@ -30,10 +33,14 @@ public class PostVehicleController extends Activity{
 
     TimePickerDialog timePickerDialog;
     DatePickerDialog datePickerDialog;
-    TextView get_date,get_start_time,get_end_time;
+    TextView get_StartDateTime,get_EndDateTime;
     String vehicle_type;
     int vehicle_capacity;
     int vehicle_share_range;
+    String StartdateString;
+    String EnddateString;
+
+    PostVehicle pv = new PostVehicle();
 
     Calendar calendar = Calendar.getInstance();
     @Override
@@ -42,16 +49,17 @@ public class PostVehicleController extends Activity{
 
 
         setContentView(R.layout.vehicleregistration);
-        get_date = (TextView) findViewById(R.id.get_date);
-        get_start_time = (TextView) findViewById(R.id.get_start_time);
-        get_end_time = (TextView) findViewById(R.id.get_end_time);
+        get_StartDateTime = (TextView) findViewById(R.id.get_StartDateTime);
+        get_EndDateTime = (TextView) findViewById(R.id.get_EndDateTime);
+
         spinner_vehicletype = (Spinner) findViewById(R.id.spinner_vehicletype);
         adaptor_vehicletype = ArrayAdapter.createFromResource(this,R.array.vehicle_type,android.R.layout.simple_spinner_item);
         adaptor_vehicletype.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_vehicletype.setAdapter(adaptor_vehicletype);
         spinner_vehicletype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                vehicle_type = (String) parent.getItemAtPosition(pos);
+                pv.setVehicle_type((String) parent.getItemAtPosition(pos));
+                //vehicle_type = (String) parent.getItemAtPosition(pos);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -64,7 +72,8 @@ public class PostVehicleController extends Activity{
         spinner_vehiclecapacity.setAdapter(adaptor_vehiclecapacity);
         spinner_vehiclecapacity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                vehicle_capacity = Integer.parseInt((String) parent.getItemAtPosition(pos));
+                pv.setVehicle_capacity(Integer.parseInt((String) parent.getItemAtPosition(pos)));
+                //vehicle_capacity = Integer.parseInt((String) parent.getItemAtPosition(pos));
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -77,7 +86,8 @@ public class PostVehicleController extends Activity{
         spinner_vehiclerange.setAdapter(adaptor_vehiclerange);
         spinner_vehiclerange.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                vehicle_share_range = Integer.parseInt(((String) parent.getItemAtPosition(pos)));
+                pv.setVehicle_share_range(Integer.parseInt(((String) parent.getItemAtPosition(pos))));
+                //vehicle_share_range = Integer.parseInt(((String) parent.getItemAtPosition(pos)));
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -93,66 +103,73 @@ public class PostVehicleController extends Activity{
         calendar = Calendar.getInstance();
 
         switch (v.getId()){
-            case R.id.button_setStartTime:{
 
-                timePickerDialog = new TimePickerDialog(PostVehicleController.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        get_start_time.setText(hourOfDay + ":"+minute);
-                    }
-                },calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), android.text.format.DateFormat.is24HourFormat(PostVehicleController.this));
+            case R.id.button_setEndDateTime:{
+                new DatePickerDialog(this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override public void onDateSet(DatePicker view,
+                                                            int year, int month, int day) {
+                                EnddateString = (month+1) +"/" + day + "/" + year;
+                                new TimePickerDialog(PostVehicleController.this,
+                                        new TimePickerDialog.OnTimeSetListener() {
+                                            @Override public void onTimeSet(TimePicker view,
+                                                                            int hour, int min) {
+                                                EnddateString+=" "+hour + ":"+min;
+                                                get_EndDateTime.setText(EnddateString);
+                                            }
+                                        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), android.text.format.DateFormat.is24HourFormat(PostVehicleController.this)).show();
 
-                timePickerDialog.show();
-                break;
-            }
-            case R.id.button_setEndTime:{
-
-                timePickerDialog = new TimePickerDialog(PostVehicleController.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        get_end_time.setText(hourOfDay + ":"+minute);
-                    }
-                },calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), android.text.format.DateFormat.is24HourFormat(PostVehicleController.this));
-
-                timePickerDialog.show();
+                            }
+                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             }
 
-            case R.id.button_setDate:{
+            case R.id.button_setStartDateTime:{
+                new DatePickerDialog(this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override public void onDateSet(DatePicker view,
+                                                            int year, int month, int day) {
+                                StartdateString = (month+1) +"/" + day + "/" + year;
+                                new TimePickerDialog(PostVehicleController.this,
+                                        new TimePickerDialog.OnTimeSetListener() {
+                                            @Override public void onTimeSet(TimePicker view,
+                                                                            int hour, int min) {
+                                                StartdateString+=" "+hour + ":"+min;
+                                                get_StartDateTime.setText(StartdateString);
+                                            }
+                                        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), android.text.format.DateFormat.is24HourFormat(PostVehicleController.this)).show();
 
-                datePickerDialog = new DatePickerDialog(PostVehicleController.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String dateString = (monthOfYear+1) +"/" + dayOfMonth + "/" + year;
-                        get_date.setText(dateString);
-                    }
-                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-
-                datePickerDialog.show();
+                            }
+                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             }
         }
     }
 
     public void addVehicle(View view) {
+        UserSingleton userSingleton = UserSingleton.getInstance();
 
-        Integer vin          =  Integer.parseInt(((EditText)findViewById(R.id.et_vinnumber)).getText().toString());
-        Integer plate_number =  Integer.parseInt(((EditText) findViewById(R.id.et_platenumber)).getText().toString());
-        Double  price_km      =  Double.parseDouble(((EditText) findViewById(R.id.et_pricekm)).getText().toString());
-        String date = ((EditText)findViewById(R.id.get_date)).getText().toString();
-        String start_time = ((EditText)findViewById(R.id.get_start_time)).getText().toString();
-        String end_time = ((EditText)findViewById(R.id.get_end_time)).getText().toString();
+        pv.setVin(Integer.parseInt(((EditText) findViewById(R.id.et_vinnumber)).getText().toString()));
+        pv.setPlate_number(Integer.parseInt(((EditText) findViewById(R.id.et_platenumber)).getText().toString()));
+        pv.setPrice_km(Double.parseDouble(((EditText) findViewById(R.id.et_pricekm)).getText().toString()));
+        pv.setStartDateTime(((EditText) findViewById(R.id.get_StartDateTime)).getText().toString());
+        pv.setEndDateTime(((EditText) findViewById(R.id.get_EndDateTime)).getText().toString());
+        pv.setCurrent_location(((EditText) findViewById(R.id.et_city)).getText().toString() + ", " +
+                ((EditText) findViewById(R.id.et_postalCode)).getText().toString());
 
         testObject = new ParseObject("VehicleTable");
-        testObject.put("VIN", vin);
-        testObject.put("Plate_number", plate_number);
-        testObject.put("Price_km", price_km);
-        testObject.put("Capacity", vehicle_capacity);
-        testObject.put("Vehicle_type", vehicle_type);
-        testObject.put("vehicle_range", vehicle_share_range);
-        testObject.put("Date",date);
-        testObject.put("Start_time", start_time);
-        testObject.put("End_time", end_time);
+        testObject.put("VIN", pv.getVin());
+        testObject.put("Plate_number",pv.getPlate_number());
+        testObject.put("Price_km", pv.getPrice_km());
+        testObject.put("Capacity", pv.getVehicle_capacity());
+        testObject.put("Vehicle_type", pv.getVehicle_type());
+        testObject.put("vehicle_range", pv.getVehicle_share_range());
+        testObject.put("PostalCode",pv.getCurrent_location());
+        testObject.put("FromDate",pv.getStartDateTime());
+        testObject.put("ToDate", pv.getEndDateTime());
+        testObject.put("Owner_email", userSingleton.emailAddress);
         testObject.saveInBackground();
 
     }

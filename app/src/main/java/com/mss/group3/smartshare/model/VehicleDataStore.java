@@ -1,13 +1,15 @@
 package com.mss.group3.smartshare.model;
 
 
+import java.util.Date;
+
 public class VehicleDataStore {
     private String  id;
     private String  vehicle_type;
     private Integer capacity;
-    private String  date;
+    private Date date;
 
-    public VehicleDataStore(String id, String vehicle_type, Integer capacity, String date) {
+    public VehicleDataStore(String id, String vehicle_type, Integer capacity, Date date) {
         this.id = id;
         this.vehicle_type = vehicle_type;
         this.capacity = capacity;
@@ -38,11 +40,11 @@ public class VehicleDataStore {
         this.capacity = capacity;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

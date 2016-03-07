@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
 import com.mss.group3.smartshare.model.Login;
@@ -39,12 +40,13 @@ public class LoginController extends Activity {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     //login screen initialization
+                    Toast.makeText(getApplicationContext(), "User found in DB", Toast.LENGTH_SHORT).show();
                     Intent myIntent = new Intent(LoginController.this, UserTypeController.class);
 
                     startActivity(myIntent);
 
                 } else {
-
+                    Toast.makeText(getApplicationContext(), "User not found in DB", Toast.LENGTH_SHORT).show();
                 }
             }
         });
