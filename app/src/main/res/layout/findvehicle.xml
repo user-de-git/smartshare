@@ -1,119 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".controller.findVehicleController">
+    tools:context=".controller.FindVehicleController">
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Source Address"
-            android:id="@+id/textView4"
-            android:layout_row="1"
-            android:layout_column="0" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sourceAddressLineOneText"
-            android:layout_row="2"
-            android:layout_column="0"
-            android:hint="Address Line One" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sourceCityNameText"
-            android:layout_row="3"
-            android:hint="City"
-            android:layout_column="0" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPostalAddress"
-            android:ems="10"
-            android:hint="Postal Code"
-            android:id="@+id/sourcePostalCodeText"
-            android:layout_row="4"
-            android:layout_column="0" />
+    <RelativeLayout
+        android:id="@+id/departureAddressRelativeLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Get Current Location"
-            android:id="@+id/getCurrentLocationButton"
-            android:layout_row="5"
-            android:layout_column="0" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/location"
+            android:onClick="getCurrentLocationButtonClick"
+            android:id="@+id/getCurrentLocationButton" />
 
         <TextView
+            android:id="@+id/departureAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Destination Address"
-            android:id="@+id/textView2"
-            android:layout_row="7"
-            android:layout_column="0" />
+            android:text="  Departure Address"
+            android:layout_toRightOf="@id/getCurrentLocationButton"
+            />
+
+        <EditText
+            android:id="@+id/departureAddressLineOneText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/getCurrentLocationButton"
+            android:hint="Address Line One"
+            android:inputType="textPersonName"
+          />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/destinationAddressLineOneText"
-            android:layout_row="8"
-            android:layout_column="0"
-            android:hint="Address Line One" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/destinationCityNameText"
-            android:layout_row="9"
+            android:id="@+id/departureAddressCityNameText"
+            android:layout_below="@id/departureAddressLineOneText"
             android:hint="City"
-            android:layout_column="0" />
+            android:inputType="textPersonName"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/departureAddressCountryNameText"
+            android:layout_below="@id/departureAddressCityNameText"
+            android:hint="Country"
+            android:inputType="textPersonName"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPostalAddress"
-            android:ems="9"
+            android:layout_below="@id/departureAddressCountryNameText"
             android:hint="Postal Code"
-            android:id="@+id/destinationPostalCodeText"
-            android:layout_row="10"
-            android:layout_column="0" />
+            android:id="@+id/departureAddressPostalCodeText"
+            />
+    </RelativeLayout >
+
+
+    <RelativeLayout
+        android:id="@+id/arrivalAddressRelativeLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/departureAddressRelativeLayout">
+
+
+        <TextView
+            android:id="@+id/arrivalAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  Arrival Address" />
+
+        <EditText
+            android:id="@+id/arrivalAddressLineOneText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/arrivalAddress"
+            android:hint="Address Line One"
+            android:inputType="textPersonName"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrivalAddressCityNameText"
+            android:layout_below="@id/arrivalAddressLineOneText"
+            android:hint="City"
+            android:inputType="textPersonName"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrivalAddressCountryNameText"
+            android:layout_below="@id/arrivalAddressCityNameText"
+            android:hint="Country"
+            android:inputType="textPersonName"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPostalAddress"
+            android:layout_below="@id/arrivalAddressCountryNameText"
+            android:hint="Postal Code"
+            android:id="@+id/arrivalAddressPostalCodeText"
+            />
+
+    </RelativeLayout >
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/timeDataRelativeLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/arrivalAddressRelativeLayout">
 
         <LinearLayout
+            android:id="@+id/fromDateLayout"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_row="12"
-            android:layout_column="0">
+            android:layout_marginBottom="5dp" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="From Date"
-                android:layout_marginRight="25dp"
-                android:id="@+id/fromDate" />
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="29dp"
                 android:background="@drawable/tv_back"
-                android:id="@+id/getFromDate"
-                />
+                android:hint="from date"
+                android:id="@+id/getFromDate" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -121,31 +151,25 @@
                 android:layout_height="30dp"
                 android:onClick="setDateTime"
                 android:background="@drawable/cal"
-                android:id="@+id/getDateButton" />
+                android:id="@+id/getFromDateButton" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/startTimeLayout"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
+            android:layout_below="@id/fromDateLayout"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_row="13"
-            android:layout_column="0">
+            android:layout_marginBottom="5dp" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Start"
-                android:layout_marginRight="25dp"
-                android:id="@+id/startTime" />
+
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="29dp"
+                android:hint="from time"
                 android:background="@drawable/tv_back"
-                android:id="@+id/getStartTime"
-                />
+                android:id="@+id/getStartTime" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -154,31 +178,25 @@
                 android:onClick="setDateTime"
                 android:background="@drawable/time_icon"
                 android:id="@+id/setStartTimeButton" />
-
         </LinearLayout>
 
 
         <LinearLayout
+            android:id="@+id/toDateLayout"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
+            android:layout_below="@id/startTimeLayout"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_row="14"
-            android:layout_column="0">
+            android:layout_marginBottom="5dp"  >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="To Date"
-                android:layout_marginRight="25dp"
-                android:id="@+id/toDate" />
+
+
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="29dp"
+                android:hint="end date"
                 android:background="@drawable/tv_back"
-                android:id="@+id/getToDate"
-                />
+                android:id="@+id/getToDate" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -186,33 +204,25 @@
                 android:layout_height="30dp"
                 android:onClick="setDateTime"
                 android:background="@drawable/cal"
-                android:id="@+id/toDateButton" />
+                android:id="@+id/getToDateButton" />
 
         </LinearLayout>
 
-
-
         <LinearLayout
+            android:id="@+id/endDateLayout"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
+            android:layout_below="@id/toDateLayout"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_row="15"
-            android:layout_column="0">
+            >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="End "
-                android:layout_marginRight="25dp"
-                android:id="@+id/endTime" />
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="29dp"
+                android:hint="end time"
                 android:background="@drawable/tv_back"
-                android:id="@+id/getEndTime"
-                />
+                android:id="@+id/getEndTime" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -221,19 +231,16 @@
                 android:onClick="setDateTime"
                 android:background="@drawable/time_icon"
                 android:id="@+id/setEndTimeButton" />
-
         </LinearLayout>
 
+        </RelativeLayout>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Find Vehicle"
             android:id="@+id/findVehicleProceedButton"
-            android:layout_row="18"
-            android:layout_column="0" />
+            android:onClick="processFindVehicleButtonClick" />
 
-
-
-    </GridLayout>
 </LinearLayout>
+</ScrollView>
