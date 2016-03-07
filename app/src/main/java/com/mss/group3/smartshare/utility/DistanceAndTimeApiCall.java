@@ -85,7 +85,8 @@ public class DistanceAndTimeApiCall {
 
     private void getDistance(double lat1, double lon1, double lat2, double lon2) {
         String result_in_kms = "";
-        String url = "http://maps.google.com/maps/api/directions/xml?origin=" + lat1 + "," + lon1 + "&destination=" + lat2 + "," + lon2 + "&sensor=false&units=metric";
+        String url = "http://maps.google.com/maps/api/directions/xml?origin="
+                + lat1 + "," + lon1 + "&destination=" + lat2 + "," + lon2 + "&sensor=false&units=metric";
         String tag[] = {"duration", "distance"};
         HttpResponse response = null;
         try {
@@ -108,6 +109,8 @@ public class DistanceAndTimeApiCall {
                         args.add(" - ");
                     }
                 }
+
+                //notofication for outside 
 
                 String timeFind[] = String.valueOf(args.get(0)).split("\\r?\\n");
                 String distanceFind[] = String.valueOf(args.get(1)).split("\\r?\\n");
@@ -195,8 +198,6 @@ public class DistanceAndTimeApiCall {
                         }
                     }
                 }
-
-
                 result_in_kms = String.valueOf(args.get(0));
             }
         } catch (Exception e) {

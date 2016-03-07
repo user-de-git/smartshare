@@ -131,6 +131,7 @@
         android:orientation="horizontal"
         android:layout_below="@id/arrivalAddressRelativeLayout">
 
+
         <LinearLayout
             android:id="@+id/fromDateLayout"
             android:orientation="horizontal"
@@ -156,40 +157,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/startTimeLayout"
+            android:id="@+id/toDateLayout"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_below="@id/fromDateLayout"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp" >
-
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="29dp"
-                android:hint="from time"
-                android:background="@drawable/tv_back"
-                android:id="@+id/getStartTime" />
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:onClick="setDateTime"
-                android:background="@drawable/time_icon"
-                android:id="@+id/setStartTimeButton" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/toDateLayout"
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_below="@id/startTimeLayout"
-            android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"  >
-
-
 
             <EditText
                 android:layout_width="wrap_content"
@@ -206,31 +179,6 @@
                 android:background="@drawable/cal"
                 android:id="@+id/getToDateButton" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/endDateLayout"
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_below="@id/toDateLayout"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            >
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="29dp"
-                android:hint="end time"
-                android:background="@drawable/tv_back"
-                android:id="@+id/getEndTime" />
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:onClick="setDateTime"
-                android:background="@drawable/time_icon"
-                android:id="@+id/setEndTimeButton" />
         </LinearLayout>
 
         </RelativeLayout>
