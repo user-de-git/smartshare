@@ -3,13 +3,18 @@ package com.mss.group3.smartshare.model;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
+import android.widget.ListView;
 
 import com.mss.group3.smartshare.common.User;
 import com.mss.group3.smartshare.interfaces.*;
 import com.mss.group3.smartshare.utility.DistanceAndTimeApiCall;
+import com.parse.FindCallback;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.io.IOException;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,21 +26,21 @@ import java.util.Locale;
 public class FindVehicle extends User implements ILocation, ISchedule, IVehicle {
 
 
-    private Date   departureDate;
-    private Date   arrivalDate;
-    private Calendar departureTime;
-    private Calendar   arrivalTime;
-    private double distnaceInMeters;
-    private double timeInMinutes;
-    private String departureAddressLineOneText;
-    private String departureAddressCityNameText;
-    private String departureAddressCountryNameText;
-    private String departureAddressPostalCodeText;
+    private Calendar  departureDate;
+    private Calendar  arrivalDate;
 
-    private String arrivalAddressLineOneText;
-    private String arrivalAddressCityNameText;
-    private String arrivalAddressCountryNameText;
-    private String arrivalAddressPostalCodeText;
+    private double    distnaceInMeters;
+    private double    timeInMinutes;
+    private String    departureAddressLineOneText;
+    private String    departureAddressCityNameText;
+    private String    departureAddressCountryNameText;
+    private String    departureAddressPostalCodeText;
+
+    private String    arrivalAddressLineOneText;
+    private String    arrivalAddressCityNameText;
+    private String    arrivalAddressCountryNameText;
+    private String    arrivalAddressPostalCodeText;
+
 
     public String getDepartureAddressLineOneText() {
         return departureAddressLineOneText;
@@ -119,37 +124,23 @@ public class FindVehicle extends User implements ILocation, ISchedule, IVehicle 
         this.timeInMinutes = timeInMinutes;
     }
 
-    public Date getDepartureDate() {
+    public Calendar getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public void setDepartureDate(Calendar departureDate) {
         this.departureDate = departureDate;
     }
 
-    public Date getArrivalDate() {
+    public Calendar getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(Date arrivalDate) {
+    public void setArrivalDate(Calendar arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 
-    public Calendar getDepartureTime() {
-        return departureTime;
-    }
 
-    public void setDepartureTime(Calendar departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public Calendar getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(Calendar arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
 
 
     public boolean findDistanceAndDuration(Geocoder geoCoder)
@@ -161,13 +152,23 @@ public class FindVehicle extends User implements ILocation, ISchedule, IVehicle 
         boolean result;
         Point point;
 
-
         try {
+
+            String sourceAddress = getDepartureAddressLineOneText() + "," +
+                    getDepartureAddressCityNameText() + "," +
+                    getDepartureAddressCountryNameText() + "," +
+                    getDepartureAddressPostalCodeText();
+
+            String destinationAddress = getArrivalAddressLineOneText() + "," +
+                    getArrivalAddressCityNameText() + "," +
+                    getArrivalAddressCountryNameText() + "," +
+                    getArrivalAddressPostalCodeText();
+
             List<Address> addresses =
-                    geoCoder.getFromLocationName(getDepartureAddressLineOneText() + "," +
+                    geoCoder.getFromLocationName(
                             getDepartureAddressCityNameText() + "," +
                             getDepartureAddressCountryNameText() + "," +
-                            getDepartureAddressPostalCodeText(), 3);
+                            getDepartureAddressPostalCodeText(), 4);
 
             if (addresses.size() > 0) {
 
@@ -180,7 +181,7 @@ public class FindVehicle extends User implements ILocation, ISchedule, IVehicle 
                     geoCoder.getFromLocationName(getArrivalAddressLineOneText() + "," +
                             getArrivalAddressCityNameText() + "," +
                             getArrivalAddressCountryNameText() + "," +
-                            getArrivalAddressPostalCodeText(), 3);
+                            getArrivalAddressPostalCodeText(), 4);
 
             if (addressesArrival.size() > 0) {
                 la2 = addressesArrival.get(0).getLatitude();
@@ -188,7 +189,7 @@ public class FindVehicle extends User implements ILocation, ISchedule, IVehicle 
 
             }
 
-            DistanceAndTimeApiCall apiCall = new DistanceAndTimeApiCall(la1,ln1,la2,  ln2);
+            DistanceAndTimeApiCall apiCall = new DistanceAndTimeApiCall(la1, ln1, la2, ln2);
             apiCall.calculate();
 
             setDistnaceInMeters(apiCall.getDistance());
@@ -200,9 +201,7 @@ public class FindVehicle extends User implements ILocation, ISchedule, IVehicle 
             ew.printStackTrace();
             result = false;
         }
-
         return result;
     }
-
 
 }
