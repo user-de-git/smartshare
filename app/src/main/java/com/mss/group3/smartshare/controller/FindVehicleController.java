@@ -49,53 +49,6 @@ public class FindVehicleController extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.findvehicle);
         findVehicle = new FindVehicle();
-
-        ((EditText) findViewById(R.id.departureAddressCityNameText)).setText("Vancouver");
-        ((EditText) findViewById(R.id.departureAddressCountryNameText)).setText("Canada");
-        ((EditText) findViewById(R.id.departureAddressPostalCodeText)).setText("V7X 1M3");
-
-        ((EditText) findViewById(R.id.arrivalAddressCityNameText)).setText("UBC Bus Loop");
-        ((EditText) findViewById(R.id.arrivalAddressLineOneText)).setText("UBC Bus Loop");
-
-        /*
-        ((TextView) findViewById(R.id.getStartTime)).setText(8 + ":" + 8);
-        ((TextView) findViewById(R.id.getEndTime)).setText(16 + ":" + 8);
-
-
-
-
-       String dateString = (2 ) + "/" + 24 + "/" + 2016;
-        ((TextView) findViewById(R.id.getToDate)).setText(dateString);
-
-         dateString = (2 ) + "/" + 26 + "/" + 2016;
-        ((TextView) findViewById(R.id.getFromDate)).setText(dateString);
-
-
-
-        Calendar C = new GregorianCalendar();
-        C.set(2016, 2, 26, 14, 4, 0);
-
-        String a = C.getTime().toString();
-
-        findVehicle.setArrivalDate(C);
-
-        C = new GregorianCalendar();
-        C.set(2016, 2, 24, 8, 4, 0);
-
-         a = C.getTime().toString();
-
-        findVehicle.setDepartureDate(C);*/
-
-
-        //initialize parse
-     /*   Parse.enableLocalDatastore(this);
-        Parse.initialize(this);
-        ParseUser.enableRevocableSessionInBackground();
-        ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
-        ParseACL.setDefaultACL(defaultACL, true);*/
-
-
     }
 
     //set date and time for to and from button clicks

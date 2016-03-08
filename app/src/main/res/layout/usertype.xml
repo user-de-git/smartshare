@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".controller.UserTypeController">
 
-    <TextView
+    <Button
         android:id="@+id/t1"
         android:layout_width="185dp"
         android:layout_height="185dp"
@@ -24,7 +24,7 @@
         android:textStyle="bold|italic"
         android:onClick="postVehicle"/>
 
-    <TextView
+    <Button
         android:id="@+id/t2"
         android:layout_width="185dp"
         android:layout_height="185dp"
