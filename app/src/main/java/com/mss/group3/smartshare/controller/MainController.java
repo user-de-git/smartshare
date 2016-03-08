@@ -23,6 +23,8 @@ public class MainController extends AppCompatActivity {
         ParseUser.enableRevocableSessionInBackground();
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
+        defaultACL.setPublicReadAccess(true);
+        defaultACL.setPublicWriteAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
     }
 
