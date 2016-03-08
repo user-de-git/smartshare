@@ -88,12 +88,12 @@ public class FindVehicleController extends Activity {
 
 
         //initialize parse
-        Parse.enableLocalDatastore(this);
+     /*   Parse.enableLocalDatastore(this);
         Parse.initialize(this);
         ParseUser.enableRevocableSessionInBackground();
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
-        ParseACL.setDefaultACL(defaultACL, true);
+        ParseACL.setDefaultACL(defaultACL, true);*/
 
 
     }
