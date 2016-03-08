@@ -23,6 +23,42 @@ public class PostVehicle extends User implements ILocation, ISchedule, IVehicle 
     Date EndDateTime;
     String vehicle_type;
     String current_location;
+    String Address;
+    String City;
+    String Postal_code;
+    String Province;
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getCity() {
+        return City;
+    }
+
+    public void setCity(String city) {
+        City = city;
+    }
+
+    public String getPostal_code() {
+        return Postal_code;
+    }
+
+    public void setPostal_code(String postal_code) {
+        Postal_code = postal_code;
+    }
+
+    public String getProvince() {
+        return Province;
+    }
+
+    public void setProvince(String province) {
+        Province = province;
+    }
 
     public String getCurrent_location() {
         return current_location;
