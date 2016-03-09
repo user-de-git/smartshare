@@ -66,7 +66,7 @@ public class FindVehicleList extends Activity {
                 int number = Integer.decode(((TextView) view.findViewById(R.id.plateNumber)).getText().toString());
                 //DatePickerDialog d1 = (TextView) view.findViewById(R.id.toDate);
                 // Date d2 = (TextView) view.findViewById(R.id.fromDate);
-
+                UserSingleton userName = UserSingleton.getInstance();
 
                 String address;
 
@@ -93,7 +93,7 @@ public class FindVehicleList extends Activity {
                     testObject.put("DestinationAddress", obj.arrivalAddressDepartureCode);
                     testObject.put("StartDate", obj.departureDate.getTime());
                     testObject.put("EndDate", obj.arrivalDate.getTime());
-                    testObject.put("RenterEmail", "inderpal58@gmail.com");
+                    testObject.put("RenterEmail", userName.emailAddress);
                 } catch (Exception e) {
 
                 }
@@ -205,7 +205,7 @@ public class FindVehicleList extends Activity {
                     if (e == null) {
                         for (ParseObject p : list) {
                             vehicleWithRangeListArray.add(new VehicleWithRangeList(p.getObjectId(), p.getInt("Plate_number"), p.getString("Vehicle_type"),
-                                    p.getInt("Capacity"), p.getInt("vehicle_range"), p.getString("PostalCode"),
+                                    p.getInt("Capacity"), p.getInt("vehicle_range"),p.getString("PostalCode"),
                                     p.getDate("FromDate"), p.getDate("ToDate")));
                         }
 
@@ -283,7 +283,7 @@ public class FindVehicleList extends Activity {
                                                                                for (int i = 0; i < bookedVehicles.size(); i++) {
 
                                                                                    for (int j = 0; j < vehicleWithRangeListArray.size(); j++) {
-                                                                                       if (vehicleWithRangeListArray.get(j).plateNumber == bookedVehicles.get(i).plateNumber) {
+                                                                                       if (vehicleWithRangeListArray.get(j).plateNumber.equals(bookedVehicles.get(i).plateNumber)) {
 
                                                                                            //now see timing conflicts and remove element
                                                                                            if (bookedVehicles.get(i).fromDate.after(vehicleWithRangeListArray.get(j).fromDate)) {

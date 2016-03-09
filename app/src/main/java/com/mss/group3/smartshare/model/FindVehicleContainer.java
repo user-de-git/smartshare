@@ -43,8 +43,8 @@ public class FindVehicleContainer extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = View.inflate(context, R.layout.listitemfindvehicle, null);
-        TextView cartype = (TextView)v.findViewById(R.id.car_type);
-        TextView carcapacity = (TextView)v.findViewById(R.id.car_capacity);
+        TextView cartype = (TextView)v.findViewById(R.id.findvehicleCarType);
+        TextView carcapacity = (TextView)v.findViewById(R.id.carCapacityFindVehicle);
         TextView fromdate = (TextView)v.findViewById(R.id.fromDate);
         TextView toDate  =  (TextView)v.findViewById(R.id.toDate);
         TextView plateNumber = (TextView)v.findViewById(R.id.plateNumber);

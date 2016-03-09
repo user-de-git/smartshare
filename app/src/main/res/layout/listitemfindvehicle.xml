@@ -3,69 +3,104 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="15dp">
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/car_icon_1" />
-
-    <TextView
-        android:id="@+id/car_type"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/findvehiclelistRelativeLayout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Car_type"
-        android:textColor="@color/colorBlack"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/tv_bracket_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" ("
-        android:textColor="@color/colorBlack"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/car_capacity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Car_capacity"
-        android:textColor="@color/colorBlack"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <ImageView
+            android:id="@+id/imageViewFindVehicle"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/car_icon_1" />
+        <TextView
+            android:id="@+id/plateNumber"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:layout_toRightOf="@id/imageViewFindVehicle"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/tv_bracket_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:text=")"
-        android:textColor="@color/colorBlack"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/findvehicleCarType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/colorBlack"
+            android:layout_toRightOf="@id/plateNumber"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/fromDate"
-        android:layout_width="wrap_content"
-        android:textColor="@color/colorBlack"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/capacityMessageFindVehicle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Capacity"
+            android:textColor="@color/colorBlack"
+            android:layout_toRightOf="@id/findvehicleCarType"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/plateNumber"
-        android:layout_width="wrap_content"
-        android:textColor="@color/colorBlack"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/carCapacityFindVehicle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/colorBlack"
+            android:layout_toRightOf="@id/capacityMessageFindVehicle"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/toDate"
-        android:layout_width="wrap_content"
-        android:textColor="@color/colorBlack"
-        android:layout_height="wrap_content"
-        android:text="Address"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/fromDateMessageFindVehicle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageViewFindVehicle"
+            android:text="From "
+            android:textColor="@color/colorBlack"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/fromDate"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_alignBottom="@+id/fromDateMessageFindVehicle"
+            android:layout_toRightOf="@+id/fromDateMessageFindVehicle"
+            android:layout_toEndOf="@+id/fromDateMessageFindVehicle" />
+
+        <TextView
+            android:id="@+id/toDateMessageFindVehicle"
+            android:layout_below="@+id/fromDateMessageFindVehicle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="To  "
+            android:textColor="@color/colorBlack"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/toDate"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_alignBottom="@+id/toDateMessageFindVehicle"
+            android:layout_alignLeft="@+id/fromDate"
+            android:layout_alignStart="@+id/fromDate" />
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+
 
 </LinearLayout>
