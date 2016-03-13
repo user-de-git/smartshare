@@ -90,20 +90,7 @@ public class PostVehicleController extends Activity{
 
             }
         });
-        spinner_vehiclerange = (Spinner) findViewById(R.id.spinner_vehiclerange);
-        adaptor_vehiclerange = ArrayAdapter.createFromResource(this,R.array.vehicle_range,android.R.layout.simple_spinner_item);
-        adaptor_vehiclerange.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_vehiclerange.setAdapter(adaptor_vehiclerange);
-        spinner_vehiclerange.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                pv.setVehicle_share_range(Integer.parseInt(((String) parent.getItemAtPosition(pos))));
-                //vehicle_share_range = Integer.parseInt(((String) parent.getItemAtPosition(pos)));
-            }
 
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
 
 

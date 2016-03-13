@@ -52,6 +52,17 @@
             android:textColor="@color/colorBlack"
             android:layout_toRightOf="@id/capacityMessageFindVehicle"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+        <TextView
+            android:id="@+id/findvehiclepriceperkm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/colorBlack"
+            android:layout_toRightOf="@id/carCapacityFindVehicle"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
 <!--
 
         <TextView

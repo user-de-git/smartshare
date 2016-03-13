@@ -13,6 +13,7 @@ public class FindVehiclelistSingleton {
     }
     public Calendar departureDate;
     public Calendar arrivalDate;
+    public double distance;
     public String    departureAddressPostalCodeText;
     public String    arrivalAddressDepartureCode;
     private FindVehiclelistSingleton() {

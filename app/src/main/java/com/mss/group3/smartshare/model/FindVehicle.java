@@ -192,6 +192,8 @@ public class FindVehicle extends User implements ILocation, ISchedule, IVehicle 
             DistanceAndTimeApiCall apiCall = new DistanceAndTimeApiCall(la1, ln1, la2, ln2);
             apiCall.calculate();
 
+            FindVehiclelistSingleton obj = FindVehiclelistSingleton.getInstance();
+            obj.distance = apiCall.getDistance();
             setDistnaceInMeters(apiCall.getDistance());
             setTimeInMinutes(apiCall.getDuration());
 

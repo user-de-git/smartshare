@@ -15,10 +15,11 @@ public class VehicleWithRangeList {
     public Date    fromDate;
     public Date    toDate;
     public String postalCode;
+    public Integer pricePerKm;
 
 
 
-    public VehicleWithRangeList(String id,Integer plateNumber, String vehicle_type, Integer capacity, Integer kmRange, String postalCode, Date fromDate, Date toDate) {
+    public VehicleWithRangeList(String id,Integer plateNumber, String vehicle_type, Integer capacity, Integer kmRange, String postalCode, Date fromDate, Date toDate, Integer pricePerKm) {
         this.id = id;
         this.plateNumber = plateNumber;
         this.vehicle_type = vehicle_type;
@@ -27,6 +28,7 @@ public class VehicleWithRangeList {
         this.postalCode = postalCode;
         this.fromDate = fromDate;
         this.toDate = toDate;
+        this.pricePerKm = pricePerKm;
     }
 
 

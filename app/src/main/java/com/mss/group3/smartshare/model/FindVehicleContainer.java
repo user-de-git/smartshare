@@ -48,6 +48,7 @@ public class FindVehicleContainer extends BaseAdapter {
       //  TextView fromdate = (TextView)v.findViewById(R.id.fromDate);
       //  TextView toDate  =  (TextView)v.findViewById(R.id.toDate);
         TextView plateNumber = (TextView)v.findViewById(R.id.plateNumber);
+        TextView priceperkm = (TextView)v.findViewById(R.id.findvehiclepriceperkm);
 
         //Set text for TextView
         cartype.setText(vehicleList.get(position).vehicle_type);
@@ -55,6 +56,7 @@ public class FindVehicleContainer extends BaseAdapter {
       //  fromdate.setText(vehicleList.get(position).fromDate.toString());
      //   toDate.setText(vehicleList.get(position).toDate.toString());
         plateNumber.setText(vehicleList.get(position).plateNumber.toString());
+        priceperkm.setText("Price/Km" + vehicleList.get(position).pricePerKm.toString());
 
         //Save product id to tag
         v.setTag(vehicleList.get(position).id);
