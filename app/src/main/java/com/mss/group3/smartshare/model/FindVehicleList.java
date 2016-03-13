@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.vision.barcode.Barcode;
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.controller.LoginController;
+import com.mss.group3.smartshare.controller.UserTypeController;
 import com.mss.group3.smartshare.utility.DistanceAndTimeApiCall;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -67,12 +70,13 @@ public class FindVehicleList extends Activity {
                 //DatePickerDialog d1 = (TextView) view.findViewById(R.id.toDate);
                 // Date d2 = (TextView) view.findViewById(R.id.fromDate);
                 UserSingleton userName = UserSingleton.getInstance();
-
                 String address;
 
                 for(int i = 0; i< vehicleWithRangeListArray.size(); i++ )
                 {
-                    if(vehicleWithRangeListArray.get(i).plateNumber == number)
+                    if(vehicleWithRangeListArray.get(i).plateNumber.equals(number) &&
+                            vehicleWithRangeListArray.get(i).fromDate.before(obj.departureDate.getTime() )
+                                    && vehicleWithRangeListArray.get(i).toDate.after(obj.arrivalDate.getTime()))
                     {
                         address = vehicleWithRangeListArray.get(i).postalCode;
                         double timeBetweenSouceAddressAndDatabaseAddressMinutes = findDistanceAndDuration(address,
@@ -85,7 +89,6 @@ public class FindVehicleList extends Activity {
                         break;
                     }
                 }
-
                 try {
 
                     testObject.put("PlateNumber", number);
@@ -97,10 +100,8 @@ public class FindVehicleList extends Activity {
                 } catch (Exception e) {
 
                 }
-
                 builder.setTitle("Confirm");
                 builder.setMessage("Are you sure?");
-
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
@@ -110,10 +111,15 @@ public class FindVehicleList extends Activity {
                         //Ex: display msg with product id get from view.getTag
                         Toast.makeText(getApplicationContext(), "Booked", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
+
+                        Intent myIntent = new Intent(FindVehicleList.this, UserTypeController.class);
+
+                        startActivity(myIntent);
+
+
                     }
 
                 });
-
                 builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 
                     @Override
@@ -125,8 +131,6 @@ public class FindVehicleList extends Activity {
 
                 AlertDialog alert = builder.create();
                 alert.show();
-
-
             }
         });
 

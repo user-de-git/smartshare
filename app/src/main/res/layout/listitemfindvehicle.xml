@@ -52,6 +52,7 @@
             android:textColor="@color/colorBlack"
             android:layout_toRightOf="@id/capacityMessageFindVehicle"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+<!--
 
         <TextView
             android:id="@+id/fromDateMessageFindVehicle"
@@ -94,6 +95,7 @@
 
 
 
+-->
 
 
         </RelativeLayout>

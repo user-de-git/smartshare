@@ -12,7 +12,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".controller.FindVehicleController">
+    tools:context=".controller.FindVehicleController"
+    android:weightSum="1">
 
     <RelativeLayout
         android:id="@+id/departureAddressRelativeLayout"
@@ -71,6 +72,7 @@
     </RelativeLayout >
 
 
+
     <RelativeLayout
         android:id="@+id/arrivalAddressRelativeLayout"
         android:layout_width="fill_parent"
@@ -122,6 +124,38 @@
     </RelativeLayout >
 
 
+    <RelativeLayout
+        android:id="@+id/displayTimeDistanceRelativeLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/arrivalAddressRelativeLayout"
+        android:layout_weight="0.67">
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/travellingDistance"
+             />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/travellingTime"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/travellingDistance"
+            />
+        <TextView
+            android:id="@+id/wrongAddressMessage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Please correct address and try again"
+            android:layout_below="@id/travellingTime"/>
+
+    </RelativeLayout >
 
 
     <RelativeLayout
@@ -129,7 +163,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/arrivalAddressRelativeLayout">
+        android:layout_below="@id/displayTimeDistanceRelativeLayout">
 
 
         <LinearLayout

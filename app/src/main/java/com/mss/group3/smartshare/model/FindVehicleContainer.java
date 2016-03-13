@@ -45,15 +45,15 @@ public class FindVehicleContainer extends BaseAdapter {
         View v = View.inflate(context, R.layout.listitemfindvehicle, null);
         TextView cartype = (TextView)v.findViewById(R.id.findvehicleCarType);
         TextView carcapacity = (TextView)v.findViewById(R.id.carCapacityFindVehicle);
-        TextView fromdate = (TextView)v.findViewById(R.id.fromDate);
-        TextView toDate  =  (TextView)v.findViewById(R.id.toDate);
+      //  TextView fromdate = (TextView)v.findViewById(R.id.fromDate);
+      //  TextView toDate  =  (TextView)v.findViewById(R.id.toDate);
         TextView plateNumber = (TextView)v.findViewById(R.id.plateNumber);
 
         //Set text for TextView
         cartype.setText(vehicleList.get(position).vehicle_type);
         carcapacity.setText(String.valueOf(vehicleList.get(position).capacity));
-        fromdate.setText(vehicleList.get(position).fromDate.toString());
-        toDate.setText(vehicleList.get(position).toDate.toString());
+      //  fromdate.setText(vehicleList.get(position).fromDate.toString());
+     //   toDate.setText(vehicleList.get(position).toDate.toString());
         plateNumber.setText(vehicleList.get(position).plateNumber.toString());
 
         //Save product id to tag
