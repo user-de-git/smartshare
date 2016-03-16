@@ -4,28 +4,29 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.vision.barcode.Barcode;
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.controller.UserTypeController;
 import com.mss.group3.smartshare.utility.DistanceAndTimeApiCall;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,21 +40,85 @@ public class FindVehicleList extends Activity {
 
     FindVehicleContainer findVehicleContainer;
     List<VehicleWithRangeList> vehicleWithRangeListArray = new ArrayList<>();
+    List<VehicleWithRangeList> vehicleWithRangeListProcessArray = new ArrayList<>();
     List<VehicleWithRangeList> bookedVehicles = new ArrayList<>();
     ListView vehiclelistDisplay;
     List<String> vehicleid;
     boolean done = false;
-
+    ArrayAdapter<CharSequence> adaptorVehicleCapacity;
+    Spinner spinnerVehicleCapacity;
+    int vehicle_capacity;
     FindVehiclelistSingleton obj = FindVehiclelistSingleton.getInstance();
     AlertDialog.Builder builder;
     ParseObject testObject;
-
+    double totalPrice = 0;
+    double pricePerKm = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.findvehiclelist);
         vehiclelistDisplay = (ListView) findViewById(R.id.listView);
 
+        ((TextView) findViewById(R.id.filtervehicleNoVehicleFoundMessage)).setVisibility(View.INVISIBLE);
+
+
+
+        spinnerVehicleCapacity = (Spinner) findViewById(R.id.filtervehiclecapacity);
+        adaptorVehicleCapacity = ArrayAdapter.createFromResource(this,R.array.vehicle_capacity,android.R.layout.simple_spinner_item);
+        adaptorVehicleCapacity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerVehicleCapacity.setAdapter(adaptorVehicleCapacity);
+        spinnerVehicleCapacity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                vehicle_capacity = Integer.parseInt((String) parent.getItemAtPosition(pos));
+
+                if(vehicle_capacity == 0)
+                {
+                    findVehicleContainer = new
+                            FindVehicleContainer(getApplicationContext(), vehicleWithRangeListArray
+
+                    );
+                    vehiclelistDisplay.setAdapter(findVehicleContainer);
+                    return;
+                }
+
+                ((ProgressBar) findViewById(R.id.progressBarFilterVehicle)).setVisibility(View.VISIBLE);
+                ((TextView) findViewById(R.id.filtervehicleNoVehicleFoundMessage)).setVisibility(View.INVISIBLE);
+
+
+                vehicleWithRangeListProcessArray.clear();
+                vehiclelistDisplay.setAdapter(null);
+
+
+                int count = 0;
+                for( int i = 0; i< vehicleWithRangeListArray.size(); i++)
+                {
+                    if(vehicleWithRangeListArray.get(i).capacity.equals(vehicle_capacity))
+                    {
+                        vehicleWithRangeListProcessArray.add(count,vehicleWithRangeListArray.get(i) );
+                        count++;
+                    }
+                }
+
+                if(vehicleWithRangeListProcessArray.size() == 0)
+                {
+                    ((TextView) findViewById(R.id.filtervehicleNoVehicleFoundMessage)).setVisibility(View.VISIBLE);
+                    return;
+                }
+
+                findVehicleContainer = new
+                        FindVehicleContainer(getApplicationContext(), vehicleWithRangeListProcessArray
+
+                );
+                vehiclelistDisplay.setAdapter(findVehicleContainer);
+                ((ProgressBar) findViewById(R.id.progressBarFilterVehicle)).setVisibility(View.INVISIBLE);
+
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         getVehicleListThatCanBeBooked();
 
@@ -66,17 +131,21 @@ public class FindVehicleList extends Activity {
                 int number = Integer.decode(((TextView) view.findViewById(R.id.plateNumber)).getText().toString());
                 //DatePickerDialog d1 = (TextView) view.findViewById(R.id.toDate);
                 // Date d2 = (TextView) view.findViewById(R.id.fromDate);
-
-
+                UserSingleton userName = UserSingleton.getInstance();
                 String address;
+
 
                 for(int i = 0; i< vehicleWithRangeListArray.size(); i++ )
                 {
-                    if(vehicleWithRangeListArray.get(i).plateNumber == number)
+                    if(vehicleWithRangeListArray.get(i).plateNumber.equals(number) &&
+                            vehicleWithRangeListArray.get(i).fromDate.before(obj.departureDate.getTime() )
+                                    && vehicleWithRangeListArray.get(i).toDate.after(obj.arrivalDate.getTime()))
                     {
                         address = vehicleWithRangeListArray.get(i).postalCode;
+                        pricePerKm = vehicleWithRangeListArray.get(i).pricePerKm;
                         double timeBetweenSouceAddressAndDatabaseAddressMinutes = findDistanceAndDuration(address,
                                 obj.departureAddressPostalCodeText, 1);
+
 
                         final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
                         long time =  obj.departureDate.getTime().getTime();
@@ -85,7 +154,6 @@ public class FindVehicleList extends Activity {
                         break;
                     }
                 }
-
                 try {
 
                     testObject.put("PlateNumber", number);
@@ -93,14 +161,13 @@ public class FindVehicleList extends Activity {
                     testObject.put("DestinationAddress", obj.arrivalAddressDepartureCode);
                     testObject.put("StartDate", obj.departureDate.getTime());
                     testObject.put("EndDate", obj.arrivalDate.getTime());
-                    testObject.put("RenterEmail", "inderpal58@gmail.com");
+                    testObject.put("RenterEmail", userName.emailAddress);
                 } catch (Exception e) {
 
                 }
-
                 builder.setTitle("Confirm");
-                builder.setMessage("Are you sure?");
 
+                builder.setMessage("Total Cost = " + Double.toString(obj.distance * pricePerKm) + " $-- " + "Are you ok?");
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
@@ -110,10 +177,15 @@ public class FindVehicleList extends Activity {
                         //Ex: display msg with product id get from view.getTag
                         Toast.makeText(getApplicationContext(), "Booked", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
+
+                        Intent myIntent = new Intent(FindVehicleList.this, UserTypeController.class);
+
+                        startActivity(myIntent);
+
+
                     }
 
                 });
-
                 builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 
                     @Override
@@ -125,8 +197,6 @@ public class FindVehicleList extends Activity {
 
                 AlertDialog alert = builder.create();
                 alert.show();
-
-
             }
         });
 
@@ -171,6 +241,8 @@ public class FindVehicleList extends Activity {
             }
 
 
+
+
         } catch (IOException ew) {
             ew.printStackTrace();
             distance = 0;
@@ -205,8 +277,8 @@ public class FindVehicleList extends Activity {
                     if (e == null) {
                         for (ParseObject p : list) {
                             vehicleWithRangeListArray.add(new VehicleWithRangeList(p.getObjectId(), p.getInt("Plate_number"), p.getString("Vehicle_type"),
-                                    p.getInt("Capacity"), p.getInt("vehicle_range"), p.getString("PostalCode"),
-                                    p.getDate("FromDate"), p.getDate("ToDate")));
+                                    p.getInt("Capacity"), p.getInt("vehicle_range"),p.getString("PostalCode"),
+                                    p.getDate("FromDate"), p.getDate("ToDate"),p.getInt("Price_km")));
                         }
 
 
@@ -258,6 +330,11 @@ public class FindVehicleList extends Activity {
                             vehicleID.add(i, ob.plateNumber);
                         }
 
+                        if(vehicleWithRangeListArray.size() == 0)
+                        {
+                            ((TextView) findViewById(R.id.filtervehicleNoVehicleFoundMessage)).setVisibility(View.VISIBLE);
+                            return;
+                        }
 
                         //filter vehicle from already registered vehivle
                         //to verify the schedule mismatch if already booking is done
@@ -274,7 +351,7 @@ public class FindVehicleList extends Activity {
                                                                                            p.getInt("PlateNumber"), "NR",
                                                                                            0, 0,
                                                                                            "NR",
-                                                                                           p.getDate("StartDate"), p.getDate("EndDate")));
+                                                                                           p.getDate("StartDate"), p.getDate("EndDate"),0));
 
                                                                                }
 
@@ -283,7 +360,7 @@ public class FindVehicleList extends Activity {
                                                                                for (int i = 0; i < bookedVehicles.size(); i++) {
 
                                                                                    for (int j = 0; j < vehicleWithRangeListArray.size(); j++) {
-                                                                                       if (vehicleWithRangeListArray.get(j).plateNumber == bookedVehicles.get(i).plateNumber) {
+                                                                                       if (vehicleWithRangeListArray.get(j).plateNumber.equals(bookedVehicles.get(i).plateNumber)) {
 
                                                                                            //now see timing conflicts and remove element
                                                                                            if (bookedVehicles.get(i).fromDate.after(vehicleWithRangeListArray.get(j).fromDate)) {
@@ -321,20 +398,35 @@ public class FindVehicleList extends Activity {
 
 
                                                                                done = true;
+                                                                               if(vehicleWithRangeListArray.size() == 0)
+                                                                               {
+                                                                                   ((TextView) findViewById(R.id.filtervehicleNoVehicleFoundMessage)).setVisibility(View.VISIBLE);
+                                                                                   return;
+                                                                               }
                                                                                findVehicleContainer = new
                                                                                        FindVehicleContainer(getApplicationContext(), vehicleWithRangeListArray
 
                                                                                );
                                                                                vehiclelistDisplay.setAdapter(findVehicleContainer);
-
+                                                                               ((ProgressBar) findViewById(R.id.progressBarFilterVehicle)).setVisibility(View.INVISIBLE);
+                                                                               ((TextView) findViewById(R.id.filtervehicleNoVehicleFoundMessage)).setVisibility(View.INVISIBLE);
 
                                                                            }
                                                                            if (list.size() == 0) {
+
+                                                                               if(vehicleWithRangeListArray.size() == 0)
+                                                                               {
+                                                                                   ((TextView) findViewById(R.id.filtervehicleNoVehicleFoundMessage)).setVisibility(View.VISIBLE);
+                                                                                   return;
+                                                                               }
+
                                                                                findVehicleContainer = new
                                                                                        FindVehicleContainer(getApplicationContext(), vehicleWithRangeListArray
 
                                                                                );
                                                                                vehiclelistDisplay.setAdapter(findVehicleContainer);
+                                                                               ((ProgressBar) findViewById(R.id.progressBarFilterVehicle)).setVisibility(View.INVISIBLE);
+                                                                               ((TextView) findViewById(R.id.filtervehicleNoVehicleFoundMessage)).setVisibility(View.INVISIBLE);
                                                                            }
                                                                        }
                                                                    }

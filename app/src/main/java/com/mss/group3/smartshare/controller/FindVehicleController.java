@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,60 +43,55 @@ public class FindVehicleController extends Activity {
     int month1;
     int day1;
     int year1;
-    int a1,a2,a3,a4;
+    Geocoder geoCoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.findvehicle);
         findVehicle = new FindVehicle();
+        ((TextView) findViewById(R.id.wrongAddressMessage)).setVisibility(View.INVISIBLE);
+        ((Button) findViewById(R.id.findVehicleProceedButton)).setVisibility(View.INVISIBLE);
+        geoCoder = new Geocoder(this, Locale.getDefault());
+        EditText txt1 = (EditText) findViewById(R.id.arrivalAddressPostalCodeText);
+        txt1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus)
+                {
+                    findVehicle.setDepartureAddressLineOneText(((EditText) findViewById(R.id.departureAddressLineOneText)).getText().toString());
+                    findVehicle.setDepartureAddressCityNameText(((EditText) findViewById(R.id.departureAddressCityNameText)).getText().toString());
+                    findVehicle.setDepartureAddressCountryNameText(((EditText) findViewById(R.id.departureAddressCountryNameText)).getText().toString());
+                    findVehicle.setDepartureAddressPostalCodeText(((EditText) findViewById(R.id.departureAddressPostalCodeText)).getText().toString());
 
-        ((EditText) findViewById(R.id.departureAddressCityNameText)).setText("Vancouver");
-        ((EditText) findViewById(R.id.departureAddressCountryNameText)).setText("Canada");
-        ((EditText) findViewById(R.id.departureAddressPostalCodeText)).setText("V7X 1M3");
+                    findVehicle.setArrivalAddressLineOneText(((EditText) findViewById(R.id.arrivalAddressLineOneText)).getText().toString());
+                    findVehicle.setArrivalAddressCityNameText(((EditText) findViewById(R.id.arrivalAddressCityNameText)).getText().toString());
+                    findVehicle.setArrivalAddressCountryNameText(((EditText) findViewById(R.id.arrivalAddressCountryNameText)).getText().toString());
+                    findVehicle.setArrivalAddressPostalCodeText(((EditText) findViewById(R.id.arrivalAddressPostalCodeText)).getText().toString());
 
-        ((EditText) findViewById(R.id.arrivalAddressCityNameText)).setText("UBC Bus Loop");
-        ((EditText) findViewById(R.id.arrivalAddressLineOneText)).setText("UBC Bus Loop");
-
-        /*
-        ((TextView) findViewById(R.id.getStartTime)).setText(8 + ":" + 8);
-        ((TextView) findViewById(R.id.getEndTime)).setText(16 + ":" + 8);
-
-
-
-
-       String dateString = (2 ) + "/" + 24 + "/" + 2016;
-        ((TextView) findViewById(R.id.getToDate)).setText(dateString);
-
-         dateString = (2 ) + "/" + 26 + "/" + 2016;
-        ((TextView) findViewById(R.id.getFromDate)).setText(dateString);
-
-
-
-        Calendar C = new GregorianCalendar();
-        C.set(2016, 2, 26, 14, 4, 0);
-
-        String a = C.getTime().toString();
-
-        findVehicle.setArrivalDate(C);
-
-        C = new GregorianCalendar();
-        C.set(2016, 2, 24, 8, 4, 0);
-
-         a = C.getTime().toString();
-
-        findVehicle.setDepartureDate(C);*/
+                    findVehicle.findDistanceAndDuration(geoCoder);
 
 
-        //initialize parse
-     /*   Parse.enableLocalDatastore(this);
-        Parse.initialize(this);
-        ParseUser.enableRevocableSessionInBackground();
-        ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
-        ParseACL.setDefaultACL(defaultACL, true);*/
+                    ((TextView) findViewById(R.id.travellingDistance)).setText( "Travelling Distance  "+Double.toString(findVehicle.getDistnaceInMeters()));
+                    ((TextView) findViewById(R.id.travellingTime)).setText("Travelling Time  "+Double.toString(findVehicle.getTimeInMinutes()));
+
+                    if (findVehicle.getDistnaceInMeters() <= 0 || findVehicle.getTimeInMinutes() <= 0 )
+                    {
+
+                        ((Button) findViewById(R.id.findVehicleProceedButton)).setVisibility(View.INVISIBLE);
+                        ((TextView) findViewById(R.id.wrongAddressMessage)).setVisibility(View.VISIBLE);
 
 
+                    }
+                    else
+                    {
+                        ((Button) findViewById(R.id.findVehicleProceedButton)).setVisibility(View.VISIBLE);
+                        ((TextView) findViewById(R.id.wrongAddressMessage)).setVisibility(View.INVISIBLE);
+
+                    }
+                }
+            }
+        });
     }
 
     //set date and time for to and from button clicks
@@ -191,23 +187,7 @@ public class FindVehicleController extends Activity {
     //find list of vehicles
     public void processFindVehicleButtonClick(View v) {
 
-        findVehicle.setDepartureAddressLineOneText(((EditText) findViewById(R.id.departureAddressLineOneText)).getText().toString());
-        findVehicle.setDepartureAddressCityNameText(((EditText) findViewById(R.id.departureAddressCityNameText)).getText().toString());
-        findVehicle.setDepartureAddressCountryNameText(((EditText) findViewById(R.id.departureAddressCountryNameText)).getText().toString());
-        findVehicle.setDepartureAddressPostalCodeText(((EditText) findViewById(R.id.departureAddressPostalCodeText)).getText().toString());
 
-        findVehicle.setArrivalAddressLineOneText(((EditText) findViewById(R.id.arrivalAddressLineOneText)).getText().toString());
-        findVehicle.setArrivalAddressCityNameText(((EditText) findViewById(R.id.arrivalAddressCityNameText)).getText().toString());
-        findVehicle.setArrivalAddressCountryNameText(((EditText) findViewById(R.id.arrivalAddressCountryNameText)).getText().toString());
-        findVehicle.setArrivalAddressPostalCodeText(((EditText) findViewById(R.id.arrivalAddressPostalCodeText)).getText().toString());
-
-
-
-        Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
-        findVehicle.findDistanceAndDuration(geoCoder);
-
-        Toast.makeText(getApplicationContext(), "Distance km  " +findVehicle.getDistnaceInMeters()+
-                "Duration minutes "+ findVehicle.getTimeInMinutes(), Toast.LENGTH_SHORT).show();
 
         FindVehiclelistSingleton obj = FindVehiclelistSingleton.getInstance();
 

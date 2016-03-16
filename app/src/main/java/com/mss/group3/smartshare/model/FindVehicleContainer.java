@@ -43,18 +43,20 @@ public class FindVehicleContainer extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = View.inflate(context, R.layout.listitemfindvehicle, null);
-        TextView cartype = (TextView)v.findViewById(R.id.car_type);
-        TextView carcapacity = (TextView)v.findViewById(R.id.car_capacity);
-        TextView fromdate = (TextView)v.findViewById(R.id.fromDate);
-        TextView toDate  =  (TextView)v.findViewById(R.id.toDate);
+        TextView cartype = (TextView)v.findViewById(R.id.findvehicleCarType);
+        TextView carcapacity = (TextView)v.findViewById(R.id.carCapacityFindVehicle);
+      //  TextView fromdate = (TextView)v.findViewById(R.id.fromDate);
+      //  TextView toDate  =  (TextView)v.findViewById(R.id.toDate);
         TextView plateNumber = (TextView)v.findViewById(R.id.plateNumber);
+        TextView priceperkm = (TextView)v.findViewById(R.id.findvehiclepriceperkm);
 
         //Set text for TextView
         cartype.setText(vehicleList.get(position).vehicle_type);
         carcapacity.setText(String.valueOf(vehicleList.get(position).capacity));
-        fromdate.setText(vehicleList.get(position).fromDate.toString());
-        toDate.setText(vehicleList.get(position).toDate.toString());
+      //  fromdate.setText(vehicleList.get(position).fromDate.toString());
+     //   toDate.setText(vehicleList.get(position).toDate.toString());
         plateNumber.setText(vehicleList.get(position).plateNumber.toString());
+        priceperkm.setText("Price/Km" + vehicleList.get(position).pricePerKm.toString());
 
         //Save product id to tag
         v.setTag(vehicleList.get(position).id);

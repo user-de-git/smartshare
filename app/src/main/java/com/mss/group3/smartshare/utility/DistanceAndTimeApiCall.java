@@ -203,7 +203,7 @@ public class DistanceAndTimeApiCall {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Float f = Float.valueOf(result_in_kms);
+
 
     }
 
