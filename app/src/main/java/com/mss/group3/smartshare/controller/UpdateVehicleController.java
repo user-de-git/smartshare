@@ -24,7 +24,9 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class UpdateVehicleController extends Activity{
 
@@ -42,6 +44,7 @@ public class UpdateVehicleController extends Activity{
     Button button;
 
     String vehicle_type;
+    String Vehicle_Id;
     int vehicle_capacity;
     int vehicle_share_range;
     String StartdateString;
@@ -54,17 +57,22 @@ public class UpdateVehicleController extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vehicleregistration);
-        String Vehicle_Id = getIntent().getStringExtra(OwnerController.VEHICLE_ID);
+        Vehicle_Id = getIntent().getStringExtra(OwnerController.VEHICLE_ID);
         Toast.makeText(getApplicationContext(), "Clicked product id =" + Vehicle_Id, Toast.LENGTH_SHORT).show();
+
+
+
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("VehicleTable");
         query.getInBackground(Vehicle_Id, new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
-                    ((EditText) findViewById(R.id.et_vinnumber)).setText(object.getInt("VIN"));
-                    ((EditText) findViewById(R.id.et_platenumber)).setText(object.getInt("Plate_number"));
-                    ((EditText) findViewById(R.id.et_pricekm)).setText(object.getInt("Price_km"));
-                    ((EditText) findViewById(R.id.get_StartDateTime)).setText(object.getDate("FromDate").toString());
-                    ((EditText) findViewById(R.id.get_EndDateTime)).setText(object.getDate("ToDate").toString());
+                    ((EditText) findViewById(R.id.et_vinnumber)).setText(String.valueOf(object.getInt("VIN")));
+
+                    ((EditText) findViewById(R.id.et_platenumber)).setText(String.valueOf(object.getInt("Plate_number")));
+                    ((EditText) findViewById(R.id.et_pricekm)).setText(String.valueOf(object.getInt("Price_km")));
+                    ((EditText) findViewById(R.id.get_StartDateTime)).setText(Utility(object.getDate("FromDate")).toString());
+                    ((EditText) findViewById(R.id.get_EndDateTime)).setText(Utility(object.getDate("ToDate")).toString());
 
                     ((EditText) findViewById(R.id.et_address)).setText(object.getString("Address"));
                     ((EditText) findViewById(R.id.et_city)).setText(object.getString("City"));
@@ -78,6 +86,7 @@ public class UpdateVehicleController extends Activity{
         });
 
         setContentView(R.layout.vehicleregistration);
+        ((TextView) findViewById(R.id.registerVehicle)).setText("Edit Info");
         get_StartDateTime = (TextView) findViewById(R.id.get_StartDateTime);
         get_EndDateTime = (TextView) findViewById(R.id.get_EndDateTime);
 
@@ -185,8 +194,14 @@ public class UpdateVehicleController extends Activity{
         }
     }
 
+    public String Utility(Date _Date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        return formatter.format(_Date);
+
+    }
+
     public void UpdateVehicle(View view) {
-        UserSingleton userSingleton = UserSingleton.getInstance();
+        final UserSingleton userSingleton = UserSingleton.getInstance();
 
         pv.setVin(Integer.parseInt(((EditText) findViewById(R.id.et_vinnumber)).getText().toString()));
         pv.setPlate_number(Integer.parseInt(((EditText) findViewById(R.id.et_platenumber)).getText().toString()));
@@ -195,19 +210,53 @@ public class UpdateVehicleController extends Activity{
         pv.setEndDateTime(((EditText) findViewById(R.id.get_EndDateTime)).getText().toString());
         pv.setCurrent_location(((EditText) findViewById(R.id.et_city)).getText().toString() + ", " +
                 ((EditText) findViewById(R.id.et_postalCode)).getText().toString());
+        pv.setAddress(((EditText) findViewById(R.id.et_address)).getText().toString());
+        pv.setCity(((EditText) findViewById(R.id.et_city)).getText().toString());
+        pv.setPostal_code(((EditText) findViewById(R.id.et_postalCode)).getText().toString());
+        pv.setProvince(((EditText) findViewById(R.id.et_province)).getText().toString());
 
         testObject = new ParseObject("VehicleTable");
-        testObject.put("VIN", pv.getVin());
-        testObject.put("Plate_number",pv.getPlate_number());
-        testObject.put("Price_km", pv.getPrice_km());
-        testObject.put("Capacity", pv.getVehicle_capacity());
-        testObject.put("Vehicle_type", pv.getVehicle_type());
-        testObject.put("vehicle_range", pv.getVehicle_share_range());
-        testObject.put("PostalCode",pv.getCurrent_location());
-        testObject.put("FromDate",pv.getStartDateTime());
-        testObject.put("ToDate", pv.getEndDateTime());
-        testObject.put("Owner_email", userSingleton.emailAddress);
-        testObject.saveInBackground();
+
+
+        final ParseQuery<ParseObject> testObject = ParseQuery.getQuery("VehicleTable");
+
+// Retrieve the object by id
+        testObject.getInBackground(Vehicle_Id, new GetCallback<ParseObject>() {
+            public void done(ParseObject tObject, ParseException e) {
+                if (e == null) {
+                    tObject.put("VIN", pv.getVin());
+                    tObject.put("Plate_number", pv.getPlate_number());
+                    tObject.put("Price_km", pv.getPrice_km());
+                    tObject.put("Capacity", pv.getVehicle_capacity());
+                    tObject.put("Vehicle_type", pv.getVehicle_type());
+                    tObject.put("vehicle_range", pv.getVehicle_share_range());
+                    tObject.put("Address",pv.getAddress());
+                    tObject.put("City",pv.getCity());
+                    tObject.put("Province",pv.getProvince());
+                    tObject.put("Postal_Code",pv.getPostal_code());
+                    tObject.put("PostalCode",pv.getCurrent_location()); // This is the combined address
+                    tObject.put("FromDate",pv.getStartDateTime());
+                    tObject.put("ToDate", pv.getEndDateTime());
+                    tObject.put("Owner_email", userSingleton.emailAddress);
+                    tObject.saveInBackground();
+                }
+            }
+        });
+
+    }
+
+    public void deleteVehicle(View view) {
+
+        final ParseQuery<ParseObject> testObject = ParseQuery.getQuery("VehicleTable");
+
+
+        testObject.getInBackground(Vehicle_Id, new GetCallback<ParseObject>() {
+            public void done(ParseObject tObject, ParseException e) {
+                if (e == null) {
+                    tObject.deleteInBackground();
+                }
+            }
+        });
 
     }
 }

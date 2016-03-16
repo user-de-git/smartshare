@@ -62,7 +62,8 @@ public class OwnerController extends Activity {
                         //Do something
                         //Ex: display msg with product id get from view.getTag
                         Intent myIntent = new Intent(OwnerController.this, UpdateVehicleController.class);
-                        myIntent.putExtra(VEHICLE_ID,(String)view.getTag());
+                        String VID = (String)view.getTag();
+                        myIntent.putExtra(VEHICLE_ID,VID);
                         startActivity(myIntent);
                         //Toast.makeText(getApplicationContext(), "Clicked product id =" + view.getTag(), Toast.LENGTH_SHORT).show();
                     }
