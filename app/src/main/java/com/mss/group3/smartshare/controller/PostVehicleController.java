@@ -36,6 +36,7 @@ public class PostVehicleController extends Activity{
     DatePickerDialog datePickerDialog;
     TextView get_StartDateTime,get_EndDateTime;
     Button button;
+    Button delete;
     String vehicle_type;
     int vehicle_capacity;
     int vehicle_share_range;
@@ -53,7 +54,8 @@ public class PostVehicleController extends Activity{
         setContentView(R.layout.vehicleregistration);
         get_StartDateTime = (TextView) findViewById(R.id.get_StartDateTime);
         get_EndDateTime = (TextView) findViewById(R.id.get_EndDateTime);
-
+        delete = (Button) findViewById(R.id.button_deleteVehicle);
+        delete.setVisibility(View.GONE);
         spinner_vehicletype = (Spinner) findViewById(R.id.spinner_vehicletype);
         adaptor_vehicletype = ArrayAdapter.createFromResource(this,R.array.vehicle_type,android.R.layout.simple_spinner_item);
         adaptor_vehicletype.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

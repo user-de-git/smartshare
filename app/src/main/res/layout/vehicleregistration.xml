@@ -341,6 +341,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
          />
+        <Button
+            android:id="@+id/button_deleteVehicle"
+            style="@style/buttonStyle2"
+            android:layout_gravity="center"
+            android:text="Delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="deleteVehicle"
+            android:background="#C33A1A"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="30dp"
+            />
 </LinearLayout>
 </ScrollView>
 </LinearLayout>
