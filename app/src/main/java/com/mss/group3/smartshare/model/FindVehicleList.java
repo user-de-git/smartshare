@@ -2,13 +2,13 @@ package com.mss.group3.smartshare.model;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,11 +21,14 @@ import android.widget.Toast;
 import com.mss.group3.smartshare.R;
 import com.mss.group3.smartshare.controller.UserTypeController;
 import com.mss.group3.smartshare.utility.DistanceAndTimeApiCall;
+
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -51,8 +54,15 @@ public class FindVehicleList extends Activity {
     FindVehiclelistSingleton obj = FindVehiclelistSingleton.getInstance();
     AlertDialog.Builder builder;
     ParseObject testObject;
+    ParseObject userObject;
     double totalPrice = 0;
     double pricePerKm = 0;
+    String email;
+
+    Thread t;
+    SmsManager smsManager = SmsManager.getDefault();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +70,7 @@ public class FindVehicleList extends Activity {
         vehiclelistDisplay = (ListView) findViewById(R.id.listView);
 
         ((TextView) findViewById(R.id.filtervehicleNoVehicleFoundMessage)).setVisibility(View.INVISIBLE);
+
 
 
 
@@ -146,7 +157,7 @@ public class FindVehicleList extends Activity {
                         double timeBetweenSouceAddressAndDatabaseAddressMinutes = findDistanceAndDuration(address,
                                 obj.departureAddressPostalCodeText, 1);
 
-
+                        email = vehicleWithRangeListArray.get(i).email;
                         final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
                         long time =  obj.departureDate.getTime().getTime();
                         time -= timeBetweenSouceAddressAndDatabaseAddressMinutes * ONE_MINUTE_IN_MILLIS;
@@ -172,7 +183,15 @@ public class FindVehicleList extends Activity {
 
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing but close the dialog
+
+
+
+                      sendSMS();
+
+                        // Do nothing but close the dialog
                         testObject.saveInBackground();
+
+
                         //Do something
                         //Ex: display msg with product id get from view.getTag
                         Toast.makeText(getApplicationContext(), "Booked", Toast.LENGTH_SHORT).show();
@@ -250,6 +269,35 @@ public class FindVehicleList extends Activity {
         return distance;
     }
 
+    public void sendSMS()
+    {
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.whereContains("username", email);
+        query.findInBackground(new FindCallback<ParseUser>() {
+
+
+            @Override
+            public void done(List<ParseUser> objects, com.parse.ParseException e) {
+                if (e == null) {
+                    try
+                    {
+                        for (ParseUser p : objects) {
+                            smsManager.sendTextMessage("+1" + p.getString("userContactNumber"), null,
+                                    "your vehicle is booked by " + email + " from " +
+                                            obj.departureAddressPostalCodeText +
+                                            " To " + obj.arrivalAddressDepartureCode, null, null);
+                        }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+
+                } else {
+                    // Something went wrong.
+                }
+            }
+
+        });
+    }
 
     public void getVehicleListThatCanBeBooked() {
         vehicleWithRangeListArray.clear();
@@ -267,7 +315,7 @@ public class FindVehicleList extends Activity {
             testObject.put("ToDate", obj.arrivalDate.getTime());
             testObject.saveInBackground();*/
 
-            String a = obj.arrivalDate.getTime().toString();
+
             query.whereLessThanOrEqualTo("FromDate", obj.departureDate.getTime());
             query.whereGreaterThanOrEqualTo("ToDate", obj.arrivalDate.getTime());
 
@@ -278,7 +326,7 @@ public class FindVehicleList extends Activity {
                         for (ParseObject p : list) {
                             vehicleWithRangeListArray.add(new VehicleWithRangeList(p.getObjectId(), p.getInt("Plate_number"), p.getString("Vehicle_type"),
                                     p.getInt("Capacity"), p.getInt("vehicle_range"),p.getString("PostalCode"),
-                                    p.getDate("FromDate"), p.getDate("ToDate"),p.getInt("Price_km")));
+                                    p.getDate("FromDate"), p.getDate("ToDate"),p.getInt("Price_km"),p.getString("Owner_email")));
                         }
 
 
@@ -351,7 +399,7 @@ public class FindVehicleList extends Activity {
                                                                                            p.getInt("PlateNumber"), "NR",
                                                                                            0, 0,
                                                                                            "NR",
-                                                                                           p.getDate("StartDate"), p.getDate("EndDate"),0));
+                                                                                           p.getDate("StartDate"), p.getDate("EndDate"),0,"fg"));
 
                                                                                }
 
