@@ -42,6 +42,7 @@ public class PostVehicleController extends Activity{
     int vehicle_share_range;
     String StartdateString;
     String EnddateString;
+    Geocoder geoCoder;
 
     PostVehicle pv = new PostVehicle();
 
@@ -49,7 +50,7 @@ public class PostVehicleController extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        geoCoder = new Geocoder(this, Locale.getDefault());
 
         setContentView(R.layout.vehicleregistration);
         get_StartDateTime = (TextView) findViewById(R.id.get_StartDateTime);
@@ -178,6 +179,32 @@ public class PostVehicleController extends Activity{
         testObject.put("FromDate",pv.getStartDateTime());
         testObject.put("ToDate", pv.getEndDateTime());
         testObject.put("Owner_email", userSingleton.emailAddress);
+        
+        
+          String sourceAddress = pv.getAddress();
+
+
+        List<Address> addresses = null;
+        try {
+            addresses = geoCoder.getFromLocationName(pv.getCurrent_location(), 4);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        double la1 = 0, ln1 = 0;
+        if (addresses.size() > 0) {
+
+            la1 = addresses.get(0).getLatitude();
+            ln1 = addresses.get(0).getLongitude();
+
+        }
+
+
+
+
+
+        ParseGeoPoint point = new ParseGeoPoint(la1, ln1);
+        testObject.put("geopoint", point);
+        
         testObject.saveInBackground();
 
     }
