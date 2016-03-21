@@ -351,7 +351,7 @@ public class FindVehicleList extends Activity {
                             distance = distance + distance * .5;
                             if (getGeo.distanceInKilometersTo(getCurrentGeoPoint) < p.getInt("vehicle_range")) {
                                 vehicleWithRangeListArray.add(new VehicleWithRangeList(p.getObjectId(), p.getInt("Plate_number"), p.getString("Vehicle_type"),
-                                        p.getInt("Capacity"), p.getInt("vehicle_range"), p.getString("PostalCode"),
+                                        p.getInt("Capacity"), p.getInt("vehicle_range"), p.getString("Address") +" "+ p.getString("PostalCode"),
                                         p.getDate("FromDate"), p.getDate("ToDate"), p.getInt("Price_km"), p.getString("Owner_email"), getGeo));
                                 plateNumber.add(p.getInt("Plate_number"));
                             }
