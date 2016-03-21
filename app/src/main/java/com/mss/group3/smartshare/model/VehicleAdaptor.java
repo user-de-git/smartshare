@@ -46,7 +46,7 @@ public class VehicleAdaptor extends BaseAdapter {
         TextView tv_date = (TextView)v.findViewById(R.id.tv_date);
         //Set text for TextView
         car_type.setText(mProductList.get(position).getVehicle_type());
-        car_capacity.setText(String.valueOf(mProductList.get(position).getCapacity()));
+     //   car_capacity.setText(String.valueOf(mProductList.get(position).getCapacity()));
         tv_date.setText(mProductList.get(position).getDate().toString());
 
         //Save product id to tag

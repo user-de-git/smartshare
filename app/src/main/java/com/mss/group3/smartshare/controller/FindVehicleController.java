@@ -7,9 +7,12 @@ import android.content.Intent;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -19,9 +22,6 @@ import com.mss.group3.smartshare.model.FindVehicle;
 import com.mss.group3.smartshare.model.FindVehicleList;
 import com.mss.group3.smartshare.model.FindVehiclelistSingleton;
 import com.mss.group3.smartshare.utility.LocationServices;
-import com.parse.Parse;
-import com.parse.ParseACL;
-import com.parse.ParseUser;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -35,15 +35,17 @@ import java.util.TimeZone;
  */
 public class FindVehicleController extends Activity {
 
-    TimePickerDialog timePickerDialog;
-    DatePickerDialog datePickerDialog;
-    Calendar calendar = Calendar.getInstance();
-    FindVehicle findVehicle;
-    String EnddateString;
-    int month1;
-    int day1;
-    int year1;
-    Geocoder geoCoder;
+    private Calendar calendar = Calendar.getInstance();
+    private FindVehicle findVehicle;
+    private String EnddateString;
+    private int month1;
+    private int day1;
+    private int year1;
+    private Geocoder geoCoder;
+    private ArrayAdapter<CharSequence> adaptorVehicleCapacity;
+    private Spinner spinnerVehicleCapacity;
+    private int vehicle_capacity;
+    private FindVehiclelistSingleton objVehicleSingleton = FindVehiclelistSingleton.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +55,27 @@ public class FindVehicleController extends Activity {
         ((TextView) findViewById(R.id.wrongAddressMessage)).setVisibility(View.INVISIBLE);
         ((Button) findViewById(R.id.findVehicleProceedButton)).setVisibility(View.INVISIBLE);
         geoCoder = new Geocoder(this, Locale.getDefault());
-        EditText txt1 = (EditText) findViewById(R.id.arrivalAddressPostalCodeText);
-        txt1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        EditText arrivalAddressEvent = (EditText) findViewById(R.id.arrivalAddressPostalCodeText);
+
+        spinnerVehicleCapacity = (Spinner) findViewById(R.id.filtervehiclecapacity);
+        adaptorVehicleCapacity = ArrayAdapter.createFromResource(this, R.array.vehicle_capacity, android.R.layout.simple_spinner_item);
+        adaptorVehicleCapacity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerVehicleCapacity.setAdapter(adaptorVehicleCapacity);
+        spinnerVehicleCapacity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                vehicle_capacity = Integer.parseInt((String) parent.getItemAtPosition(pos));
+                objVehicleSingleton.capacity = vehicle_capacity;
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        arrivalAddressEvent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus)
-                {
+                if (!hasFocus) {
                     findVehicle.setDepartureAddressLineOneText(((EditText) findViewById(R.id.departureAddressLineOneText)).getText().toString());
                     findVehicle.setDepartureAddressCityNameText(((EditText) findViewById(R.id.departureAddressCityNameText)).getText().toString());
                     findVehicle.setDepartureAddressCountryNameText(((EditText) findViewById(R.id.departureAddressCountryNameText)).getText().toString());
@@ -68,26 +85,15 @@ public class FindVehicleController extends Activity {
                     findVehicle.setArrivalAddressCityNameText(((EditText) findViewById(R.id.arrivalAddressCityNameText)).getText().toString());
                     findVehicle.setArrivalAddressCountryNameText(((EditText) findViewById(R.id.arrivalAddressCountryNameText)).getText().toString());
                     findVehicle.setArrivalAddressPostalCodeText(((EditText) findViewById(R.id.arrivalAddressPostalCodeText)).getText().toString());
-
                     findVehicle.findDistanceAndDuration(geoCoder);
-
-
-                    ((TextView) findViewById(R.id.travellingDistance)).setText( "Travelling Distance  "+Double.toString(findVehicle.getDistnaceInMeters()));
-                    ((TextView) findViewById(R.id.travellingTime)).setText("Travelling Time  "+Double.toString(findVehicle.getTimeInMinutes()));
-
-                    if (findVehicle.getDistnaceInMeters() <= 0 || findVehicle.getTimeInMinutes() <= 0 )
-                    {
-
+                    ((TextView) findViewById(R.id.travellingDistance)).setText("Travelling Distance  " + Double.toString(findVehicle.getDistnaceInMeters()));
+                    ((TextView) findViewById(R.id.travellingTime)).setText("Travelling Time  " + Double.toString(findVehicle.getTimeInMinutes()));
+                    if (findVehicle.getDistnaceInMeters() <= 0 || findVehicle.getTimeInMinutes() <= 0) {
                         ((Button) findViewById(R.id.findVehicleProceedButton)).setVisibility(View.INVISIBLE);
                         ((TextView) findViewById(R.id.wrongAddressMessage)).setVisibility(View.VISIBLE);
-
-
-                    }
-                    else
-                    {
+                    } else {
                         ((Button) findViewById(R.id.findVehicleProceedButton)).setVisibility(View.VISIBLE);
                         ((TextView) findViewById(R.id.wrongAddressMessage)).setVisibility(View.INVISIBLE);
-
                     }
                 }
             }
@@ -98,64 +104,58 @@ public class FindVehicleController extends Activity {
     public void setDateTime(View v) {
 
         calendar = Calendar.getInstance();
-
         switch (v.getId()) {
-
             case R.id.getToDateButton: {
-
                 new DatePickerDialog(this,
                         new DatePickerDialog.OnDateSetListener() {
-                            @Override public void onDateSet(DatePicker view,
-                                                            int year, int month, int day) {
-                                EnddateString = (month+1) +"/" + day + "/" + year;
+                            @Override
+                            public void onDateSet(DatePicker view,
+                                                  int year, int month, int day) {
+                                EnddateString = (month + 1) + "/" + day + "/" + year;
                                 month1 = month;
                                 day1 = day;
                                 year1 = year;
                                 new TimePickerDialog(FindVehicleController.this,
                                         new TimePickerDialog.OnTimeSetListener() {
-                                            @Override public void onTimeSet(TimePicker view,
-                                                                            int hour, int min) {
-                                                EnddateString+=" "+hour + ":"+min;
+                                            @Override
+                                            public void onTimeSet(TimePicker view,
+                                                                  int hour, int min) {
+                                                EnddateString += " " + hour + ":" + min;
                                                 ((TextView) findViewById(R.id.getToDate)).setText(EnddateString);    // Text View
                                                 Calendar C = new GregorianCalendar();
-
                                                 C.set(year1, month1, day1, hour, min, 0);
                                                 findVehicle.setArrivalDate(C);
-
                                                 String a = findVehicle.getArrivalDate().getTime().toString();
-
                                             }
                                         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
                                         android.text.format.DateFormat.is24HourFormat(FindVehicleController.this)).show();
-
                             }
                         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             }
-
             case R.id.getFromDateButton: {
 
                 new DatePickerDialog(this,
                         new DatePickerDialog.OnDateSetListener() {
-                            @Override public void onDateSet(DatePicker view,
-                                                            int year, int month, int day) {
-                                EnddateString = (month+1) +"/" + day + "/" + year;
+                            @Override
+                            public void onDateSet(DatePicker view,
+                                                  int year, int month, int day) {
+                                EnddateString = (month + 1) + "/" + day + "/" + year;
                                 month1 = month;
                                 day1 = day;
                                 year1 = year;
                                 new TimePickerDialog(FindVehicleController.this,
                                         new TimePickerDialog.OnTimeSetListener() {
-                                            @Override public void onTimeSet(TimePicker view,
-                                                                            int hour, int min) {
-                                                EnddateString+=" "+hour + ":"+min;
+                                            @Override
+                                            public void onTimeSet(TimePicker view,
+                                                                  int hour, int min) {
+                                                EnddateString += " " + hour + ":" + min;
                                                 ((TextView) findViewById(R.id.getFromDate)).setText(EnddateString);    // Text View
                                                 Calendar C = new GregorianCalendar();
                                                 C.set(year1, month1, day1, hour, min, 0);
                                                 findVehicle.setDepartureDate(C);
-
                                                 String a = findVehicle.getDepartureDate().getTime().toString();
-
                                             }
                                         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
                                         android.text.format.DateFormat.is24HourFormat(FindVehicleController.this)).show();
@@ -164,18 +164,8 @@ public class FindVehicleController extends Activity {
                         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
-
             }
         }
-    }
-
-    public static Calendar convertCalendar(final Calendar calendar, final TimeZone timeZone) {
-        Calendar ret = new GregorianCalendar(timeZone);
-        ret.setTimeInMillis(calendar.getTimeInMillis() +
-                timeZone.getOffset(calendar.getTimeInMillis()) -
-                TimeZone.getDefault().getOffset(calendar.getTimeInMillis()));
-        ret.getTime();
-        return ret;
     }
 
     //refresh current location
@@ -187,45 +177,34 @@ public class FindVehicleController extends Activity {
     //find list of vehicles
     public void processFindVehicleButtonClick(View v) {
 
+        objVehicleSingleton.arrivalDate = findVehicle.getArrivalDate();
+        objVehicleSingleton.departureDate = findVehicle.getDepartureDate();
+        objVehicleSingleton.departureAddressPostalCodeText = findVehicle.getDepartureAddressCityNameText() +
+                findVehicle.getDepartureAddressCountryNameText() +
+                findVehicle.getDepartureAddressPostalCodeText();
+        objVehicleSingleton.arrivalAddressDepartureCode = findVehicle.getArrivalAddressCountryNameText() +
+                findVehicle.getArrivalAddressCityNameText() +
+                findVehicle.getArrivalAddressPostalCodeText();
 
-
-        FindVehiclelistSingleton obj = FindVehiclelistSingleton.getInstance();
-
-        String a = findVehicle.getArrivalDate().getTime().toString();
-
-        obj.arrivalDate = findVehicle.getArrivalDate();
-        obj.departureDate = findVehicle.getDepartureDate();
-        obj.departureAddressPostalCodeText = findVehicle.getDepartureAddressCityNameText()+
-                                             findVehicle.getDepartureAddressCountryNameText()+
-                                             findVehicle.getDepartureAddressPostalCodeText();
-        obj.arrivalAddressDepartureCode    = findVehicle.getArrivalAddressCountryNameText()+
-                                             findVehicle.getArrivalAddressCityNameText() +
-                                             findVehicle.getArrivalAddressPostalCodeText();
-
-        Intent screenfour = new Intent(FindVehicleController.this, FindVehicleList.class);
-        startActivity(screenfour);
-
+        //Move To Next Screen
+        Intent nextScreen = new Intent(FindVehicleController.this, FindVehicleList.class);
+        startActivity(nextScreen);
     }
 
     //get current location
     private void getLocation(String address) {
-
         LocationServices mLocationServices = new LocationServices(this);
         mLocationServices.getLocation();
-
         if (mLocationServices.isLocationAvailable == false) {
-
             //try again
             Toast.makeText(getApplicationContext(), "Your location is not available, " +
                     "Enter address manually or Press refresh after enabling location.", Toast.LENGTH_SHORT).show();
             return;
-
         } else {
             // Getting location co-ordinates
             double latitude = mLocationServices.getLatitude();
             double longitude = mLocationServices.getLongitude();
             address = mLocationServices.getLocationAddress();
-
             try {
                 ((EditText) findViewById(R.id.departureAddressLineOneText)).setText(mLocationServices.getLineOneAddress());
                 ((EditText) findViewById(R.id.departureAddressCityNameText)).setText(mLocationServices.getLocationCity());
@@ -236,9 +215,7 @@ public class FindVehicleController extends Activity {
 
             }
         }
-
         //close the gps
         mLocationServices.closeGPS();
     }
-
 }

@@ -1,5 +1,7 @@
 package com.mss.group3.smartshare.model;
 
+import com.parse.ParseGeoPoint;
+
 import java.util.Date;
 
 /**
@@ -16,10 +18,15 @@ public class VehicleWithRangeList {
     public Date    toDate;
     public String postalCode;
     public Integer pricePerKm;
+    public String  email;
+    public ParseGeoPoint point;
 
 
 
-    public VehicleWithRangeList(String id,Integer plateNumber, String vehicle_type, Integer capacity, Integer kmRange, String postalCode, Date fromDate, Date toDate, Integer pricePerKm) {
+    public VehicleWithRangeList(String id,Integer plateNumber, String vehicle_type,
+                                Integer capacity, Integer kmRange, String postalCode,
+                                Date fromDate, Date toDate, Integer pricePerKm,
+                                String email,ParseGeoPoint point) {
         this.id = id;
         this.plateNumber = plateNumber;
         this.vehicle_type = vehicle_type;
@@ -29,6 +36,8 @@ public class VehicleWithRangeList {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.pricePerKm = pricePerKm;
+        this.email = email;
+        this.point = point;
     }
 
 

@@ -16,14 +16,7 @@
             android:layout_height="35dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/car_icon_1" />
-        <TextView
-            android:id="@+id/plateNumber"
-            android:layout_width="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:layout_toRightOf="@id/imageViewFindVehicle"
-            android:layout_marginRight="10dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+
 
         <TextView
             android:id="@+id/findvehicleCarType"
@@ -31,8 +24,40 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:textColor="@color/colorBlack"
-            android:layout_toRightOf="@id/plateNumber"
+            android:layout_toRightOf="@id/imageViewFindVehicle"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/findvehiclepriceperkm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_toRightOf="@id/findvehicleCarType"
+             />
+
+        <TextView
+            android:id="@+id/vehicleAvailableAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_below="@+id/findvehicleCarType"
+            android:layout_alignLeft="@+id/findvehicleCarType"
+            android:layout_alignStart="@+id/findvehicleCarType" />
+
+        <TextView
+            android:id="@+id/plateNumber"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:layout_toRightOf="@id/imageViewFindVehicle"
+            android:layout_marginRight="10dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<!--
+
 
         <TextView
             android:id="@+id/capacityMessageFindVehicle"
@@ -44,26 +69,15 @@
             android:layout_toRightOf="@id/findvehicleCarType"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <TextView
+         <TextView
             android:id="@+id/carCapacityFindVehicle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:text="wwwwwity"
             android:textColor="@color/colorBlack"
             android:layout_toRightOf="@id/capacityMessageFindVehicle"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
-        <TextView
-            android:id="@+id/findvehiclepriceperkm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/colorBlack"
-            android:layout_toRightOf="@id/carCapacityFindVehicle"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-<!--
 
         <TextView
             android:id="@+id/fromDateMessageFindVehicle"
@@ -107,13 +121,5 @@
 
 
 -->
-
-
         </RelativeLayout>
-
-
-
-
-
-
 </LinearLayout>

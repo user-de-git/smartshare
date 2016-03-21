@@ -157,6 +157,20 @@
 
     </RelativeLayout >
 
+    <RelativeLayout
+        android:id="@+id/capacitySelection"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/displayTimeDistanceRelativeLayout">
+
+        <Spinner
+            android:id="@+id/filtervehiclecapacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_back" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/timeDataRelativeLayout"

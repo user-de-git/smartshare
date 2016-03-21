@@ -17,49 +17,33 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/findlistfilterCapacity"
-            android:layout_width="match_parent"
-            android:text="Filter by Capacity (0 - All)"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-
-        <Spinner
-            android:id="@+id/filtervehiclecapacity"
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/findlistfilterCapacity"
-            android:background="@drawable/spinner_back" />
-
-
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBarFilterVehicle"
-            android:layout_below="@+id/filtervehiclecapacity"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="No vehicle found"
-            android:id="@+id/filtervehicleNoVehicleFoundMessage"
-            android:layout_below="@+id/progressBarFilterVehicle" />
-
         <ListView
+            android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/listView"
-            android:layout_below="@+id/filtervehicleNoVehicleFoundMessage"
+            android:layout_above="@+id/scroll"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentTop="true"
+            android:cacheColorHint="#00000000"
+
             />
 
+        <HorizontalScrollView
+            android:id="@+id/scroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+           >
 
+        <LinearLayout
+            android:id="@+id/linear_scroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"/>
 
+        </HorizontalScrollView>
 
     </RelativeLayout>
-
-
 
 </LinearLayout>

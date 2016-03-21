@@ -1,24 +1,24 @@
 package com.mss.group3.smartshare.model;
 
-import android.graphics.Point;
-import android.location.Address;
-import android.location.Geocoder;
-import android.widget.ListView;
+        import android.graphics.Point;
+        import android.location.Address;
+        import android.location.Geocoder;
+        import android.widget.ListView;
 
-import com.mss.group3.smartshare.common.User;
-import com.mss.group3.smartshare.interfaces.*;
-import com.mss.group3.smartshare.utility.DistanceAndTimeApiCall;
-import com.parse.FindCallback;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+        import com.mss.group3.smartshare.common.User;
+        import com.mss.group3.smartshare.interfaces.*;
+        import com.mss.group3.smartshare.utility.DistanceAndTimeApiCall;
+        import com.parse.FindCallback;
+        import com.parse.ParseObject;
+        import com.parse.ParseQuery;
 
-import java.io.IOException;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+        import java.io.IOException;
+        import java.sql.Time;
+        import java.util.ArrayList;
+        import java.util.Calendar;
+        import java.util.Date;
+        import java.util.List;
+        import java.util.Locale;
 
 /**
  * Created by inder on 2016-02-20.
@@ -150,25 +150,17 @@ public class FindVehicle extends User implements ILocation, ISchedule, IVehicle 
         double la1 = 0, la2 = 0, ln1 = 0, ln2 = 0;
 
         boolean result;
-        Point point;
+
 
         try {
 
-            String sourceAddress = getDepartureAddressLineOneText() + "," +
-                    getDepartureAddressCityNameText() + "," +
-                    getDepartureAddressCountryNameText() + "," +
-                    getDepartureAddressPostalCodeText();
 
-            String destinationAddress = getArrivalAddressLineOneText() + "," +
-                    getArrivalAddressCityNameText() + "," +
-                    getArrivalAddressCountryNameText() + "," +
-                    getArrivalAddressPostalCodeText();
 
             List<Address> addresses =
                     geoCoder.getFromLocationName(
                             getDepartureAddressCityNameText() + "," +
-                            getDepartureAddressCountryNameText() + "," +
-                            getDepartureAddressPostalCodeText(), 4);
+                                    getDepartureAddressCountryNameText() + "," +
+                                    getDepartureAddressPostalCodeText(), 4);
 
             if (addresses.size() > 0) {
 

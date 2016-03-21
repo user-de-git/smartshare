@@ -5,6 +5,10 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
+        multiDexEnabled true
+    }
+
+    defaultConfig {
         applicationId "com.mss.group3.smartshare"
         minSdkVersion 15
         targetSdkVersion 23
@@ -25,21 +29,26 @@ android {
 }
 
 dependencies {
-    compile 'com.parse.bolts:bolts-android:1.+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.parse:parse-android:1.+'
     compile 'com.google.android.gms:play-services:8.4.0'
     compile 'com.google.android.gms:play-services-fitness:8.4.0'
     compile 'com.google.android.gms:play-services-wearable:8.4.0'
-
-    compile 'com.android.support:appcompat-v7:23.0.1'
-
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
-
-
-
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
+    compile 'com.google.android.gms:play-services-identity:8.4.0'
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'
 
 }
+
+
+
+
+
+
+
+
