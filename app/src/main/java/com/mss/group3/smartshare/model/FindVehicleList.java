@@ -80,7 +80,7 @@ public class FindVehicleList extends Activity {
 
         i = i * rowSize;
 
-        for (int j = 0; j < rowSize && j < vehicleWithRangeListArray.size(); j++) {
+        for (int j = 0; j < rowSize && i < vehicleWithRangeListArray.size(); j++) {
 
             if (lastVehicleRemovedCheck < vehicleWithRangeListArray.size()) {
 
@@ -376,7 +376,8 @@ public class FindVehicleList extends Activity {
                                                                                try {
                                                                                    addItem(0);
                                                                                    int size = vehicleWithRangeListArray.size() / rowSize;
-                                                                                   if(vehicleWithRangeListArray.size() % rowSize == 0 && vehicleWithRangeListArray.size() > rowSize)
+
+                                                                                   if(vehicleWithRangeListArray.size() % rowSize != 0)
                                                                                    {
                                                                                        size = size+1;
                                                                                    }
@@ -399,38 +400,6 @@ public class FindVehicleList extends Activity {
                                                                                        });
                                                                                    }
                                                                                } catch (Exception e1) {                                                                        }
-                                                                           }
-                                                                           if (list.size() == 0) {
-                                                                               try {
-                                                                                   addItem(0);
-                                                                                   int size = vehicleWithRangeListArray.size() / rowSize;
-
-                                                                                   if(vehicleWithRangeListArray.size() % rowSize == 0 && vehicleWithRangeListArray.size() > rowSize)
-                                                                                   {
-                                                                                       size = size+1;
-                                                                                   }
-
-                                                                                   for (int j = 0; j < size; j++) {
-                                                                                       final int k;
-                                                                                       k = j;
-                                                                                       final Button btnPage = new Button(FindVehicleList.this);
-                                                                                       Toolbar.LayoutParams lp = new Toolbar.LayoutParams(120, ActionBar.LayoutParams.WRAP_CONTENT);
-                                                                                       lp.setMargins(5, 2, 2, 2);
-                                                                                       btnPage.setTextColor(Color.WHITE);
-                                                                                       btnPage.setTextSize(26.0f);
-                                                                                       btnPage.setId(j);
-                                                                                       btnPage.setText(String.valueOf(j+1));
-                                                                                       mLinearScroll.addView(btnPage, lp);
-                                                                                       btnPage.setOnClickListener(new View.OnClickListener() {
-                                                                                           @Override
-                                                                                           public void onClick(View v) {
-                                                                                               addItem(k);
-                                                                                           }
-                                                                                       });
-                                                                                   }
-                                                                               } catch (Exception e2) {
-
-                                                                               }
                                                                            }
                                                                        }
                                                                    }
