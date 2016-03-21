@@ -82,7 +82,7 @@ public class FindVehicleList extends Activity {
 
         for (int j = 0; j < rowSize && j < vehicleWithRangeListArray.size(); j++) {
 
-            if (lastVehicleRemovedCheck <= lastVehicleRemovedCheck + rowSize) {
+            if (lastVehicleRemovedCheck < vehicleWithRangeListArray.size()) {
 
                 //add travel timing
                 VehicleWithRangeList ob = vehicleWithRangeListArray.get(lastVehicleRemovedCheck);
@@ -376,6 +376,10 @@ public class FindVehicleList extends Activity {
                                                                                try {
                                                                                    addItem(0);
                                                                                    int size = vehicleWithRangeListArray.size() / rowSize;
+                                                                                   if(vehicleWithRangeListArray.size() % rowSize == 0 && vehicleWithRangeListArray.size() > rowSize)
+                                                                                   {
+                                                                                       size = size+1;
+                                                                                   }
                                                                                    for (int j = 0; j < size; j++) {
                                                                                        final int k;
                                                                                        k = j;
@@ -400,6 +404,12 @@ public class FindVehicleList extends Activity {
                                                                                try {
                                                                                    addItem(0);
                                                                                    int size = vehicleWithRangeListArray.size() / rowSize;
+
+                                                                                   if(vehicleWithRangeListArray.size() % rowSize == 0 && vehicleWithRangeListArray.size() > rowSize)
+                                                                                   {
+                                                                                       size = size+1;
+                                                                                   }
+
                                                                                    for (int j = 0; j < size; j++) {
                                                                                        final int k;
                                                                                        k = j;
@@ -409,7 +419,7 @@ public class FindVehicleList extends Activity {
                                                                                        btnPage.setTextColor(Color.WHITE);
                                                                                        btnPage.setTextSize(26.0f);
                                                                                        btnPage.setId(j);
-                                                                                       btnPage.setText(String.valueOf(j + 1));
+                                                                                       btnPage.setText(String.valueOf(j+1));
                                                                                        mLinearScroll.addView(btnPage, lp);
                                                                                        btnPage.setOnClickListener(new View.OnClickListener() {
                                                                                            @Override
