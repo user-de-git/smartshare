@@ -23,6 +23,8 @@ public class VehicleWithRangeList {
 
 
 
+
+
     public VehicleWithRangeList(String id,Integer plateNumber, String vehicle_type,
                                 Integer capacity, Integer kmRange, String postalCode,
                                 Date fromDate, Date toDate, Integer pricePerKm,
