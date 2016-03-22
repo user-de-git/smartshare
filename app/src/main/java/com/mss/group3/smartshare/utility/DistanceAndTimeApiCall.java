@@ -84,6 +84,8 @@ public class DistanceAndTimeApiCall {
 
 
     private void getDistance(double lat1, double lon1, double lat2, double lon2) {
+        distance = 0;
+        duration = 0;
         String result_in_kms = "";
         String url = "http://maps.google.com/maps/api/directions/xml?origin="
                 + lat1 + "," + lon1 + "&destination=" + lat2 + "," + lon2 + "&sensor=false&units=metric";
@@ -125,80 +127,45 @@ public class DistanceAndTimeApiCall {
                             int length = splited.length;
 
                             boolean found = false;
-                            if(length >= 4)
+                            for(int i = 0; i <length; i++)
                             {
-                                if(splited[length-1].contains("min"))
+                                if(splited[i].contains("min"))
                                 {
-                                    duration = Double.parseDouble(splited[length-2]);
+                                    duration += Double.parseDouble(splited[i-1]);
+                                    continue;
                                 }
 
-                                if(splited[length -3 ].contains("hour"))
+                                if(splited[i].contains("hour"))
                                 {
                                     duration += Double.parseDouble(splited[length -4])*60;
                                 }
-
-                                found = true;
                             }
-                            if(!found)
-                            {
-                                if(splited[length-1].contains("min"))
-                                {
-                                    duration = Double.parseDouble(splited[length-2]);
-                                }
-
-                                if(splited[length -1 ].contains("hour"))
-                                {
-                                    duration = Double.parseDouble(splited[length - 2])*60;
-                                }
-
-                            }
-
                         }
                     }
                 }
 
                 for (String s:distanceFind) {
-                    if(s.contains("Km") || s.contains("m"))
-                    {
+                    if (s.contains("Km") || s.contains("m")) {
 
                         String[] splited = s.split(" ");
-                        if(splited.length > 0)
-                        {
+                        if (splited.length > 0) {
                             int length = splited.length;
 
                             boolean found = false;
-                            if(length >= 4)
-                            {
-                                if(splited[length-1].contains("m"))
-                                {
-                                    distance = Double.parseDouble(splited[length-2]);
+                            for (int i = 0; i < length; i++) {
+                                if (splited[i].contains("km")) {
+                                    distance += Double.parseDouble(splited[i - 1]) * 1000;
+                                    continue;
                                 }
 
-                                if(splited[length -3 ].contains("km"))
-                                {
-                                    distance += Double.parseDouble(splited[length -4])*1000;
+                                if (splited[i].contains("m")) {
+                                    distance += Double.parseDouble(splited[i - 1]);
                                 }
-
-                                found = true;
                             }
-                            if(!found)
-                            {
-                                if(splited[length-1].contains("m"))
-                                {
-                                    distance = Double.parseDouble(splited[length-2]);
-                                }
-
-                                if(splited[length -1 ].contains("km"))
-                                {
-                                    distance = Double.parseDouble(splited[length - 2])*1000;
-                                }
-
-                            }
-
                         }
                     }
+
                 }
-                result_in_kms = String.valueOf(args.get(0));
             }
         } catch (Exception e) {
             e.printStackTrace();

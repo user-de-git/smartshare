@@ -41,12 +41,14 @@ public class FindVehicleController extends Activity {
     private int month1;
     private int day1;
     private int year1;
+    private int hour1;
+    private int min1;
     private Geocoder geoCoder;
     private ArrayAdapter<CharSequence> adaptorVehicleCapacity;
     private Spinner spinnerVehicleCapacity;
     private int vehicle_capacity;
     private FindVehiclelistSingleton objVehicleSingleton = FindVehiclelistSingleton.getInstance();
-
+    final long ONE_MINUTE_IN_MILLIS = 60000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,8 +88,8 @@ public class FindVehicleController extends Activity {
                     findVehicle.setArrivalAddressCountryNameText(((EditText) findViewById(R.id.arrivalAddressCountryNameText)).getText().toString());
                     findVehicle.setArrivalAddressPostalCodeText(((EditText) findViewById(R.id.arrivalAddressPostalCodeText)).getText().toString());
                     findVehicle.findDistanceAndDuration(geoCoder);
-                    ((TextView) findViewById(R.id.travellingDistance)).setText("Travelling Distance  " + Double.toString(findVehicle.getDistnaceInMeters()));
-                    ((TextView) findViewById(R.id.travellingTime)).setText("Travelling Time  " + Double.toString(findVehicle.getTimeInMinutes()));
+                    ((TextView) findViewById(R.id.travellingDistance)).setText("Travelling Distance  " + Double.toString(findVehicle.getDistnaceInMeters()/1000) +" Km");
+                    ((TextView) findViewById(R.id.travellingTime)).setText("Travelling Time  " + Double.toString(findVehicle.getTimeInMinutes()/60) + " Hours");
                     if (findVehicle.getDistnaceInMeters() <= 0 || findVehicle.getTimeInMinutes() <= 0) {
                         ((Button) findViewById(R.id.findVehicleProceedButton)).setVisibility(View.INVISIBLE);
                         ((TextView) findViewById(R.id.wrongAddressMessage)).setVisibility(View.VISIBLE);
@@ -105,7 +107,7 @@ public class FindVehicleController extends Activity {
 
         calendar = Calendar.getInstance();
         switch (v.getId()) {
-            case R.id.getToDateButton: {
+            /*case R.id.getToDateButton: {
                 new DatePickerDialog(this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
@@ -125,7 +127,6 @@ public class FindVehicleController extends Activity {
                                                 Calendar C = new GregorianCalendar();
                                                 C.set(year1, month1, day1, hour, min, 0);
                                                 findVehicle.setArrivalDate(C);
-                                                String a = findVehicle.getArrivalDate().getTime().toString();
                                             }
                                         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
                                         android.text.format.DateFormat.is24HourFormat(FindVehicleController.this)).show();
@@ -134,7 +135,7 @@ public class FindVehicleController extends Activity {
                         calendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             }
-            case R.id.getFromDateButton: {
+            */case R.id.getFromDateButton: {
 
                 new DatePickerDialog(this,
                         new DatePickerDialog.OnDateSetListener() {
@@ -151,14 +152,37 @@ public class FindVehicleController extends Activity {
                                             public void onTimeSet(TimePicker view,
                                                                   int hour, int min) {
                                                 EnddateString += " " + hour + ":" + min;
+                                                hour1 = hour;
+                                                min1 = min;
                                                 ((TextView) findViewById(R.id.getFromDate)).setText(EnddateString);    // Text View
                                                 Calendar C = new GregorianCalendar();
                                                 C.set(year1, month1, day1, hour, min, 0);
                                                 findVehicle.setDepartureDate(C);
-                                                String a = findVehicle.getDepartureDate().getTime().toString();
+
+                                                String pp = C.getTime().toString();
+
+                                                //set to date time
+                                                double time = findVehicle.getTimeInMinutes();
+
+                                                Calendar C1 = new GregorianCalendar();
+                                                C1.set(year1, month1, day1, hour, min, 0);
+                                               C1.add(Calendar.MINUTE,(int)time);
+
+                                                ((TextView) findViewById(R.id.getToDate)).setText(C1.getTime().toString());
+                                                findVehicle.setArrivalDate(C1);
+
+                                                String pp1 = C1.getTime().toString();
+
+
+
                                             }
                                         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
                                         android.text.format.DateFormat.is24HourFormat(FindVehicleController.this)).show();
+
+
+
+
+
 
                             }
                         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
