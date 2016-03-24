@@ -17,15 +17,19 @@ public class MainController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.termsandconditions);
 
-        //initialize parse
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this);
-        ParseUser.enableRevocableSessionInBackground();
-        ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
-        defaultACL.setPublicReadAccess(true);
-        defaultACL.setPublicWriteAccess(true);
-        ParseACL.setDefaultACL(defaultACL, true);
+        if(savedInstanceState== null){
+            //initialize parse
+            Parse.enableLocalDatastore(this);
+            Parse.initialize(this);
+            ParseUser.enableRevocableSessionInBackground();
+            ParseUser.enableAutomaticUser();
+            ParseACL defaultACL = new ParseACL();
+            defaultACL.setPublicReadAccess(true);
+            defaultACL.setPublicWriteAccess(true);
+            ParseACL.setDefaultACL(defaultACL, true);
+        }
+
+
     }
 
 

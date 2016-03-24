@@ -186,10 +186,24 @@ public class FindVehicleList extends Activity {
                                 findDistanceAndDuration(address,
                                 objVehicleSingleton.departureAddressPostalCodeText, 1);
 
+
+
                         email = vehicleWithRangeListArray.get(i).email;
                         long time = objVehicleSingleton.departureDate.getTime().getTime();
                         time -= timeBetweenSouceAddressAndDatabaseAddressMinutes * ONE_MINUTE_IN_MILLIS;
                         objVehicleSingleton.departureDate.setTimeInMillis(time);
+
+
+                        double timeBetweenDestinationAddressAndDatabaseAddressMinutes =
+                                findDistanceAndDuration(address,
+                                        objVehicleSingleton.arrivalAddressDepartureCode, 1);
+
+
+                         time = objVehicleSingleton.arrivalDate.getTime().getTime();
+                        time += timeBetweenDestinationAddressAndDatabaseAddressMinutes * ONE_MINUTE_IN_MILLIS;
+                        objVehicleSingleton.arrivalDate.setTimeInMillis(time);
+
+
                         break;
                     }
                 }
@@ -205,7 +219,7 @@ public class FindVehicleList extends Activity {
 
                 }
                 builder.setTitle("Confirm");
-                builder.setMessage("Total Cost = " + Double.toString(objVehicleSingleton.distance * pricePerKm) + " $-- " + "Are you ok?");
+                builder.setMessage("Total Cost = " + String.format("%1.2f",(objVehicleSingleton.distance/1000 * pricePerKm)) + " $ " + "Are you ok?");
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 

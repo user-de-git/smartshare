@@ -88,8 +88,8 @@ public class FindVehicleController extends Activity {
                     findVehicle.setArrivalAddressCountryNameText(((EditText) findViewById(R.id.arrivalAddressCountryNameText)).getText().toString());
                     findVehicle.setArrivalAddressPostalCodeText(((EditText) findViewById(R.id.arrivalAddressPostalCodeText)).getText().toString());
                     findVehicle.findDistanceAndDuration(geoCoder);
-                    ((TextView) findViewById(R.id.travellingDistance)).setText("Travelling Distance  " + Double.toString(findVehicle.getDistnaceInMeters()/1000) +" Km");
-                    ((TextView) findViewById(R.id.travellingTime)).setText("Travelling Time  " + Double.toString(findVehicle.getTimeInMinutes()/60) + " Hours");
+                    ((TextView) findViewById(R.id.travellingDistance)).setText("Travelling Distance  " + String.format("%1.2f",(findVehicle.getDistnaceInMeters()/1000)) +" Km");
+                    ((TextView) findViewById(R.id.travellingTime)).setText("Travelling Time  " + String.format("%1.2f",(findVehicle.getTimeInMinutes()/60)) + " Hours");
                     if (findVehicle.getDistnaceInMeters() <= 0 || findVehicle.getTimeInMinutes() <= 0) {
                         ((Button) findViewById(R.id.findVehicleProceedButton)).setVisibility(View.INVISIBLE);
                         ((TextView) findViewById(R.id.wrongAddressMessage)).setVisibility(View.VISIBLE);
@@ -203,11 +203,11 @@ public class FindVehicleController extends Activity {
 
         objVehicleSingleton.arrivalDate = findVehicle.getArrivalDate();
         objVehicleSingleton.departureDate = findVehicle.getDepartureDate();
-        objVehicleSingleton.departureAddressPostalCodeText = findVehicle.getDepartureAddressCityNameText() +
-                findVehicle.getDepartureAddressCountryNameText() +
+        objVehicleSingleton.departureAddressPostalCodeText = findVehicle.getDepartureAddressCityNameText() +","+
+                findVehicle.getDepartureAddressCountryNameText() +","+
                 findVehicle.getDepartureAddressPostalCodeText();
-        objVehicleSingleton.arrivalAddressDepartureCode = findVehicle.getArrivalAddressCountryNameText() +
-                findVehicle.getArrivalAddressCityNameText() +
+        objVehicleSingleton.arrivalAddressDepartureCode = findVehicle.getArrivalAddressCountryNameText() +","+
+                findVehicle.getArrivalAddressCityNameText() +","+
                 findVehicle.getArrivalAddressPostalCodeText();
 
         //Move To Next Screen
