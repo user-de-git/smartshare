@@ -11,14 +11,16 @@ import com.parse.ParseUser;
 
 public class MainController extends AppCompatActivity {
 
+    static int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.termsandconditions);
 
-        if(savedInstanceState== null){
+        if(savedInstanceState== null && count == 0){
             //initialize parse
+            count++;
             Parse.enableLocalDatastore(this);
             Parse.initialize(this);
             ParseUser.enableRevocableSessionInBackground();
