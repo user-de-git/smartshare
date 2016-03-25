@@ -22,6 +22,7 @@ import com.mss.group3.smartshare.model.RentDataStore;
 import com.mss.group3.smartshare.model.UserSingleton;
 import com.mss.group3.smartshare.model.VehicleAdaptor;
 import com.mss.group3.smartshare.model.VehicleDataStore;
+import com.mss.group3.smartshare.utility.LocationServices;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -278,6 +279,39 @@ public class MyAccountController extends Activity {
         });
     }
 
+    //refresh current location
+    public void getCurrentLocationButtonClick(View v) {
+        String currentAddress = null;
+        getLocation(currentAddress);
+    }
+
+    //get current location
+    private void getLocation(String address) {
+        LocationServices mLocationServices = new LocationServices(this);
+        mLocationServices.getLocation();
+        if (mLocationServices.isLocationAvailable == false) {
+            //try again
+            Toast.makeText(getApplicationContext(), "Your location is not available, " +
+                    "Enter address manually or Press refresh after enabling location.", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            // Getting location co-ordinates
+            double latitude = mLocationServices.getLatitude();
+            double longitude = mLocationServices.getLongitude();
+            address = mLocationServices.getLocationAddress();
+            try {
+                ((EditText) findViewById(R.id.addressLineOneText)).setText(mLocationServices.getLineOneAddress());
+                ((EditText) findViewById(R.id.cityNameText)).setText(mLocationServices.getLocationCity());
+                ((EditText) findViewById(R.id.countryNameText)).setText(mLocationServices.getLocationCountry());
+                ((EditText) findViewById(R.id.postalCodeText)).setText(mLocationServices.getPostalCode());
+
+            } catch (Exception e) {
+
+            }
+        }
+        //close the gps
+        mLocationServices.closeGPS();
+    }
 
 
 

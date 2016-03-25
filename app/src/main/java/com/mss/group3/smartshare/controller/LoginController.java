@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.common.SaveSharedPreference;
 import com.mss.group3.smartshare.model.Login;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -27,8 +28,19 @@ public class LoginController extends Activity {
         //the first screen to be initialized is login
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        ((EditText) findViewById(R.id.userName)).setText("sandy@gmail.com");
-        ((EditText) findViewById(R.id.userPassword)).setText("sandy");
+
+        if(SaveSharedPreference.getUserName(LoginController.this).length() != 0)
+        {
+
+            ((EditText) findViewById(R.id.userName)).setText(SaveSharedPreference.getUserName(LoginController.this));
+            ((EditText) findViewById(R.id.userPassword)).setText(SaveSharedPreference.getPassword(LoginController.this));
+
+            //login screen initialization
+            Intent myIntent = new Intent(LoginController.this, UserTypeController.class);
+            startActivity(myIntent);
+        }
+
+
         //initialize login
         login = new Login();
     }
@@ -42,6 +54,8 @@ public class LoginController extends Activity {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     //login screen initialization
+                    SaveSharedPreference.setUserName(LoginController.this, login.getUserName());
+                    SaveSharedPreference.setPassword(LoginController.this, login.getUserPassword());
                     Toast.makeText(getApplicationContext(), "User found in DB", Toast.LENGTH_SHORT).show();
                     Intent myIntent = new Intent(LoginController.this, UserTypeController.class);
 

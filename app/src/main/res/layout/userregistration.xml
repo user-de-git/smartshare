@@ -177,7 +177,6 @@
                     android:onClick="refreshLocation"
                     android:padding="4dp"
                     android:text="(Auto Detect)"
-                    android:textAlignment="textEnd"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#ffffff"
                     android:textSize="10dp"

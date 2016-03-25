@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.mss.group3.smartshare.*;
+import com.mss.group3.smartshare.common.SaveSharedPreference;
 
 public class UserTypeController extends Activity {
 
@@ -37,6 +38,17 @@ public class UserTypeController extends Activity {
         Intent entervehiclelayout = new Intent(UserTypeController.this, MyAccountController.class);
 
         startActivity(entervehiclelayout);
+    }
+
+    public void logOut(View view) {
+
+        SaveSharedPreference.setUserName(UserTypeController.this, "");
+        SaveSharedPreference.setPassword(UserTypeController.this, "");
+
+        Intent ownerlayout = new Intent(UserTypeController.this, LoginController.class);
+
+        startActivity(ownerlayout);
+
     }
 
 }

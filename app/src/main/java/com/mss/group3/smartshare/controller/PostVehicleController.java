@@ -15,11 +15,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
 import com.mss.group3.smartshare.model.Login;
 import com.mss.group3.smartshare.model.PostVehicle;
 import com.mss.group3.smartshare.model.UserSingleton;
+import com.mss.group3.smartshare.utility.LocationServices;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
@@ -216,4 +218,40 @@ public class PostVehicleController extends Activity{
         testObject.saveInBackground();
 
     }
+
+    //refresh current location
+    public void getCurrentLocationButtonClick(View v) {
+        String currentAddress = null;
+        getLocation(currentAddress);
+    }
+
+    //get current location
+    private void getLocation(String address) {
+        LocationServices mLocationServices = new LocationServices(this);
+        mLocationServices.getLocation();
+        if (mLocationServices.isLocationAvailable == false) {
+            //try again
+            Toast.makeText(getApplicationContext(), "Your location is not available, " +
+                    "Enter address manually or Press refresh after enabling location.", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            // Getting location co-ordinates
+            double latitude = mLocationServices.getLatitude();
+            double longitude = mLocationServices.getLongitude();
+            address = mLocationServices.getLocationAddress();
+            try {
+                ((EditText) findViewById(R.id.et_address)).setText(mLocationServices.getLineOneAddress());
+                ((EditText) findViewById(R.id.et_city)).setText(mLocationServices.getLocationCity());
+                ((EditText) findViewById(R.id.et_province)).setText(mLocationServices.getLocationCountry());
+                ((EditText) findViewById(R.id.et_postalCode)).setText(mLocationServices.getPostalCode());
+
+            } catch (Exception e) {
+
+            }
+        }
+        //close the gps
+        mLocationServices.closeGPS();
+    }
+
+
 }
