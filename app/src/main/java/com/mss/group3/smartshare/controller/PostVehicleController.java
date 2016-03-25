@@ -3,6 +3,7 @@ package com.mss.group3.smartshare.controller;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.mss.group3.smartshare.R;
 import com.mss.group3.smartshare.model.Login;
 import com.mss.group3.smartshare.model.PostVehicle;
 import com.mss.group3.smartshare.model.UserSingleton;
+import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
@@ -30,7 +32,7 @@ import java.util.Locale;
 
 public class PostVehicleController extends Activity{
 
-    ParseObject testObject;
+
     Spinner spinner_vehicletype;
     ArrayAdapter<CharSequence> adaptor_vehicletype;
     Spinner spinner_vehiclecapacity;
@@ -71,7 +73,13 @@ public class PostVehicleController extends Activity{
         button.setText("Add Vehicle");
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                addVehicle(v);
+
+                    try {
+                        addVehicle(v);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
             }
         });
 
@@ -155,10 +163,10 @@ public class PostVehicleController extends Activity{
         }
     }
 
-    public void addVehicle(View view) {
+    public void addVehicle(View view) throws InterruptedException, ParseException {
         UserSingleton userSingleton = UserSingleton.getInstance();
 
-        pv.setVin( ((EditText) findViewById(R.id.et_vinnumber)).getText().toString());
+        pv.setVin(((EditText) findViewById(R.id.et_vinnumber)).getText().toString());
         pv.setPlate_number(((EditText) findViewById(R.id.et_platenumber)).getText().toString());
         pv.setPrice_km(Double.parseDouble(((EditText) findViewById(R.id.et_pricekm)).getText().toString()));
         pv.setStartDateTime(((EditText) findViewById(R.id.get_StartDateTime)).getText().toString());
@@ -170,8 +178,7 @@ public class PostVehicleController extends Activity{
         pv.setPostal_code(((EditText) findViewById(R.id.et_postalCode)).getText().toString());
         pv.setProvince(((EditText) findViewById(R.id.et_province)).getText().toString());
         pv.setVehicle_share_range(Integer.parseInt(((EditText) findViewById(R.id.et_vehiclerange)).getText().toString()));
-
-        testObject = new ParseObject("VehicleTable");
+        ParseObject testObject = new ParseObject("VehicleTable");
         testObject.put("VIN", pv.getVin());
         testObject.put("Plate_number",pv.getPlate_number());
         testObject.put("Price_km", pv.getPrice_km());
@@ -200,20 +207,19 @@ public class PostVehicleController extends Activity{
         }
         double la1 = 0, ln1 = 0;
         if (addresses.size() > 0) {
-
             la1 = addresses.get(0).getLatitude();
             ln1 = addresses.get(0).getLongitude();
-
         }
-
-
-
-
 
         ParseGeoPoint point = new ParseGeoPoint(la1, ln1);
         testObject.put("geopoint", point);
         
-        testObject.saveInBackground();
+        testObject.save();
+
+        //Thread.sleep(1500);
+
+        Intent myIntent = new Intent(PostVehicleController.this, OwnerController.class);
+        startActivity(myIntent);
 
     }
 }

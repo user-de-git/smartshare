@@ -3,6 +3,7 @@ package com.mss.group3.smartshare.controller;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -231,7 +232,14 @@ public class UpdateVehicleController extends Activity{
                     tObject.put("FromDate",pv.getStartDateTime());
                     tObject.put("ToDate", pv.getEndDateTime());
                     tObject.put("Owner_email", userSingleton.emailAddress);
-                    tObject.saveInBackground();
+                    try {
+                        tObject.save();
+                    } catch (ParseException e1) {
+                        e1.printStackTrace();
+                    }
+
+                    Intent myIntent = new Intent(UpdateVehicleController.this, OwnerController.class);
+                    startActivity(myIntent);
                 }
             }
         });
@@ -242,14 +250,18 @@ public class UpdateVehicleController extends Activity{
 
         final ParseQuery<ParseObject> testObject = ParseQuery.getQuery("VehicleTable");
 
-
         testObject.getInBackground(Vehicle_Id, new GetCallback<ParseObject>() {
             public void done(ParseObject tObject, ParseException e) {
                 if (e == null) {
-                    tObject.deleteInBackground();
+                    try {
+                        tObject.delete();
+                    } catch (ParseException e1) {
+                        e1.printStackTrace();
+                    }
+                    Intent myIntent = new Intent(UpdateVehicleController.this, OwnerController.class);
+                    startActivity(myIntent);
                 }
             }
         });
-
     }
 }
