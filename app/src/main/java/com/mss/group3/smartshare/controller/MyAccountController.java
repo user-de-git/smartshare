@@ -164,7 +164,7 @@ public class MyAccountController extends Activity {
         mProductList_rents = new ArrayList<>();
 
         //UserSingleton userSingleton = UserSingleton.getInstance();
-        query_rents.whereEqualTo("RenterEmail", "inderpal58@gmail.com");
+        query_rents.whereEqualTo("RenterEmail", userSingleton.emailAddress);
         query_rents.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
