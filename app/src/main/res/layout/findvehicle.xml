@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -34,7 +34,12 @@
             android:layout_height="wrap_content"
             android:text="  Departure Address"
             android:layout_toRightOf="@id/getCurrentLocationButton"
-            />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColorHighlight="#bb2121"
+            android:textSize="@dimen/design_snackbar_padding_vertical_2lines"
+            android:layout_above="@+id/departureAddressLineOneText"
+            android:theme="@style/Base.AlertDialog.AppCompat" />
 
         <EditText
             android:id="@+id/departureAddressLineOneText"
@@ -85,7 +90,11 @@
             android:id="@+id/arrivalAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="  Arrival Address" />
+            android:text="  Arrival Address"
+            android:textColorLink="#e52b2b"
+            android:textSize="@dimen/abc_dialog_padding_material"
+            android:theme="@style/Base.AlertDialog.AppCompat"
+            />
 
         <EditText
             android:id="@+id/arrivalAddressLineOneText"
@@ -160,7 +169,7 @@
     <RelativeLayout
         android:id="@+id/capacitySelection"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="29dp"
         android:orientation="horizontal"
         android:layout_below="@id/displayTimeDistanceRelativeLayout">
 
@@ -168,7 +177,8 @@
             android:id="@+id/filtervehiclecapacity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/spinner_back" />
+            android:background="@drawable/spinner_back"
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 
@@ -185,14 +195,17 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp" >
+            android:layout_marginBottom="5dp"
+            android:weightSum="1">
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="29dp"
                 android:background="@drawable/tv_back"
                 android:hint="from date"
-                android:id="@+id/getFromDate" />
+                android:id="@+id/getFromDate"
+                android:layout_weight="0.89"
+                android:layout_marginTop="10dp" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -200,7 +213,9 @@
                 android:layout_height="30dp"
                 android:onClick="setDateTime"
                 android:background="@drawable/cal"
-                android:id="@+id/getFromDateButton" />
+                android:id="@+id/getFromDateButton"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp" />
 
         </LinearLayout>
 
@@ -213,19 +228,11 @@
             android:layout_marginBottom="5dp"  >
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="29dp"
                 android:hint="end date"
                 android:background="@drawable/tv_back"
                 android:id="@+id/getToDate" />
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:onClick="setDateTime"
-                android:background="@drawable/cal"
-                android:id="@+id/getToDateButton" />
 
         </LinearLayout>
 

@@ -11,21 +11,27 @@ import com.parse.ParseUser;
 
 public class MainController extends AppCompatActivity {
 
+    static int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.termsandconditions);
 
-        //initialize parse
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this);
-        ParseUser.enableRevocableSessionInBackground();
-        ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
-        defaultACL.setPublicReadAccess(true);
-        defaultACL.setPublicWriteAccess(true);
-        ParseACL.setDefaultACL(defaultACL, true);
+        if(savedInstanceState== null && count == 0){
+            //initialize parse
+            count++;
+            Parse.enableLocalDatastore(this);
+            Parse.initialize(this);
+            ParseUser.enableRevocableSessionInBackground();
+            ParseUser.enableAutomaticUser();
+            ParseACL defaultACL = new ParseACL();
+            defaultACL.setPublicReadAccess(true);
+            defaultACL.setPublicWriteAccess(true);
+            ParseACL.setDefaultACL(defaultACL, true);
+        }
+
+
     }
 
 
