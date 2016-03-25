@@ -10,7 +10,7 @@ import java.util.Date;
 public class VehicleWithRangeList {
 
     public String  id;
-    public Integer plateNumber;
+    public String  plateNumber;
     public String  vehicle_type;
     public Integer capacity;
     public Integer kmRange;
@@ -25,7 +25,7 @@ public class VehicleWithRangeList {
 
 
 
-    public VehicleWithRangeList(String id,Integer plateNumber, String vehicle_type,
+    public VehicleWithRangeList(String id,String plateNumber, String vehicle_type,
                                 Integer capacity, Integer kmRange, String postalCode,
                                 Date fromDate, Date toDate, Integer pricePerKm,
                                 String email,ParseGeoPoint point) {

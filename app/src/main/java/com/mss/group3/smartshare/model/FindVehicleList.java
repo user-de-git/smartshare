@@ -169,7 +169,7 @@ public class FindVehicleList extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 parseObject = new ParseObject("RegisteredVehicles");
 
-                int number = Integer.decode(((TextView) view.findViewById(R.id.plateNumber)).getText().toString());
+                String number = ((TextView) view.findViewById(R.id.plateNumber)).getText().toString();
                 UserSingleton userName = UserSingleton.getInstance();
                 String address;
 
@@ -215,6 +215,7 @@ public class FindVehicleList extends Activity {
                     parseObject.put("StartDate", objVehicleSingleton.departureDate.getTime());
                     parseObject.put("EndDate", objVehicleSingleton.arrivalDate.getTime());
                     parseObject.put("RenterEmail", userName.emailAddress);
+                    parseObject.put("isViewed", false);
                 } catch (Exception e) {
 
                 }
@@ -364,7 +365,7 @@ public class FindVehicleList extends Activity {
                             int ran = p.getInt("vehicle_range");
                             distance = distance + distance * .5;
                             if (getGeo.distanceInKilometersTo(getCurrentGeoPoint) < p.getInt("vehicle_range")) {
-                                vehicleWithRangeListArray.add(new VehicleWithRangeList(p.getObjectId(), p.getInt("Plate_number"), p.getString("Vehicle_type"),
+                                vehicleWithRangeListArray.add(new VehicleWithRangeList(p.getObjectId(), p.getString("Plate_number"), p.getString("Vehicle_type"),
                                         p.getInt("Capacity"), p.getInt("vehicle_range"), p.getString("Address") +" "+ p.getString("PostalCode"),
                                         p.getDate("FromDate"), p.getDate("ToDate"), p.getInt("Price_km"), p.getString("Owner_email"), getGeo));
                                 plateNumber.add(p.getInt("Plate_number"));
@@ -382,7 +383,7 @@ public class FindVehicleList extends Activity {
                                                                            if (e == null) {
                                                                                for (ParseObject p : list) {
                                                                                    bookedVehicles.add(new VehicleWithRangeList(p.getObjectId(),
-                                                                                           p.getInt("PlateNumber"), "",
+                                                                                           p.getString("PlateNumber"), "",
                                                                                            0, 0,
                                                                                            "NR",
                                                                                            p.getDate("StartDate"), p.getDate("EndDate"), 0, "", null));
