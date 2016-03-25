@@ -3,6 +3,7 @@ package com.mss.group3.smartshare.controller;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.TabActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,6 +44,7 @@ public class MyAccountController extends Activity {
     private List<RentDataStore> mProductList_rents;
     ParseQuery<ParseObject> query_shares = new ParseQuery<ParseObject>("VehicleTable");
     ParseQuery<ParseObject> query_rents  = new ParseQuery<ParseObject>("RegisteredVehicles");
+    static TabHost host;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -52,7 +54,7 @@ public class MyAccountController extends Activity {
         lvProduct_shares = (ListView)findViewById(R.id.listView_shares);
         mProductList_shares = new ArrayList<>();
 
-        TabHost host = (TabHost)findViewById(R.id.tabHost);
+        host = (TabHost)findViewById(R.id.tabHost);
         host.setup();
 
         //Tab 1
@@ -72,6 +74,11 @@ public class MyAccountController extends Activity {
         spec.setContent(R.id.tab3);
         spec.setIndicator("Rents");
         host.addTab(spec);
+
+        int callingActivity = getIntent().getIntExtra("calling-activity", 0);
+        if(callingActivity == 1001)
+        host.setCurrentTabByTag("Rents");
+
 
         cUser = ParseUser.getCurrentUser();
         if (cUser != null) {
@@ -270,6 +277,8 @@ public class MyAccountController extends Activity {
             }
         });
     }
+
+
 
 
 }

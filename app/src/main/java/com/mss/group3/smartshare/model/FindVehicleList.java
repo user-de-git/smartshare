@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.controller.MyAccountController;
 import com.mss.group3.smartshare.controller.UserTypeController;
 import com.mss.group3.smartshare.utility.DistanceAndTimeApiCall;
 import com.parse.FindCallback;
@@ -233,8 +234,10 @@ public class FindVehicleList extends Activity {
                         dialog.dismiss();
 
                         //Move to home page
-                        Intent myIntent = new Intent(FindVehicleList.this, UserTypeController.class);
+                        Intent myIntent = new Intent(FindVehicleList.this, MyAccountController.class);
+                        myIntent.putExtra("calling-activity", 1001);
                         startActivity(myIntent);
+
                     }
 
                 });
@@ -357,7 +360,7 @@ public class FindVehicleList extends Activity {
                 @Override
                 public void done(List<ParseObject> list, com.parse.ParseException e) {
                     if (e == null) {
-                        List<Integer> plateNumber = new ArrayList<Integer>();
+                        List<String> plateNumber = new ArrayList<String>();
                         for (ParseObject p : list) {
 
                             ParseGeoPoint getGeo = p.getParseGeoPoint("geopoint");
@@ -368,7 +371,7 @@ public class FindVehicleList extends Activity {
                                 vehicleWithRangeListArray.add(new VehicleWithRangeList(p.getObjectId(), p.getString("Plate_number"), p.getString("Vehicle_type"),
                                         p.getInt("Capacity"), p.getInt("vehicle_range"), p.getString("Address") +" "+ p.getString("PostalCode"),
                                         p.getDate("FromDate"), p.getDate("ToDate"), p.getInt("Price_km"), p.getString("Owner_email"), getGeo));
-                                plateNumber.add(p.getInt("Plate_number"));
+                                plateNumber.add(p.getString("Plate_number"));
                             }
                         }
                         //filter vehicle from already registered vehivle
