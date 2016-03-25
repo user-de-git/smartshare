@@ -39,12 +39,14 @@ public class OwnerController extends Activity {
         final List<VehicleDataStore> Olist = new ArrayList<VehicleDataStore>();
         mProductList = new ArrayList<>();
 
-        getData();
+        if(counter==0)
+         getData();
 
 
     }
 
     public void getData() {
+        query = new ParseQuery<ParseObject>("VehicleTable");
         mProductList.clear();
         UserSingleton userSingleton = UserSingleton.getInstance();
         query.whereEqualTo("Owner_email", userSingleton.emailAddress);
@@ -52,7 +54,13 @@ public class OwnerController extends Activity {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 for (ParseObject p : list) {
-                    mProductList.add(new VehicleDataStore(p.getObjectId(), p.getString("Vehicle_type"), p.getInt("Capacity"), p.getDate("FromDate"),p.getDate("ToDate"),p.getDouble("Price_km") ));
+                    mProductList.add(new VehicleDataStore(
+                            p.getObjectId(),
+                            p.getString("Vehicle_type"),
+                            p.getInt("Capacity"),
+                            p.getDate("FromDate"),
+                            p.getDate("ToDate"),
+                            p.getDouble("Price_km") ));
                 }
 
                 adapter = new VehicleAdaptor(getApplicationContext(), mProductList,1);
@@ -70,6 +78,7 @@ public class OwnerController extends Activity {
                         //Toast.makeText(getApplicationContext(), "Clicked product id =" + view.getTag(), Toast.LENGTH_SHORT).show();
                     }
                 });
+                query = null;
 
             }
         });
