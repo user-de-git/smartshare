@@ -6,7 +6,7 @@
     android:background="#FFFFFF"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".controller.UserRegistrationController">
+    tools:context=".controller.PostVehicleController">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                 android:layout_weight="1"
                 android:background="#fcfcfc"
                 android:hint="VIN #"
-                android:inputType="number"
+                android:inputType="text"
                 android:padding="5dp" />
 
         </TableRow>
@@ -115,7 +115,7 @@
                 android:layout_weight="1"
                 android:background="#fcfcfc"
                 android:hint="Plate #"
-                android:inputType="number"
+                android:inputType="text"
                 android:padding="5dp" />
 
         </TableRow>
@@ -132,13 +132,16 @@
 
         <TableRow android:layout_marginBottom="8dp">
 
-            <Spinner
-                android:id="@+id/spinner_vehiclerange"
+            <EditText
+                android:id="@+id/et_vehiclerange"
                 android:layout_width="0dip"
-                android:layout_height="35dp"
-                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/spinner_back" />
+                android:layout_marginRight="10dp"
+                android:background="#fcfcfc"
+                android:hint="Share Range"
+                android:inputType="number"
+                android:padding="5dp" />
 
             <EditText
                 android:id="@+id/et_pricekm"
@@ -272,7 +275,7 @@
             android:layout_height="wrap_content"
             android:background="#FFDE45"
             android:padding="4dp"
-            android:text="Time and Date"
+            android:text="Location"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 

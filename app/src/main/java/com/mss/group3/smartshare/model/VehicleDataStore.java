@@ -7,13 +7,33 @@ public class VehicleDataStore {
     private String  id;
     private String  vehicle_type;
     private Integer capacity;
-    private Date date;
+    private Date dateFrom;
+    private Date dateTo;
+    private Double price;
 
-    public VehicleDataStore(String id, String vehicle_type, Integer capacity, Date date) {
+    public VehicleDataStore(String id, String vehicle_type, Integer capacity, Date dateFrom,Date dateTo,Double price) {
         this.id = id;
         this.vehicle_type = vehicle_type;
         this.capacity = capacity;
-        this.date = date;
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+        this.price = price;
+    }
+
+    public Date getDateTo() {
+        return dateTo;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
     }
 
     public String getId() {
@@ -40,11 +60,11 @@ public class VehicleDataStore {
         this.capacity = capacity;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateFrom() {
+        return dateFrom;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateFrom(Date date) {
+        this.dateFrom = date;
     }
 }

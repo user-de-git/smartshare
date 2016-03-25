@@ -27,6 +27,8 @@ public class LoginController extends Activity {
         //the first screen to be initialized is login
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        ((EditText) findViewById(R.id.userName)).setText("sandy@gmail.com");
+        ((EditText) findViewById(R.id.userPassword)).setText("sandy");
         //initialize login
         login = new Login();
     }

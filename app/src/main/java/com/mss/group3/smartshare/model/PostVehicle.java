@@ -16,8 +16,8 @@ import java.util.Date;
 
 
 public class PostVehicle extends User implements ILocation, ISchedule, IVehicle {
-    Integer vin;
-    Integer plate_number;
+    String vin;
+    String plate_number;
     Double  price_km;
     Date StartDateTime;
     Date EndDateTime;
@@ -87,11 +87,11 @@ public class PostVehicle extends User implements ILocation, ISchedule, IVehicle 
     int vehicle_capacity;
     int vehicle_share_range;
 
-    public Integer getVin() {
+    public String getVin() {
         return vin;
     }
 
-    public Integer getPlate_number() {
+    public String getPlate_number() {
         return plate_number;
     }
 
@@ -125,11 +125,11 @@ public class PostVehicle extends User implements ILocation, ISchedule, IVehicle 
         this.vehicle_share_range = vehicle_share_range;
     }
 
-    public void setVin(Integer vin) {
+    public void setVin(String vin) {
         this.vin = vin;
     }
 
-    public void setPlate_number(Integer plate_number) {
+    public void setPlate_number(String plate_number) {
         this.plate_number = plate_number;
     }
 

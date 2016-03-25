@@ -24,6 +24,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,10 +68,14 @@ public class UpdateVehicleController extends Activity{
         query.getInBackground(Vehicle_Id, new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
-                    ((EditText) findViewById(R.id.et_vinnumber)).setText(String.valueOf(object.getInt("VIN")));
+                    ((EditText) findViewById(R.id.et_vinnumber)).setText(object.getString("VIN"));
 
-                    ((EditText) findViewById(R.id.et_platenumber)).setText(String.valueOf(object.getInt("Plate_number")));
-                    ((EditText) findViewById(R.id.et_pricekm)).setText(String.valueOf(object.getInt("Price_km")));
+                    ((EditText) findViewById(R.id.et_vehiclerange)).setText(String.valueOf(object.getInt("vehicle_range")));
+
+
+                    ((EditText) findViewById(R.id.et_platenumber)).setText(object.getString("Plate_number"));
+                    String dd = new DecimalFormat("0.##").format(object.getDouble("Price_km"));
+                    ((EditText) findViewById(R.id.et_pricekm)).setText(dd);
                     ((EditText) findViewById(R.id.get_StartDateTime)).setText(Utility(object.getDate("FromDate")).toString());
                     ((EditText) findViewById(R.id.get_EndDateTime)).setText(Utility(object.getDate("ToDate")).toString());
 
@@ -126,20 +131,7 @@ public class UpdateVehicleController extends Activity{
 
             }
         });
-        spinner_vehiclerange = (Spinner) findViewById(R.id.spinner_vehiclerange);
-        adaptor_vehiclerange = ArrayAdapter.createFromResource(this,R.array.vehicle_range,android.R.layout.simple_spinner_item);
-        adaptor_vehiclerange.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_vehiclerange.setAdapter(adaptor_vehiclerange);
-        spinner_vehiclerange.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                pv.setVehicle_share_range(Integer.parseInt(((String) parent.getItemAtPosition(pos))));
-                //vehicle_share_range = Integer.parseInt(((String) parent.getItemAtPosition(pos)));
-            }
 
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
 
     }
@@ -197,14 +189,13 @@ public class UpdateVehicleController extends Activity{
     public String Utility(Date _Date) {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
         return formatter.format(_Date);
-
     }
 
     public void UpdateVehicle(View view) {
         final UserSingleton userSingleton = UserSingleton.getInstance();
 
-        pv.setVin(Integer.parseInt(((EditText) findViewById(R.id.et_vinnumber)).getText().toString()));
-        pv.setPlate_number(Integer.parseInt(((EditText) findViewById(R.id.et_platenumber)).getText().toString()));
+        pv.setVin(((EditText) findViewById(R.id.et_vinnumber)).getText().toString());
+        pv.setPlate_number(((EditText) findViewById(R.id.et_platenumber)).getText().toString());
         pv.setPrice_km(Double.parseDouble(((EditText) findViewById(R.id.et_pricekm)).getText().toString()));
         pv.setStartDateTime(((EditText) findViewById(R.id.get_StartDateTime)).getText().toString());
         pv.setEndDateTime(((EditText) findViewById(R.id.get_EndDateTime)).getText().toString());
@@ -214,6 +205,8 @@ public class UpdateVehicleController extends Activity{
         pv.setCity(((EditText) findViewById(R.id.et_city)).getText().toString());
         pv.setPostal_code(((EditText) findViewById(R.id.et_postalCode)).getText().toString());
         pv.setProvince(((EditText) findViewById(R.id.et_province)).getText().toString());
+        pv.setVehicle_share_range(Integer.parseInt(((EditText) findViewById(R.id.et_vehiclerange)).getText().toString()));
+
 
         testObject = new ParseObject("VehicleTable");
 

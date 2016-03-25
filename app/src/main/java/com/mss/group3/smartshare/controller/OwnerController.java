@@ -17,7 +17,9 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OwnerController extends Activity {
@@ -50,10 +52,10 @@ public class OwnerController extends Activity {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 for (ParseObject p : list) {
-                    mProductList.add(new VehicleDataStore(p.getObjectId(), p.getString("Vehicle_type"), p.getInt("Capacity"), p.getDate("ToDate")  )  );
+                    mProductList.add(new VehicleDataStore(p.getObjectId(), p.getString("Vehicle_type"), p.getInt("Capacity"), p.getDate("FromDate"),p.getDate("ToDate"),p.getDouble("Price_km") ));
                 }
 
-                adapter = new VehicleAdaptor(getApplicationContext(), mProductList);
+                adapter = new VehicleAdaptor(getApplicationContext(), mProductList,1);
                 lvProduct.setAdapter(adapter);
 
                 lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,8 +64,8 @@ public class OwnerController extends Activity {
                         //Do something
                         //Ex: display msg with product id get from view.getTag
                         Intent myIntent = new Intent(OwnerController.this, UpdateVehicleController.class);
-                        String VID = (String)view.getTag();
-                        myIntent.putExtra(VEHICLE_ID,VID);
+                        String VID = (String) view.getTag();
+                        myIntent.putExtra(VEHICLE_ID, VID);
                         startActivity(myIntent);
                         //Toast.makeText(getApplicationContext(), "Clicked product id =" + view.getTag(), Toast.LENGTH_SHORT).show();
                     }

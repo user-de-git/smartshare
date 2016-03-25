@@ -32,4 +32,11 @@ public class UserTypeController extends Activity {
         startActivity(entervehiclelayout);
     }
 
+    public void manageAcountButtonClick(View view) {
+
+        Intent entervehiclelayout = new Intent(UserTypeController.this, MyAccountController.class);
+
+        startActivity(entervehiclelayout);
+    }
+
 }

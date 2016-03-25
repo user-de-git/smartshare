@@ -12,7 +12,6 @@
         <item>Family</item>
     </string-array>
     <string-array name="vehicle_capacity">
-        <item>0</item>
         <item>2</item>
         <item>4</item>
         <item>6</item>

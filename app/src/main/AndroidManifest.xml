@@ -54,10 +54,11 @@
         <activity android:name=".controller.LoginController"></activity>
         <activity android:name=".controller.FindVehicleController"></activity>
         <activity android:name=".model.FindVehicleList"></activity>
+        <activity android:name=".controller.MyAccountController"></activity>
         <activity android:name=".controller.UserTypeController"></activity>
         <activity android:name=".controller.PostVehicleController"></activity>
         <activity android:name=".controller.OwnerController"></activity>
-        <activity android:name=".controller.FindVehicleController"></activity>
+        <activity android:name=".controller.UpdateVehicleController"></activity>
         <activity android:name=".controller.UserRegistrationController"></activity>
 
         <meta-data

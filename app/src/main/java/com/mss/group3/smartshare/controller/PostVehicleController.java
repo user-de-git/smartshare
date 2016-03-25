@@ -3,6 +3,8 @@ package com.mss.group3.smartshare.controller;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,9 +20,13 @@ import com.mss.group3.smartshare.R;
 import com.mss.group3.smartshare.model.Login;
 import com.mss.group3.smartshare.model.PostVehicle;
 import com.mss.group3.smartshare.model.UserSingleton;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 public class PostVehicleController extends Activity{
 
@@ -152,8 +158,8 @@ public class PostVehicleController extends Activity{
     public void addVehicle(View view) {
         UserSingleton userSingleton = UserSingleton.getInstance();
 
-        pv.setVin(Integer.parseInt(((EditText) findViewById(R.id.et_vinnumber)).getText().toString()));
-        pv.setPlate_number(Integer.parseInt(((EditText) findViewById(R.id.et_platenumber)).getText().toString()));
+        pv.setVin( ((EditText) findViewById(R.id.et_vinnumber)).getText().toString());
+        pv.setPlate_number(((EditText) findViewById(R.id.et_platenumber)).getText().toString());
         pv.setPrice_km(Double.parseDouble(((EditText) findViewById(R.id.et_pricekm)).getText().toString()));
         pv.setStartDateTime(((EditText) findViewById(R.id.get_StartDateTime)).getText().toString());
         pv.setEndDateTime(((EditText) findViewById(R.id.get_EndDateTime)).getText().toString());
@@ -163,6 +169,7 @@ public class PostVehicleController extends Activity{
         pv.setCity(((EditText) findViewById(R.id.et_city)).getText().toString());
         pv.setPostal_code(((EditText) findViewById(R.id.et_postalCode)).getText().toString());
         pv.setProvince(((EditText) findViewById(R.id.et_province)).getText().toString());
+        pv.setVehicle_share_range(Integer.parseInt(((EditText) findViewById(R.id.et_vehiclerange)).getText().toString()));
 
         testObject = new ParseObject("VehicleTable");
         testObject.put("VIN", pv.getVin());
@@ -178,6 +185,7 @@ public class PostVehicleController extends Activity{
         testObject.put("PostalCode",pv.getCurrent_location()); // This is the combined address
         testObject.put("FromDate",pv.getStartDateTime());
         testObject.put("ToDate", pv.getEndDateTime());
+        testObject.put("isViewed", false);
         testObject.put("Owner_email", userSingleton.emailAddress);
         
         

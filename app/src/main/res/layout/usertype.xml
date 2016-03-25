@@ -13,28 +13,41 @@
 
     <Button
         android:id="@+id/t1"
-        android:layout_width="185dp"
-        android:layout_height="185dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:background="@drawable/circle"
         android:gravity="center"
         android:text="Share Vehicle"
         android:textColor="#FFFFFF"
-        android:textSize="25dp"
-        android:layout_marginBottom="30dp"
+        android:textSize="15dp"
+        android:layout_marginBottom="10dp"
         android:textStyle="bold|italic"
         android:onClick="postVehicle"/>
 
     <Button
         android:id="@+id/t2"
-        android:layout_width="185dp"
-        android:layout_height="185dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:background="@drawable/circle"
         android:gravity="center"
         android:text="Find Vehicle"
         android:textColor="#FFFFFF"
-        android:textSize="25dp"
+        android:textSize="15dp"
+        android:layout_marginBottom="10dp"
         android:textStyle="bold|italic"
         android:onClick="findVehicleButtonClick"/>
+
+    <Button
+        android:id="@+id/t3"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:background="@drawable/circle"
+        android:gravity="center"
+        android:text="Manage Acount"
+        android:textColor="#FFFFFF"
+        android:textSize="15dp"
+        android:textStyle="bold|italic"
+        android:onClick="manageAcountButtonClick"/>
 
 
 
