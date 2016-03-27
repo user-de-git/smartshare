@@ -1,249 +1,336 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".controller.FindVehicleController"
-    android:weightSum="1">
+    android:padding="20dp"
+    tools:context=".controller.FindVehicleController">
 
-    <RelativeLayout
-        android:id="@+id/departureAddressRelativeLayout"
-        android:layout_width="fill_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="13dp"
+        android:background="#000000"
+        android:orientation="vertical"
+        android:padding="7dp">
 
-        <Button
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/location"
-            android:onClick="getCurrentLocationButtonClick"
-            android:id="@+id/getCurrentLocationButton" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:src="@drawable/register" />
 
         <TextView
-            android:id="@+id/departureAddress"
-            android:layout_width="wrap_content"
+            android:id="@+id/registerText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="  Departure Address"
-            android:layout_toRightOf="@id/getCurrentLocationButton"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textColorHighlight="#bb2121"
-            android:textSize="@dimen/design_snackbar_padding_vertical_2lines"
-            android:layout_above="@+id/departureAddressLineOneText"
-            android:theme="@style/Base.AlertDialog.AppCompat" />
-
-        <EditText
-            android:id="@+id/departureAddressLineOneText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/getCurrentLocationButton"
-            android:hint="Address Line One"
-            android:inputType="textPersonName"
-          />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/departureAddressCityNameText"
-            android:layout_below="@id/departureAddressLineOneText"
-            android:hint="City"
-            android:inputType="textPersonName"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/departureAddressCountryNameText"
-            android:layout_below="@id/departureAddressCityNameText"
-            android:hint="Country"
-            android:inputType="textPersonName"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPostalAddress"
-            android:layout_below="@id/departureAddressCountryNameText"
-            android:hint="Postal Code"
-            android:id="@+id/departureAddressPostalCodeText"
-            />
-    </RelativeLayout >
+            android:text="Search Vehicle"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
 
 
+    </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/arrivalAddressRelativeLayout"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/departureAddressRelativeLayout">
+        android:orientation="vertical"
+        android:padding="3dp">
 
 
-        <TextView
-            android:id="@+id/arrivalAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="  Arrival Address"
-            android:textColorLink="#e52b2b"
-            android:textSize="@dimen/abc_dialog_padding_material"
-            android:theme="@style/Base.AlertDialog.AppCompat"
-            />
-
-        <EditText
-            android:id="@+id/arrivalAddressLineOneText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/arrivalAddress"
-            android:hint="Address Line One"
-            android:inputType="textPersonName"
-            />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/arrivalAddressCityNameText"
-            android:layout_below="@id/arrivalAddressLineOneText"
-            android:hint="City"
-            android:inputType="textPersonName"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/arrivalAddressCountryNameText"
-            android:layout_below="@id/arrivalAddressCityNameText"
-            android:hint="Country"
-            android:inputType="textPersonName"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPostalAddress"
-            android:layout_below="@id/arrivalAddressCountryNameText"
-            android:hint="Postal Code"
-            android:id="@+id/arrivalAddressPostalCodeText"
-            />
-
-    </RelativeLayout >
-
-
-    <RelativeLayout
-        android:id="@+id/displayTimeDistanceRelativeLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/arrivalAddressRelativeLayout"
-        android:layout_weight="0.67">
-
-
-        <TextView
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/travellingDistance"
-             />
+            android:layout_marginTop="5dp"
+            android:background="#FFDE45"
+            android:orientation="horizontal">
 
-        <TextView
+            <ImageView
+                android:id="@+id/img_right"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_right" />
+
+            <TextView
+                android:id="@+id/tv_dt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFDE45"
+                android:padding="4dp"
+                android:text="Departure"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/getCurrentLocationButton"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:clickable="true"
+                android:onClick="getCurrentLocationButtonClick"
+                android:padding="4dp"
+                android:text="(Auto Detect)"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+
+                android:textSize="10dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/travellingTime"
-            android:layout_centerVertical="true"
-            android:layout_below="@id/travellingDistance"
-            />
+            android:padding="10dp"
+            android:stretchColumns="1">
+
+            <TableRow android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/departureAddressLineOneText"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:hint="Address Line One"
+                    android:inputType="textPersonName"
+
+                    />
+
+                <EditText
+                    android:id="@+id/departureAddressCityNameText"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:hint="City"
+                    android:inputType="textPersonName" />
+
+            </TableRow>
+
+            <TableRow >
+
+                <EditText
+                    android:id="@+id/departureAddressCountryNameText"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+
+                    android:layout_weight="1"
+                    android:hint="Country"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/departureAddressPostalCodeText"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:hint="Postal Code"
+                    android:inputType="textPersonName" />
+            </TableRow>
+
+
+
+        </TableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="0dp"
+        android:paddingRight="3dp"
+        android:paddingTop="0dp"
+        android:paddingLeft="3dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="#FFDE45"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_right_2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_right" />
+
+            <TextView
+                android:id="@+id/tv_dt_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFDE45"
+                android:padding="4dp"
+                android:text="Arrival"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:stretchColumns="1">
+
+
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/arrivalAddressLineOneText"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Address Line One"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/arrivalAddressCityNameText"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="City"
+                    android:inputType="textPersonName" />
+
+            </TableRow>
+
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/arrivalAddressCountryNameText"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:hint="Country"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/arrivalAddressPostalCodeText"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Postal Code"
+                    android:inputType="textPersonName" />
+
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+        <TableRow>
+            <TextView
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:paddingLeft="3dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/travellingDistance"
+                />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/travellingTime"
+                android:layout_centerVertical="true"
+                />
+        </TableRow>
+    </TableLayout>
         <TextView
             android:id="@+id/wrongAddressMessage"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Please correct address and try again"
-            android:layout_below="@id/travellingTime"/>
+            />
 
-    </RelativeLayout >
 
-    <RelativeLayout
-        android:id="@+id/capacitySelection"
-        android:layout_width="fill_parent"
-        android:layout_height="29dp"
+
+    <LinearLayout
+        android:id="@+id/fromDateLayout"
         android:orientation="horizontal"
-        android:layout_below="@id/displayTimeDistanceRelativeLayout">
-
-        <Spinner
-            android:id="@+id/filtervehiclecapacity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/spinner_back"
-            android:layout_alignParentBottom="true" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/timeDataRelativeLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/displayTimeDistanceRelativeLayout">
+        android:layout_marginBottom="5dp"
+        android:weightSum="1">
 
-
-        <LinearLayout
-            android:id="@+id/fromDateLayout"
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:weightSum="1">
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="29dp"
-                android:background="@drawable/tv_back"
-                android:hint="from date"
-                android:id="@+id/getFromDate"
-                android:layout_weight="0.89"
-                android:layout_marginTop="10dp" />
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:onClick="setDateTime"
-                android:background="@drawable/cal"
-                android:id="@+id/getFromDateButton"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/toDateLayout"
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_below="@id/fromDateLayout"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"  >
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="29dp"
-                android:hint="end date"
-                android:background="@drawable/tv_back"
-                android:id="@+id/getToDate" />
-
-        </LinearLayout>
-
-        </RelativeLayout>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:background="@drawable/tv_back"
+            android:hint="From date"
+            android:id="@+id/getFromDate"
+            android:layout_weight="0.89"
+            android:layout_marginTop="10dp" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Find Vehicle"
-            android:id="@+id/findVehicleProceedButton"
-            android:onClick="processFindVehicleButtonClick" />
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:onClick="setDateTime"
+            android:background="@drawable/cal"
+            android:id="@+id/getFromDateButton"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp" />
+
+    </LinearLayout>
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:stretchColumns="1">
+        <TableRow>
+            <Spinner
+                android:id="@+id/filtervehiclecapacity"
+                android:layout_width="0dip"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/spinner_back_1"
+                android:layout_alignParentBottom="true" />
+            <EditText
+                android:layout_width="0dip"
+                android:background="@drawable/tv_back"
+
+                android:hint="End date"
+                android:id="@+id/getToDate"
+                android:layout_weight="1"  />
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="Find Vehicle"
+        android:id="@+id/findVehicleProceedButton"
+        android:background="#FFDE45"
+        android:onClick="processFindVehicleButtonClick" />
+
+
 
 </LinearLayout>
-</ScrollView>
+    </ScrollView>

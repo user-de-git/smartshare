@@ -64,14 +64,6 @@
                         android:text="Car_type"
                         android:textColor="@color/colorBlack"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
-
-
-
-
-
-
                     </TableRow>
 
                 <TableRow

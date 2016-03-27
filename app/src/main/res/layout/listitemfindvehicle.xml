@@ -2,124 +2,159 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="15dp">
-    <RelativeLayout
-        android:id="@+id/findvehiclelistRelativeLayout"
-        android:layout_width="fill_parent"
+    android:background="@drawable/list_item_back_2"
+    android:paddingLeft="10dp"
+    android:paddingBottom="15dp"
+    android:paddingTop="15dp"
+    android:id="@+id/list_item_template"
+    >
+
+
+    <TableLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:stretchColumns="*"
+        android:shrinkColumns="*">
 
-
-        <ImageView
-            android:id="@+id/imageViewFindVehicle"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/car_icon_1" />
-
-
-        <TextView
-            android:id="@+id/findvehicleCarType"
+        <TableRow
+            android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/colorBlack"
-            android:layout_toRightOf="@id/imageViewFindVehicle"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            >
 
-        <TextView
-            android:id="@+id/findvehiclepriceperkm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_toRightOf="@id/findvehicleCarType"
-             />
+            <LinearLayout
+                android:layout_weight="1.9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                >
 
-        <TextView
-            android:id="@+id/vehicleAvailableAt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@+id/findvehicleCarType"
-            android:layout_alignLeft="@+id/findvehicleCarType"
-            android:layout_alignStart="@+id/findvehicleCarType" />
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
 
-        <TextView
-            android:id="@+id/plateNumber"
-            android:layout_width="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:layout_toRightOf="@id/imageViewFindVehicle"
-            android:layout_marginRight="10dp"
-            android:visibility="gone"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:src="@drawable/car_icon_2" />
 
-<!--
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_weight="8.1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                >
 
-        <TextView
-            android:id="@+id/capacityMessageFindVehicle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="Capacity"
-            android:textColor="@color/colorBlack"
-            android:layout_toRightOf="@id/findvehicleCarType"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*"
+                    android:shrinkColumns="*"
 
-         <TextView
-            android:id="@+id/carCapacityFindVehicle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="wwwwwity"
-            android:textColor="@color/colorBlack"
-            android:layout_toRightOf="@id/capacityMessageFindVehicle"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+                    >
+                    <TableRow
+                        android:id="@+id/tableRo1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
 
-        <TextView
-            android:id="@+id/fromDateMessageFindVehicle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageViewFindVehicle"
-            android:text="From "
-            android:textColor="@color/colorBlack"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+                        <TextView
+                            android:id="@+id/findvehicleCarType"
+                            android:layout_weight="10"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Car_type"
+                            android:textColor="@color/colorBlack"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+                    </TableRow>
 
-        <TextView
-            android:id="@+id/fromDate"
-            android:layout_width="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_alignBottom="@+id/fromDateMessageFindVehicle"
-            android:layout_toRightOf="@+id/fromDateMessageFindVehicle"
-            android:layout_toEndOf="@+id/fromDateMessageFindVehicle" />
+                    <TableRow
+                        android:id="@+id/tableRoqa1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        >
 
-        <TextView
-            android:id="@+id/toDateMessageFindVehicle"
-            android:layout_below="@+id/fromDateMessageFindVehicle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="To  "
-            android:textColor="@color/colorBlack"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+                        <LinearLayout
+                            android:layout_width="215dp"
+                            android:layout_height="2dip"
+                            android:background="#ccccb3" />
 
-        <TextView
-            android:id="@+id/toDate"
-            android:layout_width="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_alignBottom="@+id/toDateMessageFindVehicle"
-            android:layout_alignLeft="@+id/fromDate"
-            android:layout_alignStart="@+id/fromDate" />
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableR1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                        <TextView
+                            android:id="@+id/vehicleAvailableAt"
+                            android:layout_weight="7"
+                            android:layout_width="0dp"
+                            android:textColor="@color/colorBlack"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:text="AvailableAt"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/NULL"
+                            android:layout_weight="3"
+                            android:layout_width="0dp"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="12sp"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
 
--->
-        </RelativeLayout>
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/tableRoq1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                        <TextView
+                            android:id="@+id/findvehiclepriceperkm"
+                            android:layout_weight="7"
+                            android:layout_width="0dp"
+                            android:textColor="@color/colorBlack"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/plateNumber"
+                            android:layout_weight="3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+
+                            android:textSize="12sp"
+                            android:textColor="@color/colorBlack"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+
+
+
+                    </TableRow>
+
+
+                </TableLayout>
+
+
+
+
+
+            </LinearLayout>
+
+        </TableRow>
+
+
+    </TableLayout>
 </LinearLayout>
+
+
+
+
+

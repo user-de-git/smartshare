@@ -36,13 +36,9 @@ public class OwnerController extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner);
         lvProduct = (ListView)findViewById(R.id.listView);
-        final List<VehicleDataStore> Olist = new ArrayList<VehicleDataStore>();
         mProductList = new ArrayList<>();
 
-        if(counter==0)
-         getData();
-
-
+        if(counter==0)  getData();
     }
 
     public void getData() {
@@ -69,22 +65,16 @@ public class OwnerController extends Activity {
                 lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //Do something
-                        //Ex: display msg with product id get from view.getTag
                         Intent myIntent = new Intent(OwnerController.this, UpdateVehicleController.class);
                         String VID = (String) view.getTag();
                         myIntent.putExtra(VEHICLE_ID, VID);
                         startActivity(myIntent);
-                        //Toast.makeText(getApplicationContext(), "Clicked product id =" + view.getTag(), Toast.LENGTH_SHORT).show();
                     }
                 });
                 query = null;
-
             }
         });
     }
-
-
 
     @Override
     protected void onResume() {
@@ -93,7 +83,6 @@ public class OwnerController extends Activity {
         if(counter>1) {
             getData();
         }
-
     }
 
     public void postVehicle(View view) {

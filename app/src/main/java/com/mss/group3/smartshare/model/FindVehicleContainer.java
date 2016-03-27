@@ -48,7 +48,7 @@ public class FindVehicleContainer extends BaseAdapter {
         cartype.setText(vehicleList.get(position).vehicle_type);
 
         TextView priceperkm = (TextView)v.findViewById(R.id.findvehiclepriceperkm);
-        priceperkm.setText("Price/Km " + vehicleList.get(position).pricePerKm.toString() + " $");
+        priceperkm.setText("$ " + vehicleList.get(position).pricePerKm.toString() + " /Km");
 
         TextView vehicleAvailableAt = (TextView)v.findViewById(R.id.vehicleAvailableAt);
         vehicleAvailableAt.setText("Location: " + vehicleList.get(position).postalCode);

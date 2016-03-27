@@ -194,7 +194,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -202,17 +201,11 @@
             android:text="From"
             android:layout_marginRight="25dp"
             android:id="@+id/tv_date" />
-
-
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="29dp"
             android:background="@drawable/tv_back"
-            android:id="@+id/get_StartDateTime"
-            />
-
-
-
+            android:id="@+id/get_StartDateTime"  />
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="30dp"
@@ -220,7 +213,6 @@
             android:onClick="setDateTime"
             android:background="@drawable/cal"
             android:id="@+id/button_setStartDateTime" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -233,7 +225,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="To"
+            android:text="To     "
             android:layout_marginRight="25dp"
             android:id="@+id/textView3" />
         <EditText
@@ -286,13 +278,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_weight="1"
-            android:background="#000000"
+            android:textAlignment="textEnd"
             android:clickable="true"
             android:onClick="getCurrentLocationButtonClick"
             android:padding="4dp"
             android:text="(Auto Detect)"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#ffffff"
+
             android:textSize="10dp"
             android:textStyle="bold" />
 
