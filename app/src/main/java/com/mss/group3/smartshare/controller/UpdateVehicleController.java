@@ -21,6 +21,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.common.InputValidation;
 import com.mss.group3.smartshare.common.SaveSharedPreference;
 import com.mss.group3.smartshare.model.Login;
 import com.mss.group3.smartshare.model.PostVehicle;
@@ -231,18 +232,64 @@ public class UpdateVehicleController extends AppCompatActivity{
     public void UpdateVehicle(View view) {
         final UserSingleton userSingleton = UserSingleton.getInstance();
 
-        pv.setVin(((EditText) findViewById(R.id.et_vinnumber)).getText().toString());
-        pv.setPlate_number(((EditText) findViewById(R.id.et_platenumber)).getText().toString());
-        pv.setPrice_km(Double.parseDouble(((EditText) findViewById(R.id.et_pricekm)).getText().toString()));
-        pv.setStartDateTime(((EditText) findViewById(R.id.get_StartDateTime)).getText().toString());
-        pv.setEndDateTime(((EditText) findViewById(R.id.get_EndDateTime)).getText().toString());
+        String[] fields = new String[10];
+        fields[0] = ((EditText) findViewById(R.id.et_vinnumber)).getText().toString();
+        fields[1] = ((EditText) findViewById(R.id.et_platenumber)).getText().toString();
+        fields[2] = ((EditText) findViewById(R.id.et_pricekm)).getText().toString();
+        fields[3] = ((EditText) findViewById(R.id.get_StartDateTime)).getText().toString();
+        fields[4] = ((EditText) findViewById(R.id.get_EndDateTime)).getText().toString();
+        fields[5] = ((EditText) findViewById(R.id.et_address)).getText().toString();
+        fields[6] = ((EditText) findViewById(R.id.et_city)).getText().toString();
+        fields[7] = ((EditText) findViewById(R.id.et_postalCode)).getText().toString();
+        fields[8] = ((EditText) findViewById(R.id.et_province)).getText().toString();
+        fields[9] = ((EditText) findViewById(R.id.et_vehiclerange)).getText().toString();
+
+
+        if(Double.parseDouble(fields[2])<0) {
+            Toast.makeText(getApplicationContext(), "Price can't be below Zero", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(Integer.parseInt(fields[9])<0) {
+            Toast.makeText(getApplicationContext(), "Share range can't be below Zero", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        for (String str : fields) {
+            if(str == null || str.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        Date start= InputValidation.DateSetter(fields[3]);
+        Date end = InputValidation.DateSetter(fields[4]);
+        //Date now = new Date();
+
+        if(start.before(new Date(System.currentTimeMillis()-24*60*60*1000))) {
+            Toast.makeText(getApplicationContext(), "Please enter valid start date", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(end.before(start)) {
+            Toast.makeText(getApplicationContext(), "Please enter valid end date", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(start.equals(end)){
+            Toast.makeText(getApplicationContext(), "Start and End date are same", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        pv.setVin(fields[0]);
+        pv.setPlate_number(fields[1]);
+        pv.setPrice_km(Double.parseDouble(fields[2]));
+        pv.setStartDateTime(fields[3]);
+        pv.setEndDateTime(fields[4]);
+        pv.setAddress(fields[5]);
+        pv.setCity(fields[6]);
+        pv.setPostal_code(fields[7]);
+        pv.setProvince(fields[8]);
+        pv.setVehicle_share_range(Integer.parseInt(fields[9]));
+
         pv.setCurrent_location(((EditText) findViewById(R.id.et_city)).getText().toString() + ", " +
                 ((EditText) findViewById(R.id.et_postalCode)).getText().toString());
-        pv.setAddress(((EditText) findViewById(R.id.et_address)).getText().toString());
-        pv.setCity(((EditText) findViewById(R.id.et_city)).getText().toString());
-        pv.setPostal_code(((EditText) findViewById(R.id.et_postalCode)).getText().toString());
-        pv.setProvince(((EditText) findViewById(R.id.et_province)).getText().toString());
-        pv.setVehicle_share_range(Integer.parseInt(((EditText) findViewById(R.id.et_vehiclerange)).getText().toString()));
 
 
         testObject = new ParseObject("VehicleTable");
