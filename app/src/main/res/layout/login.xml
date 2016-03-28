@@ -90,4 +90,14 @@
 
     </LinearLayout>
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:id="@+id/recoveryLink"
+        android:layout_gravity="center_horizontal"
+        android:onClick="recoveryButtonClick"
+        android:clickable="true" />
+
 </LinearLayout>

@@ -60,7 +60,8 @@
         <activity android:name=".controller.OwnerController"></activity>
         <activity android:name=".controller.UpdateVehicleController"></activity>
         <activity android:name=".controller.UserRegistrationController"></activity>
-
+        <activity android:name=".controller.RecoveryController"></activity>
+        <activity android:name=".common.Success"></activity>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

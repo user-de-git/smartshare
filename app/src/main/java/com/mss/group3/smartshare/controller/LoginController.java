@@ -1,6 +1,7 @@
 package com.mss.group3.smartshare.controller;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.mss.group3.smartshare.model.Login;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+
+import static com.mss.group3.smartshare.common.InputValidation.loginInputValidation;
 
 /**
  * Created on 2016-02-20.
@@ -47,8 +50,15 @@ public class LoginController extends Activity {
 
     public void loginButtonClick(View view ) {
 
-        login.setUserName(((EditText) findViewById(R.id.userName)).getText().toString());
-        login.setUserPassword(((EditText) findViewById(R.id.userPassword)).getText().toString());
+        String userName=((EditText) findViewById(R.id.userName)).getText().toString();
+        login.setUserName(userName);
+        String userPassword= ((EditText) findViewById(R.id.userPassword)).getText().toString();
+        login.setUserPassword(userPassword);
+
+
+        if(loginInputValidation( userName,  userPassword, this)){
+            return;
+        }
 
         ParseUser.logInInBackground(login.getUserName(), login.getUserPassword(), new LogInCallback() {
             public void done(ParseUser user, ParseException e) {
@@ -72,12 +82,14 @@ public class LoginController extends Activity {
     public void signUpButtonClick(View view ) {
 
         //login screen initialization
-            Intent myIntent = new Intent(LoginController.this, UserRegistrationController.class);
-            startActivity(myIntent);
+        Intent myIntent = new Intent(LoginController.this, UserRegistrationController.class);
+        startActivity(myIntent);
     }
 
-    public void forgotPasswordButtonClick(View view ) {
-        //need to implement
+    public void recoveryButtonClick(View view ) {
+        //recovery screen initialization
+        Intent myIntent = new Intent(LoginController.this, RecoveryController.class);
+        startActivity(myIntent);
 
     }
 

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.common.InputValidation;
 import com.mss.group3.smartshare.model.SignUp;
 import com.mss.group3.smartshare.utility.LocationServices;
 import com.parse.ParseException;
@@ -95,14 +96,22 @@ public class UserRegistrationController extends Activity {
         signUpModel.userCountryName = ((EditText) findViewById(R.id.countryNameText)).getText().toString();
         signUpModel.userPostalCode = ((EditText) findViewById(R.id.postalCodeText)).getText().toString();
 
-        if ( !signUpModel.userPasswordFirst.equals(signUpModel.userPasswordSecond) )
-        {
-            // Here you can ask the user to try again, using return; for that
-            Toast.makeText(getApplicationContext(), "Please correct password.", Toast.LENGTH_SHORT).show();
-            ((EditText) findViewById(R.id.passwordText)).setHighlightColor(Color.RED);
-            ((EditText) findViewById(R. id.verifyPasswordText)).setHighlightColor(Color.RED);
+//        if ( !signUpModel.userPasswordFirst.equals(signUpModel.userPasswordSecond) )
+//        {
+//            // Here you can ask the user to try again, using return; for that
+//            Toast.makeText(getApplicationContext(), "Please correct password.", Toast.LENGTH_SHORT).show();
+//            ((EditText) findViewById(R.id.passwordText)).setHighlightColor(Color.RED);
+//            ((EditText) findViewById(R. id.verifyPasswordText)).setHighlightColor(Color.RED);
+//            return;
+//        }
+
+
+        if (InputValidation.signupInputValidation(signUpModel.userFirstName, signUpModel.userLastName, signUpModel.userEmailAddress, signUpModel.userContactNumber, signUpModel.userPasswordFirst, signUpModel.userPasswordSecond, signUpModel.userAddressLineOne, signUpModel.userCityName, signUpModel.userCountryName, signUpModel.userPostalCode, this)){
+
             return;
+
         }
+
 
         if (signUpModel.registerUser()) {
 
