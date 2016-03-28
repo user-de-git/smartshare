@@ -9,8 +9,11 @@ import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -20,7 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.common.SaveSharedPreference;
+import com.mss.group3.smartshare.controller.FindVehicleController;
+import com.mss.group3.smartshare.controller.LoginController;
 import com.mss.group3.smartshare.controller.MyAccountController;
+import com.mss.group3.smartshare.controller.PostVehicleController;
 import com.mss.group3.smartshare.controller.UserTypeController;
 import com.mss.group3.smartshare.utility.DistanceAndTimeApiCall;
 import com.parse.FindCallback;
@@ -39,7 +46,7 @@ import java.util.Locale;
  * This class will search the vehicle from database
  * and will remove the conflicting vehicles
  */
-public class FindVehicleList extends Activity {
+public class FindVehicleList extends AppCompatActivity {
 
 
     private static int lastVehicleRemovedCheck = 0;
@@ -67,10 +74,41 @@ public class FindVehicleList extends Activity {
         vehiclelistDisplay = (ListView) findViewById(R.id.listView);
         mLinearScroll = (LinearLayout) findViewById(R.id.linear_scroll);
         lastVehicleRemovedCheck = 0;
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         //get all vehicles from database
         getVehicleListThatCanBeBooked();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.action_post) {
+            Intent screen = new Intent(FindVehicleList.this,PostVehicleController.class);
+            startActivity(screen);
+
+        } else if(id==R.id.action_search) {
+            Intent screen = new Intent(FindVehicleList.this,FindVehicleController.class);
+            startActivity(screen);
+        } else if(id==R.id.action_manage) {
+            Intent screen = new Intent(FindVehicleList.this,MyAccountController.class);
+            startActivity(screen);
+        } else {
+            SaveSharedPreference.setUserName(FindVehicleList.this, "");
+            SaveSharedPreference.setPassword(FindVehicleList.this, "");
+            Intent ownerlayout = new Intent(FindVehicleList.this, LoginController.class);
+            startActivity(ownerlayout);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
     //add vehicles to display

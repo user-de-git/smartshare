@@ -9,6 +9,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -17,6 +21,7 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.common.SaveSharedPreference;
 import com.mss.group3.smartshare.model.RentAdaptor;
 import com.mss.group3.smartshare.model.RentDataStore;
 import com.mss.group3.smartshare.model.UserSingleton;
@@ -35,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyAccountController extends Activity {
+public class MyAccountController extends AppCompatActivity {
     ParseUser cUser;
     final Context context = this;
     private ListView lvProduct_shares,lvProduct_rents;
@@ -54,6 +59,9 @@ public class MyAccountController extends Activity {
         setContentView(R.layout.manage_acount);
         lvProduct_shares = (ListView)findViewById(R.id.listView_shares);
         mProductList_shares = new ArrayList<>();
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         host = (TabHost)findViewById(R.id.tabHost);
         host.setup();
@@ -255,6 +263,34 @@ public class MyAccountController extends Activity {
             }
         });
         */
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.action_post) {
+            Intent screen = new Intent(MyAccountController.this,PostVehicleController.class);
+            startActivity(screen);
+
+        } else if(id==R.id.action_search) {
+            Intent screen = new Intent(MyAccountController.this,FindVehicleController.class);
+            startActivity(screen);
+        } else if(id==R.id.action_manage) {
+            Intent screen = new Intent(MyAccountController.this,MyAccountController.class);
+            startActivity(screen);
+        } else {
+            SaveSharedPreference.setUserName(MyAccountController.this, "");
+            SaveSharedPreference.setPassword(MyAccountController.this, "");
+            Intent ownerlayout = new Intent(MyAccountController.this, LoginController.class);
+            startActivity(ownerlayout);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void updateAccount(View view) {

@@ -40,15 +40,6 @@ public class UserTypeController extends Activity {
         startActivity(entervehiclelayout);
     }
 
-    public void logOut(View view) {
 
-        SaveSharedPreference.setUserName(UserTypeController.this, "");
-        SaveSharedPreference.setPassword(UserTypeController.this, "");
-
-        Intent ownerlayout = new Intent(UserTypeController.this, LoginController.class);
-
-        startActivity(ownerlayout);
-
-    }
 
 }

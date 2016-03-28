@@ -1,11 +1,18 @@
 package com.mss.group3.smartshare.controller;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,7 +24,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.common.SaveSharedPreference;
 import com.mss.group3.smartshare.model.FindVehicle;
 import com.mss.group3.smartshare.model.FindVehicleList;
 import com.mss.group3.smartshare.model.FindVehiclelistSingleton;
@@ -33,7 +42,7 @@ import java.util.TimeZone;
  * This controller will trigger the find vehicle layout
  * The purpose is to validate information and find matching vehicle as per schedule
  */
-public class FindVehicleController extends Activity {
+public class FindVehicleController extends AppCompatActivity {
 
     private Calendar calendar = Calendar.getInstance();
     private FindVehicle findVehicle;
@@ -54,6 +63,12 @@ public class FindVehicleController extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.findvehicle);
         findVehicle = new FindVehicle();
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+         setSupportActionBar(myToolbar);
+
+
+
         ((TextView) findViewById(R.id.wrongAddressMessage)).setVisibility(View.INVISIBLE);
         ((Button) findViewById(R.id.findVehicleProceedButton)).setVisibility(View.INVISIBLE);
         geoCoder = new Geocoder(this, Locale.getDefault());
@@ -101,6 +116,35 @@ public class FindVehicleController extends Activity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+       getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.action_post) {
+            Intent screen = new Intent(FindVehicleController.this,PostVehicleController.class);
+            startActivity(screen);
+
+        } else if(id==R.id.action_search) {
+            Intent screen = new Intent(FindVehicleController.this,FindVehicleController.class);
+            startActivity(screen);
+        } else if(id==R.id.action_manage) {
+            Intent screen = new Intent(FindVehicleController.this,MyAccountController.class);
+            startActivity(screen);
+        } else {
+            SaveSharedPreference.setUserName(FindVehicleController.this, "");
+            SaveSharedPreference.setPassword(FindVehicleController.this, "");
+            Intent ownerlayout = new Intent(FindVehicleController.this, LoginController.class);
+            startActivity(ownerlayout);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     //set date and time for to and from button clicks
     public void setDateTime(View v) {

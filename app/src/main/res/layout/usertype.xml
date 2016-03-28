@@ -11,57 +11,116 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".controller.UserTypeController">
 
-    <Button
-        android:id="@+id/t0"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@drawable/circle"
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="postVehicle"
+        android:orientation="vertical"
+        android:background="#FFDE45"
         android:gravity="center"
-        android:text="Log Out"
-        android:textColor="#FFFFFF"
-        android:textSize="15dp"
-        android:layout_marginBottom="10dp"
-        android:textStyle="bold|italic"
-        android:onClick="logOut"/>
+        android:padding="15dp"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/car_icon_2" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:layout_margin="5dp"
+            android:background="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Share Vehicle"
+            android:textSize="25dp"
+            android:layout_weight="2.62" />
 
 
-    <Button
-        android:id="@+id/t1"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:background="@drawable/circle"
-        android:gravity="center"
-        android:text="Share Vehicle"
-        android:textColor="#FFFFFF"
-        android:textSize="15dp"
-        android:layout_marginBottom="10dp"
-        android:textStyle="bold|italic"
-        android:onClick="postVehicle"/>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/t2"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:background="@drawable/circle"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_marginTop="15dp"
+        android:onClick="findVehicleButtonClick"
+        android:orientation="vertical"
+        android:background="#000000"
         android:gravity="center"
-        android:text="Find Vehicle"
-        android:textColor="#FFFFFF"
-        android:textSize="15dp"
-        android:layout_marginBottom="10dp"
-        android:textStyle="bold|italic"
-        android:onClick="findVehicleButtonClick"/>
+        android:padding="15dp"
+        android:weightSum="1">
 
-    <Button
-        android:id="@+id/t3"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:background="@drawable/circle"
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/search_icon" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:layout_margin="5dp"
+            android:background="#ffffff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Find Vehicle "
+            android:textColor="#ffffff"
+            android:textSize="25dp"
+            android:layout_weight="2.62" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_marginTop="15dp"
+        android:onClick="manageAcountButtonClick"
+        android:orientation="vertical"
+        android:background="#FFDE45"
         android:gravity="center"
-        android:text="Manage Acount"
-        android:textColor="#FFFFFF"
-        android:textSize="15dp"
-        android:textStyle="bold|italic"
-        android:onClick="manageAcountButtonClick"/>
+        android:padding="15dp"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/my_account_edit" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:layout_margin="5dp"
+            android:background="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" My Account  "
+            android:textSize="25dp"
+            android:layout_weight="2.62" />
+
+
+    </LinearLayout>
+
+
+
+
+
 
 
 

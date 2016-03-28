@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +23,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.common.SaveSharedPreference;
 import com.mss.group3.smartshare.model.Login;
 import com.mss.group3.smartshare.model.PostVehicle;
 import com.mss.group3.smartshare.model.UserSingleton;
@@ -32,7 +37,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class PostVehicleController extends Activity{
+public class PostVehicleController extends AppCompatActivity{
 
 
     Spinner spinner_vehicletype;
@@ -63,6 +68,11 @@ public class PostVehicleController extends Activity{
         geoCoder = new Geocoder(this, Locale.getDefault());
 
         setContentView(R.layout.vehicleregistration);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         get_StartDateTime = (TextView) findViewById(R.id.get_StartDateTime);
         get_EndDateTime = (TextView) findViewById(R.id.get_EndDateTime);
         delete = (Button) findViewById(R.id.button_deleteVehicle);
@@ -230,6 +240,37 @@ public class PostVehicleController extends Activity{
         String currentAddress = null;
         getLocation(currentAddress);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.action_post) {
+            Intent screen = new Intent(PostVehicleController.this,PostVehicleController.class);
+            startActivity(screen);
+
+        } else if(id==R.id.action_search) {
+            Intent screen = new Intent(PostVehicleController.this,FindVehicleController.class);
+            startActivity(screen);
+        } else if(id==R.id.action_manage) {
+            Intent screen = new Intent(PostVehicleController.this,MyAccountController.class);
+            startActivity(screen);
+        } else if(id==R.id.action_logout){
+            SaveSharedPreference.setUserName(PostVehicleController.this, "");
+            SaveSharedPreference.setPassword(PostVehicleController.this, "");
+            Intent ownerlayout = new Intent(PostVehicleController.this, LoginController.class);
+            startActivity(ownerlayout);
+        } else {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     //get current location
     private void getLocation(String address) {
