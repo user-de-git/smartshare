@@ -16,6 +16,8 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import static android.support.v4.app.ActivityCompat.startActivity;
+
 
 /**
  * Created by group three on 2016-02-07.
@@ -111,17 +113,15 @@ public class UserRegistrationController extends Activity {
             return;
 
         }
+        signUpModel.context = getApplicationContext();
+        signUpModel.uRegisterationCon = this;
+        signUpModel.registerUser();
 
 
-        if (signUpModel.registerUser()) {
+    }
 
-            Toast.makeText(getApplicationContext(), "Registration Success", Toast.LENGTH_SHORT).show();
-
-            startActivity(new Intent(UserRegistrationController.this, MainController.class));
-        } else {
-            Toast.makeText(getApplicationContext(), "Registration Failed", Toast.LENGTH_SHORT).show();
-
-        }
-
+    public  void moveToLogin()
+    {
+        startActivity(new Intent(UserRegistrationController.this, MainController.class));
     }
 }

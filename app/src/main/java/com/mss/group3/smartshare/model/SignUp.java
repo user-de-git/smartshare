@@ -1,9 +1,17 @@
 package com.mss.group3.smartshare.model;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
+
+import com.mss.group3.smartshare.controller.MainController;
+import com.mss.group3.smartshare.controller.UserRegistrationController;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
+import static android.support.v4.app.ActivityCompat.startActivity;
 
 /**
  * Created by inder on 2016-02-20.
@@ -22,13 +30,15 @@ public class SignUp {
     public String userPostalCode;
     public String currentAddressGPS;
     public boolean resultofQuery;
+    public static Context context;
+    public static UserRegistrationController uRegisterationCon;
 
     private void setResult(boolean result)
     {
         resultofQuery = result;
     }
 
-    public boolean  registerUser()
+    public void  registerUser()
     {
 
 
@@ -55,17 +65,20 @@ public class SignUp {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    int a = 9;
-                    setResult(true);
+
+
+                    Toast.makeText(context, "Registration Success", Toast.LENGTH_SHORT).show();
+                    uRegisterationCon.moveToLogin();
+
+
 
                 } else {
-                    setResult(false);
+
+                    Toast.makeText( context, "Registration Failed", Toast.LENGTH_SHORT).show();
 
                 }
             }
         });
-
-        return resultofQuery;
     }
 
 
