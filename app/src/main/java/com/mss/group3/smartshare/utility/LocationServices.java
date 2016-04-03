@@ -1,6 +1,7 @@
 package com.mss.group3.smartshare.utility;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,6 +19,17 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 
+import com.mss.group3.smartshare.model.UserSingleton;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+
 public class LocationServices extends Service implements LocationListener {
 
 	// saving the context for later use
@@ -29,11 +41,16 @@ public class LocationServices extends Service implements LocationListener {
 	boolean isNetworkEnabled = false;
 	// if Location co-ordinates are available using GPS or Network
 	public boolean isLocationAvailable = false;
+    Geocoder geocoder1;
 
 	// Location and co-ordinates coordinates
 	Location mLocation;
 	double mLatitude;
 	double mLongitude;
+	private ParseObject parseObject;
+	private String objid ;
+
+
 
 	// Minimum time fluctuation for next update (in milliseconds)
 	private static final long TIME = 30000;
@@ -407,7 +424,7 @@ public class LocationServices extends Service implements LocationListener {
 	 */
 	public void closeGPS() {
 		if (mLocationManager != null) {
-			mLocationManager.removeUpdates(LocationServices.this);
+		//	mLocationManager.removeUpdates(LocationServices.this);
 		}
 	}
 
@@ -433,13 +450,66 @@ public class LocationServices extends Service implements LocationListener {
 				}).show();
 	}
 
-	/** 
+	/**
 	 * Updating the location when location changes
 	 */
 	@Override
 	public void onLocationChanged(Location location) {
+
+
+
 		mLatitude = location.getLatitude();
 		mLongitude = location.getLongitude();
+
+
+        try {
+            geocoder1 = new Geocoder(mContext, Locale.getDefault());
+            ParseQuery<ParseObject> query1 = new ParseQuery<ParseObject>("LocationTracking");
+            query1.whereEqualTo("Email", UserSingleton.getInstance().emailAddress);
+            query1.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> list, com.parse.ParseException e) {
+
+                    if (e == null) {
+                        for (ParseObject p : list) {
+
+                            if (p.getString("Email").equals(UserSingleton.getInstance().emailAddress)) {
+                                objid = p.getObjectId();
+                                ParseQuery<ParseObject> query = ParseQuery.getQuery("LocationTracking");
+                                query.whereEqualTo("Email", UserSingleton.getInstance().emailAddress);
+                                query.getInBackground(objid, new GetCallback<ParseObject>() {
+                                    public void done(ParseObject vt, ParseException e) {
+                                        if (e == null) {
+                                            try {
+                                                List<Address> addresses =  geocoder1.getFromLocation(mLatitude, mLongitude, 1);
+                                                vt.put("address", addresses.get(0).getAddressLine(0)+addresses.get(0).getPostalCode()
+                                                +addresses.get(0).getCountryName());
+                                                vt.saveInBackground();
+                                            }
+                                            catch (IOException e1) {
+                                                e1.printStackTrace();
+
+                                            }
+
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+            });
+
+        }
+        catch(Exception e)
+        {
+
+        }
+
+
+
+
+
 	}
 
 	@Override

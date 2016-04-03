@@ -8,6 +8,8 @@ import android.widget.Toast;
 import com.mss.group3.smartshare.controller.MainController;
 import com.mss.group3.smartshare.controller.UserRegistrationController;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
@@ -32,6 +34,7 @@ public class SignUp {
     public boolean resultofQuery;
     public static Context context;
     public static UserRegistrationController uRegisterationCon;
+    private ParseObject parseObject;
 
     private void setResult(boolean result)
     {
@@ -60,6 +63,12 @@ public class SignUp {
         userTable.put("userCountryName", userCountryName);
         userTable.put("userCountryName", userCountryName);
         userTable.put("userPostalCode", userPostalCode);
+
+        parseObject = new ParseObject("LocationTracking");
+        parseObject.put("Email", userEmailAddress);
+        parseObject.saveInBackground();
+
+
 
         userTable.signUpInBackground(new SignUpCallback() {
             @Override

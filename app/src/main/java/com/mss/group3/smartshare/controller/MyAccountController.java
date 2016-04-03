@@ -31,6 +31,7 @@ import com.mss.group3.smartshare.utility.LocationServices;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -350,5 +351,28 @@ public class MyAccountController extends AppCompatActivity {
     }
 
 
+
+    public void trackUserButtonClick(View view) {
+
+        ParseQuery<ParseObject> query1 = new ParseQuery<ParseObject>("LocationTracking");
+        String pp = ((EditText) findViewById(R.id.emailIdToTrack)).getText().toString();
+        query1.whereEqualTo("Email",pp );
+
+
+        query1.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, com.parse.ParseException e) {
+
+                if (e == null) {
+                    for (ParseObject p : list) {
+
+                        Toast.makeText(getApplicationContext(), p.getString("address"), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+
+    }
 
 }

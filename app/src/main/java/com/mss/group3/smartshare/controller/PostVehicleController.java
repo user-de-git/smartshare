@@ -1,12 +1,16 @@
 package com.mss.group3.smartshare.controller;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -60,13 +64,22 @@ public class PostVehicleController extends AppCompatActivity{
     String StartdateString;
     String EnddateString;
     Geocoder geoCoder;
+    private static final String[] INITIAL_PERMS={
+            Manifest.permission.ACCESS_FINE_LOCATION,
+    };
 
+    private static final String[] LOCATION_PERMS={
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
+    private static final int INITIAL_REQUEST=1337;
+    private static final int LOCATION_REQUEST=INITIAL_REQUEST+3;
     PostVehicle pv = new PostVehicle();
 
     Calendar calendar = Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         geoCoder = new Geocoder(this, Locale.getDefault());
 
         setContentView(R.layout.vehicleregistration);
@@ -285,13 +298,22 @@ public class PostVehicleController extends AppCompatActivity{
 
     //refresh current location
     public void getCurrentLocationButtonClick(View v) {
-        String currentAddress = null;
-        getLocation(currentAddress);
+
+        if (Build.VERSION.SDK_INT < 23) {
+            String currentAddress = null;
+            getLocation(currentAddress);
+        }
+        else {
+            requestPermissions(LOCATION_PERMS, LOCATION_REQUEST);
+        }
+
+
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -322,6 +344,10 @@ public class PostVehicleController extends AppCompatActivity{
 
     //get current location
     private void getLocation(String address) {
+
+
+
+
         LocationServices mLocationServices = new LocationServices(this);
         mLocationServices.getLocation();
         if (mLocationServices.isLocationAvailable == false) {
@@ -348,5 +374,29 @@ public class PostVehicleController extends AppCompatActivity{
         mLocationServices.closeGPS();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
+
+        switch(requestCode) {
+
+            case LOCATION_REQUEST:
+                if (canAccessLocation()) {
+                    String currentAddress = null;
+                    getLocation(currentAddress);
+                }
+                else {
+
+                }
+                break;
+        }
+    }
+    private boolean canAccessLocation() {
+        return(hasPermission(Manifest.permission.ACCESS_FINE_LOCATION));
+    }
+
+    private boolean hasPermission(String perm) {
+        return(ContextCompat.checkSelfPermission(this, perm)==
+                PackageManager.PERMISSION_GRANTED);
+    }
 }
