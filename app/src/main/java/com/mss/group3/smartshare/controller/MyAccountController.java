@@ -1,5 +1,6 @@
 package com.mss.group3.smartshare.controller;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,8 +8,10 @@ import android.app.TabActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -52,6 +55,16 @@ public class MyAccountController extends AppCompatActivity {
     ParseQuery<ParseObject> query_shares = new ParseQuery<ParseObject>("VehicleTable");
     ParseQuery<ParseObject> query_rents  = new ParseQuery<ParseObject>("RegisteredVehicles");
     static TabHost host;
+
+    private static final String[] INITIAL_PERMS={
+            Manifest.permission.ACCESS_FINE_LOCATION,
+    };
+
+    private static final String[] LOCATION_PERMS={
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
+    private static final int INITIAL_REQUEST=1337;
+    private static final int LOCATION_REQUEST=INITIAL_REQUEST+3;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -318,12 +331,21 @@ public class MyAccountController extends AppCompatActivity {
 
     //refresh current location
     public void getCurrentLocationButtonClick(View v) {
-        String currentAddress = null;
-        getLocation(currentAddress);
+        if (Build.VERSION.SDK_INT < 23) {
+            String currentAddress = null;
+            getLocation(currentAddress);
+        }
+        else {
+            requestPermissions(LOCATION_PERMS, LOCATION_REQUEST);
+        }
     }
 
     //get current location
     private void getLocation(String address) {
+
+
+
+
         LocationServices mLocationServices = new LocationServices(this);
         mLocationServices.getLocation();
         if (mLocationServices.isLocationAvailable == false) {
@@ -348,6 +370,32 @@ public class MyAccountController extends AppCompatActivity {
         }
         //close the gps
         mLocationServices.closeGPS();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+
+        switch(requestCode) {
+
+            case LOCATION_REQUEST:
+                if (canAccessLocation()) {
+                    String currentAddress = null;
+                    getLocation(currentAddress);
+                }
+                else {
+
+                }
+                break;
+        }
+    }
+    private boolean canAccessLocation() {
+        return(hasPermission(Manifest.permission.ACCESS_FINE_LOCATION));
+    }
+
+    private boolean hasPermission(String perm) {
+        return(ContextCompat.checkSelfPermission(this, perm)==
+                PackageManager.PERMISSION_GRANTED);
     }
 
 

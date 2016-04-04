@@ -62,10 +62,12 @@ public class FindVehicleList extends AppCompatActivity {
     private AlertDialog.Builder builder;
     private ParseObject parseObject;
     private double pricePerKm = 0;
+    private double perHourLateCharges = 0;
     private String email;
     private SmsManager smsManager = SmsManager.getDefault();
     private int rowSize = 5;
     final long ONE_MINUTE_IN_MILLIS = 60000;
+    private String vehiclePlateNumberInProcess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,6 +211,7 @@ public class FindVehicleList extends AppCompatActivity {
                 parseObject = new ParseObject("RegisteredVehicles");
 
                 String number = ((TextView) view.findViewById(R.id.plateNumber)).getText().toString();
+                vehiclePlateNumberInProcess = number;
                 UserSingleton userName = UserSingleton.getInstance();
                 String address;
 
@@ -221,6 +224,7 @@ public class FindVehicleList extends AppCompatActivity {
                     {
                         address = vehicleWithRangeListArray.get(i).postalCode;
                         pricePerKm = vehicleWithRangeListArray.get(i).pricePerKm;
+                        perHourLateCharges = vehicleWithRangeListArray.get(i).capacity;
                         double timeBetweenSouceAddressAndDatabaseAddressMinutes =
                                 findDistanceAndDuration(address,
                                 objVehicleSingleton.departureAddressPostalCodeText, 1);
@@ -259,22 +263,67 @@ public class FindVehicleList extends AppCompatActivity {
 
                 }
                 builder.setTitle("Confirm");
-                builder.setMessage("Total Cost = " + String.format("%1.2f",(objVehicleSingleton.distance/1000 * pricePerKm)) + " $ " + "Are you ok?");
+                builder.setMessage("Total Cost = " + String.format("%1.2f",(objVehicleSingleton.distance/1000 * pricePerKm)) + " $ " +"/Hour late Charges "+perHourLateCharges+" $" + "Are you ok?");
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(final DialogInterface dialog, int which) {
 
-                        // send booking SMS
-                        sendSMS();
+                        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("VehicleTable");
+                        query.whereEqualTo("Plate_number", vehiclePlateNumberInProcess);
+                        query.whereLessThanOrEqualTo("FromDate", objVehicleSingleton.departureDate.getTime());
+                        query.whereGreaterThanOrEqualTo("ToDate", objVehicleSingleton.arrivalDate.getTime());
+                        query.whereEqualTo("Capacity", objVehicleSingleton.capacity);
+                        query.findInBackground(new FindCallback<ParseObject>() {
+                            @Override
+                            public void done(List<ParseObject> list, com.parse.ParseException e) {
+                                if (e == null) {
 
-                        parseObject.saveInBackground();
+                                    if (list.size() == 0) {
+                                        Toast.makeText(getApplicationContext(), "Someone Booked!! Retry", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                        Intent myIntent = new Intent(FindVehicleList.this, UserTypeController.class);
+                                        startActivity(myIntent);
+                                    } else {
+                                        ParseQuery<ParseObject> queryForRegisterdVehicles = new ParseQuery<ParseObject>("RegisteredVehicles");
+                                        queryForRegisterdVehicles.whereEqualTo("PlateNumber", vehiclePlateNumberInProcess);
+                                        queryForRegisterdVehicles.whereLessThanOrEqualTo("StartDate", objVehicleSingleton.arrivalDate.getTime());
+                                        queryForRegisterdVehicles.whereGreaterThanOrEqualTo("EndDate", objVehicleSingleton.departureDate.getTime());
+                                        queryForRegisterdVehicles.findInBackground(new FindCallback<ParseObject>() {
+                                            @Override
+                                            public void done(List<ParseObject> list, com.parse.ParseException e) {
+                                                if (e == null) {
 
-                        Toast.makeText(getApplicationContext(), "Booked", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
+                                                    if (list.size() == 0) {
+                                                        // send booking SMS
+                                                        sendSMS();
 
-                        //Move to home page
-                        Intent myIntent = new Intent(FindVehicleList.this, MyAccountController.class);
-                        myIntent.putExtra("calling-activity", 1001);
-                        startActivity(myIntent);
+                                                        parseObject.saveInBackground();
+
+                                                        Toast.makeText(getApplicationContext(), "Booked", Toast.LENGTH_SHORT).show();
+                                                        dialog.dismiss();
+
+                                                        //Move to home page
+                                                        Intent myIntent = new Intent(FindVehicleList.this, MyAccountController.class);
+                                                        myIntent.putExtra("calling-activity", 1001);
+                                                        startActivity(myIntent);
+                                                    } else {
+                                                        Toast.makeText(getApplicationContext(), "Someone Booked!! Retry", Toast.LENGTH_SHORT).show();
+                                                        dialog.dismiss();
+                                                        Intent myIntent = new Intent(FindVehicleList.this, UserTypeController.class);
+                                                        startActivity(myIntent);
+                                                    }
+
+
+                                                }
+                                            }
+                                        });
+
+
+                                    }
+
+                                }
+                            }
+                        });
+
 
                     }
 
@@ -368,7 +417,7 @@ public class FindVehicleList extends AppCompatActivity {
                     try {
                         for (ParseUser p : objects) {
                             smsManager.sendTextMessage("+1" + p.getString("userContactNumber"), null,
-                                    "your vehicle is booked by " + email + " from " +
+                                    "your vehicle is booked by " + UserSingleton.getInstance().emailAddress + " from " +
                                             objVehicleSingleton.departureAddressPostalCodeText +
                                             " To " + objVehicleSingleton.arrivalAddressDepartureCode, null, null);
                         }
@@ -407,7 +456,7 @@ public class FindVehicleList extends AppCompatActivity {
                             distance = distance + distance * .5;
                             if (getGeo.distanceInKilometersTo(getCurrentGeoPoint) < p.getInt("vehicle_range")) {
                                 vehicleWithRangeListArray.add(new VehicleWithRangeList(p.getObjectId(), p.getString("Plate_number"), p.getString("Vehicle_type"),
-                                        p.getInt("Capacity"), p.getInt("vehicle_range"), p.getString("Address") +" "+ p.getString("PostalCode"),
+                                        p.getInt("lateCharges"), p.getInt("vehicle_range"), p.getString("Address") +" "+ p.getString("PostalCode"),
                                         p.getDate("FromDate"), p.getDate("ToDate"), p.getInt("Price_km"), p.getString("Owner_email"), getGeo));
                                 plateNumber.add(p.getString("Plate_number"));
                             }

@@ -424,7 +424,7 @@ public class LocationServices extends Service implements LocationListener {
 	 */
 	public void closeGPS() {
 		if (mLocationManager != null) {
-		//	mLocationManager.removeUpdates(LocationServices.this);
+			mLocationManager.removeUpdates(LocationServices.this);
 		}
 	}
 

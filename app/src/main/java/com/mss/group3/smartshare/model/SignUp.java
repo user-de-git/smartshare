@@ -64,9 +64,7 @@ public class SignUp {
         userTable.put("userCountryName", userCountryName);
         userTable.put("userPostalCode", userPostalCode);
 
-        parseObject = new ParseObject("LocationTracking");
-        parseObject.put("Email", userEmailAddress);
-        parseObject.saveInBackground();
+
 
 
 
@@ -75,7 +73,9 @@ public class SignUp {
             public void done(ParseException e) {
                 if (e == null) {
 
-
+                    parseObject = new ParseObject("LocationTracking");
+                    parseObject.put("Email", userEmailAddress);
+                    parseObject.saveInBackground();
                     Toast.makeText(context, "Registration Success", Toast.LENGTH_SHORT).show();
                     uRegisterationCon.moveToLogin();
 

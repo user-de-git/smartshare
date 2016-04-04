@@ -1,9 +1,13 @@
 package com.mss.group3.smartshare.controller;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,7 +28,15 @@ import static android.support.v4.app.ActivityCompat.startActivity;
  */
 public class UserRegistrationController extends Activity {
 
+    private static final String[] INITIAL_PERMS={
+            Manifest.permission.ACCESS_FINE_LOCATION,
+    };
 
+    private static final String[] LOCATION_PERMS={
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
+    private static final int INITIAL_REQUEST=1337;
+    private static final int LOCATION_REQUEST=INITIAL_REQUEST+3;
     SignUp signUpModel;
 
     @Override
@@ -36,39 +48,67 @@ public class UserRegistrationController extends Activity {
         signUpModel = new SignUp();
 
         //get user location if available
-        getLocation(signUpModel.currentAddressGPS);
+      //  getLocation(signUpModel.currentAddressGPS);
     }
 
 
+    //get current location
     private void getLocation(String address) {
+
+
+
 
         LocationServices mLocationServices = new LocationServices(this);
         mLocationServices.getLocation();
-
         if (mLocationServices.isLocationAvailable == false) {
-
-            // Here you can ask the user to try again, using return; for that
+            //try again
             Toast.makeText(getApplicationContext(), "Your location is not available, " +
                     "Enter address manually or Press refresh after enabling location.", Toast.LENGTH_SHORT).show();
             return;
-
         } else {
-
             // Getting location co-ordinates
             double latitude = mLocationServices.getLatitude();
             double longitude = mLocationServices.getLongitude();
-
             address = mLocationServices.getLocationAddress();
-            //add default location
-            ((EditText) findViewById(R.id.addressLineOneText)).setText(mLocationServices.getLineOneAddress());
-            ((EditText) findViewById(R.id.cityNameText)).setText(mLocationServices.getLocationCity());
-            ((EditText) findViewById(R.id.countryNameText)).setText(mLocationServices.getLocationCountry());
-            ((EditText) findViewById(R.id.postalCodeText)).setText(mLocationServices.getPostalCode());
+            try {
+                //add default location
+                ((EditText) findViewById(R.id.addressLineOneText)).setText(mLocationServices.getLineOneAddress());
+                ((EditText) findViewById(R.id.cityNameText)).setText(mLocationServices.getLocationCity());
+                ((EditText) findViewById(R.id.countryNameText)).setText(mLocationServices.getLocationCountry());
+                ((EditText) findViewById(R.id.postalCodeText)).setText(mLocationServices.getPostalCode());
 
+            } catch (Exception e) {
+
+            }
         }
-
-        // make sure you close the gps after using it. Save user's battery power
+        //close the gps
         mLocationServices.closeGPS();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+
+        switch(requestCode) {
+
+            case LOCATION_REQUEST:
+                if (canAccessLocation()) {
+                    String currentAddress = null;
+                    getLocation(currentAddress);
+                }
+                else {
+
+                }
+                break;
+        }
+    }
+    private boolean canAccessLocation() {
+        return(hasPermission(Manifest.permission.ACCESS_FINE_LOCATION));
+    }
+
+    private boolean hasPermission(String perm) {
+        return(ContextCompat.checkSelfPermission(this, perm)==
+                PackageManager.PERMISSION_GRANTED);
     }
 
 
@@ -78,7 +118,16 @@ public class UserRegistrationController extends Activity {
      */
     public void refreshLocation(View view) {
         //get user location if available
-        getLocation(signUpModel.currentAddressGPS);
+        if (Build.VERSION.SDK_INT < 23) {
+
+            getLocation(signUpModel.currentAddressGPS);
+        }
+        else {
+            requestPermissions(LOCATION_PERMS, LOCATION_REQUEST);
+        }
+
+
+
     }
 
     /**

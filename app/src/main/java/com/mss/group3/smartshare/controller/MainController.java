@@ -56,6 +56,7 @@ public class MainController extends AppCompatActivity {
 
     public void RejectAgreementButtonClick(View view)
     {
+        finish();
         //closing application
     }
 

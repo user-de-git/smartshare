@@ -73,6 +73,7 @@ public class PostVehicleController extends AppCompatActivity{
     };
     private static final int INITIAL_REQUEST=1337;
     private static final int LOCATION_REQUEST=INITIAL_REQUEST+3;
+
     PostVehicle pv = new PostVehicle();
 
     Calendar calendar = Calendar.getInstance();
@@ -331,10 +332,13 @@ public class PostVehicleController extends AppCompatActivity{
             Intent screen = new Intent(PostVehicleController.this,MyAccountController.class);
             startActivity(screen);
         } else if(id==R.id.action_logout){
+
             SaveSharedPreference.setUserName(PostVehicleController.this, "");
             SaveSharedPreference.setPassword(PostVehicleController.this, "");
             Intent ownerlayout = new Intent(PostVehicleController.this, LoginController.class);
+
             startActivity(ownerlayout);
+            finish();
         } else {
             finish();
         }

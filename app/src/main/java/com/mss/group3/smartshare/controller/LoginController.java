@@ -72,11 +72,19 @@ public class LoginController extends Activity {
                     startActivity(myIntent);
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "User not found in DB", Toast.LENGTH_SHORT).show();
+                    finish();
+                    Toast.makeText(getApplicationContext(), "Please enter correct information", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(false);
+      //  System.exit(0);
     }
 
     public void signUpButtonClick(View view ) {
