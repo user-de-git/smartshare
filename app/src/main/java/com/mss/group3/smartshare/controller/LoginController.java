@@ -10,10 +10,18 @@ import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
 import com.mss.group3.smartshare.common.SaveSharedPreference;
+import com.mss.group3.smartshare.common.User;
 import com.mss.group3.smartshare.model.Login;
+import com.mss.group3.smartshare.model.VehicleAdaptor;
+import com.mss.group3.smartshare.model.VehicleDataStore;
+import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.List;
 
 import static com.mss.group3.smartshare.common.InputValidation.loginInputValidation;
 
@@ -66,6 +74,18 @@ public class LoginController extends Activity {
                     SaveSharedPreference.setUserName(LoginController.this, login.getUserName());
                     SaveSharedPreference.setPassword(LoginController.this, login.getUserPassword());
                     Toast.makeText(getApplicationContext(), "User found in DB", Toast.LENGTH_SHORT).show();
+
+                    ParseQuery<ParseObject> query_shares = new ParseQuery<ParseObject>("VehicleTable");
+                    query_shares.whereEqualTo("Owner_email", login.getUserName());
+                    query_shares.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> list, ParseException e) {
+                            for (ParseObject p : list) {
+                                User.addVehicle(p.getString("Plate_number"));
+                            }
+                        }
+                    });
+
                     Intent myIntent = new Intent(LoginController.this, UserTypeController.class);
 
                     startActivity(myIntent);

@@ -25,8 +25,11 @@ import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
 import com.mss.group3.smartshare.common.SaveSharedPreference;
+import com.mss.group3.smartshare.common.User;
 import com.mss.group3.smartshare.model.RentAdaptor;
 import com.mss.group3.smartshare.model.RentDataStore;
+import com.mss.group3.smartshare.model.ShareAdaptor;
+import com.mss.group3.smartshare.model.ShareDataStore;
 import com.mss.group3.smartshare.model.UserSingleton;
 import com.mss.group3.smartshare.model.VehicleAdaptor;
 import com.mss.group3.smartshare.model.VehicleDataStore;
@@ -48,11 +51,11 @@ public class MyAccountController extends AppCompatActivity {
     ParseUser cUser;
     final Context context = this;
     private ListView lvProduct_shares,lvProduct_rents;
-    private VehicleAdaptor adapter_shares;
+    private ShareAdaptor adapter_shares;
     private RentAdaptor adapter_rents;
-    private List<VehicleDataStore> mProductList_shares;
+    private List<ShareDataStore> mProductList_shares;
     private List<RentDataStore> mProductList_rents;
-    ParseQuery<ParseObject> query_shares = new ParseQuery<ParseObject>("VehicleTable");
+    ParseQuery<ParseObject> query_shares = new ParseQuery<ParseObject>("RegisteredVehicles");
     ParseQuery<ParseObject> query_rents  = new ParseQuery<ParseObject>("RegisteredVehicles");
     static TabHost host;
 
@@ -122,27 +125,73 @@ public class MyAccountController extends AppCompatActivity {
 
 
         UserSingleton userSingleton = UserSingleton.getInstance();
-        query_shares.whereEqualTo("Owner_email", userSingleton.emailAddress);
-        query_shares.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                for (ParseObject p : list) {
-                    if(!p.getBoolean("isViewed")) {
-                        mProductList_shares.add(new VehicleDataStore(
-                                p.getObjectId(),
-                                p.getString("Vehicle_type"),
-                                p.getInt("Capacity"),
-                                p.getDate("FromDate"),
-                                p.getDate("ToDate"),
-                                p.getDouble("Price_km")
-                        ));
-                    }
+        //int count_shared_vehicles = User.vehicle_list.size();
+        mProductList_shares.clear();
+        for (int i = 0; i < User.vehicle_list.size(); i++) {
+            query_shares.whereEqualTo("PlateNumber", User.vehicle_list.get(i));
+            final int finalI = i;
+            List<ParseObject> rented_list = new ArrayList<ParseObject>();
+            try {
+                rented_list = query_shares.find();
+            } catch(ParseException e) {
+
+            }
+
+            for (ParseObject p : rented_list) {
+                if (!p.getBoolean("isViewedSharer")) {
+                    mProductList_shares.add(new ShareDataStore(
+                            p.getObjectId(),
+                            p.getString("PlateNumber"),
+                            p.getString("SourceAddress"),
+                            p.getString("DestinationAddress"),
+                            p.getDate("StartDate"),
+                            p.getDate("EndDate"),
+                            p.getDouble("BaseCost"),
+                            p.getString("RenterEmail"),
+                            p.getBoolean("TripDone")
+                    ));
                 }
-                adapter_shares = new VehicleAdaptor(getApplicationContext(), mProductList_shares, 3);
+            }
+
+            if(finalI ==User.vehicle_list.size()-1) {
+                //adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 2);
+
+                adapter_shares = new ShareAdaptor(getApplicationContext(), mProductList_shares, 2);
                 lvProduct_shares.setAdapter(adapter_shares);
             }
-        });
 
+            /*
+            query_shares.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> list, ParseException e) {
+                    for (ParseObject p : list) {
+                        if (!p.getBoolean("isViewed")) {
+                            mProductList_shares.add(new RentDataStore(
+                                    p.getObjectId(),
+                                    p.getString("PlateNumber"),
+                                    p.getString("SourceAddress"),
+                                    p.getString("DestinationAddress"),
+                                    p.getDate("StartDate"),
+                                    p.getDate("EndDate")
+                            ));
+                        }
+                    }
+
+                    if(finalI ==User.vehicle_list.size()-1) {
+                        //adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 2);
+
+                        adapter_shares = new RentAdaptor(getApplicationContext(), mProductList_shares, 2);
+                        lvProduct_shares.setAdapter(adapter_shares);
+                    }
+
+                }
+            });
+
+            */
+        }
+
+
+        /*
         lvProduct_shares.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
@@ -188,6 +237,7 @@ public class MyAccountController extends AppCompatActivity {
 
 
         });
+        */
 
         lvProduct_rents = (ListView)findViewById(R.id.listView_rents);
         mProductList_rents = new ArrayList<>();

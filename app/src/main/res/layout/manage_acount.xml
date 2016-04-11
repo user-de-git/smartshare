@@ -22,21 +22,7 @@
         android:padding="20dp"
         tools:context=".controller.MyAccountController">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="User Email"
-            android:id="@+id/emailIdToTrack"
-            android:layout_gravity="center_horizontal" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Track User"
-            android:onClick="trackUserButtonClick"
-            android:id="@+id/trackUserButtonClick"
-            android:layout_gravity="center_horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -332,6 +318,30 @@
                 </FrameLayout>
             </LinearLayout>
         </TabHost>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="User Email"
+                android:id="@+id/emailIdToTrack"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Track User"
+                android:onClick="trackUserButtonClick"
+                android:id="@+id/trackUserButtonClick"
+                android:layout_gravity="center_horizontal" />
+
+
+        </LinearLayout>
 
 
     </LinearLayout>
