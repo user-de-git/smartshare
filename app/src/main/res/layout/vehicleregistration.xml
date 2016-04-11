@@ -91,13 +91,13 @@
                 android:background="@drawable/spinner_back" />
 
             <EditText
-                android:id="@+id/et_vinnumber"
+                android:id="@+id/et_overduecharges"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#fcfcfc"
-                android:hint="VIN #"
-                android:inputType="text"
+                android:hint="Overdue /hr rate"
+                android:inputType="number"
                 android:padding="5dp" />
 
         </TableRow>

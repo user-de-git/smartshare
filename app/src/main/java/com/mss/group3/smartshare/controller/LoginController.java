@@ -55,7 +55,6 @@ public class LoginController extends Activity {
         String userPassword= ((EditText) findViewById(R.id.userPassword)).getText().toString();
         login.setUserPassword(userPassword);
 
-
         if(loginInputValidation( userName,  userPassword, this)){
             return;
         }

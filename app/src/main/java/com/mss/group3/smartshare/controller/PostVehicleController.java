@@ -36,6 +36,7 @@ import com.mss.group3.smartshare.utility.LocationServices;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -194,7 +195,7 @@ public class PostVehicleController extends AppCompatActivity{
     public void addVehicle(View view) throws InterruptedException, ParseException {
         UserSingleton userSingleton = UserSingleton.getInstance();
         String[] fields = new String[10];
-        fields[0] = ((EditText) findViewById(R.id.et_vinnumber)).getText().toString();
+        fields[0] = ((EditText) findViewById(R.id.et_overduecharges)).getText().toString();
         fields[1] = ((EditText) findViewById(R.id.et_platenumber)).getText().toString();
         fields[2] = ((EditText) findViewById(R.id.et_pricekm)).getText().toString();
         fields[3] = ((EditText) findViewById(R.id.get_StartDateTime)).getText().toString();
@@ -204,6 +205,13 @@ public class PostVehicleController extends AppCompatActivity{
         fields[7] = ((EditText) findViewById(R.id.et_postalCode)).getText().toString();
         fields[8] = ((EditText) findViewById(R.id.et_province)).getText().toString();
         fields[9] = ((EditText) findViewById(R.id.et_vehiclerange)).getText().toString();
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("VehicleTable");
+        query.whereEqualTo("Plate_number", fields[1]);
+        if(query.count()==1) {
+            Toast.makeText(getApplicationContext(), "Vehicle already exists", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
 
         for (String str : fields) {
@@ -238,7 +246,8 @@ public class PostVehicleController extends AppCompatActivity{
             return;
         }
 
-        pv.setVin(fields[0]);
+
+        pv.setOverDueCharges(Integer.parseInt(fields[0]));
         pv.setPlate_number(fields[1]);
         pv.setPrice_km(Double.parseDouble(fields[2]));
         pv.setStartDateTime(fields[3]);
@@ -253,7 +262,7 @@ public class PostVehicleController extends AppCompatActivity{
                 ((EditText) findViewById(R.id.et_postalCode)).getText().toString());
 
         ParseObject testObject = new ParseObject("VehicleTable");
-        testObject.put("VIN", pv.getVin());
+        testObject.put("Overdue_hr_rate", pv.getOverDueCharges());
         testObject.put("Plate_number",pv.getPlate_number());
         testObject.put("Price_km", pv.getPrice_km());
         testObject.put("Capacity", pv.getVehicle_capacity());
@@ -268,10 +277,8 @@ public class PostVehicleController extends AppCompatActivity{
         testObject.put("ToDate", pv.getEndDateTime());
         testObject.put("isViewed", false);
         testObject.put("Owner_email", userSingleton.emailAddress);
-        
-        
-          String sourceAddress = pv.getAddress();
 
+        String sourceAddress = pv.getAddress();
 
         List<Address> addresses = null;
         try {

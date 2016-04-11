@@ -71,19 +71,16 @@ public class UpdateVehicleController extends AppCompatActivity{
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-
-
-
         ParseQuery<ParseObject> query = ParseQuery.getQuery("VehicleTable");
         query.getInBackground(Vehicle_Id, new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
-                    ((EditText) findViewById(R.id.et_vinnumber)).setText(object.getString("VIN"));
+                    ((EditText) findViewById(R.id.et_overduecharges)).setText(String.valueOf(object.getInt("Overdue_hr_rate")));
 
                     ((EditText) findViewById(R.id.et_vehiclerange)).setText(String.valueOf(object.getInt("vehicle_range")));
 
-
                     ((EditText) findViewById(R.id.et_platenumber)).setText(object.getString("Plate_number"));
+
                     String dd = new DecimalFormat("0.##").format(object.getDouble("Price_km"));
                     ((EditText) findViewById(R.id.et_pricekm)).setText(dd);
                     ((EditText) findViewById(R.id.get_StartDateTime)).setText(Utility(object.getDate("FromDate")).toString());
@@ -233,7 +230,7 @@ public class UpdateVehicleController extends AppCompatActivity{
         final UserSingleton userSingleton = UserSingleton.getInstance();
 
         String[] fields = new String[10];
-        fields[0] = ((EditText) findViewById(R.id.et_vinnumber)).getText().toString();
+        fields[0] = ((EditText) findViewById(R.id.et_overduecharges)).getText().toString();
         fields[1] = ((EditText) findViewById(R.id.et_platenumber)).getText().toString();
         fields[2] = ((EditText) findViewById(R.id.et_pricekm)).getText().toString();
         fields[3] = ((EditText) findViewById(R.id.get_StartDateTime)).getText().toString();
@@ -276,8 +273,7 @@ public class UpdateVehicleController extends AppCompatActivity{
             return;
         }
 
-
-        pv.setVin(fields[0]);
+        pv.setOverDueCharges(Integer.parseInt(fields[0]));
         pv.setPlate_number(fields[1]);
         pv.setPrice_km(Double.parseDouble(fields[2]));
         pv.setStartDateTime(fields[3]);
@@ -301,7 +297,7 @@ public class UpdateVehicleController extends AppCompatActivity{
         testObject.getInBackground(Vehicle_Id, new GetCallback<ParseObject>() {
             public void done(ParseObject tObject, ParseException e) {
                 if (e == null) {
-                    tObject.put("VIN", pv.getVin());
+                    tObject.put("Overdue_hr_rate", pv.getOverDueCharges());
                     tObject.put("Plate_number", pv.getPlate_number());
                     tObject.put("Price_km", pv.getPrice_km());
                     tObject.put("Capacity", pv.getVehicle_capacity());

@@ -137,7 +137,6 @@ public class MyAccountController extends AppCompatActivity {
                                 p.getDouble("Price_km")
                         ));
                     }
-
                 }
                 adapter_shares = new VehicleAdaptor(getApplicationContext(), mProductList_shares, 3);
                 lvProduct_shares.setAdapter(adapter_shares);

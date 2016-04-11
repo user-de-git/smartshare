@@ -16,7 +16,7 @@ import java.util.Date;
 
 
 public class PostVehicle extends User implements ILocation, ISchedule, IVehicle {
-    String vin;
+    Integer overDueCharges;
     String plate_number;
     Double  price_km;
     Date StartDateTime;
@@ -27,6 +27,14 @@ public class PostVehicle extends User implements ILocation, ISchedule, IVehicle 
     String City;
     String Postal_code;
     String Province;
+
+    public Integer getOverDueCharges() {
+        return overDueCharges;
+    }
+
+    public void setOverDueCharges(Integer overDueCharges) {
+        this.overDueCharges = overDueCharges;
+    }
 
     public String getAddress() {
         return Address;
@@ -87,9 +95,7 @@ public class PostVehicle extends User implements ILocation, ISchedule, IVehicle 
     int vehicle_capacity;
     int vehicle_share_range;
 
-    public String getVin() {
-        return vin;
-    }
+
 
     public String getPlate_number() {
         return plate_number;
@@ -125,9 +131,6 @@ public class PostVehicle extends User implements ILocation, ISchedule, IVehicle 
         this.vehicle_share_range = vehicle_share_range;
     }
 
-    public void setVin(String vin) {
-        this.vin = vin;
-    }
 
     public void setPlate_number(String plate_number) {
         this.plate_number = plate_number;
@@ -151,5 +154,6 @@ public class PostVehicle extends User implements ILocation, ISchedule, IVehicle 
         }
         return  date;
     }
+
 
 }
