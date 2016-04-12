@@ -47,7 +47,7 @@
                 android:id="@+id/registerText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mange account"
+                android:text="Manage account"
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"

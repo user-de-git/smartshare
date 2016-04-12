@@ -191,7 +191,7 @@ public class MyAccountController extends AppCompatActivity {
         }
 
 
-        /*
+
         lvProduct_shares.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
@@ -204,20 +204,20 @@ public class MyAccountController extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 //Toast.makeText(getApplicationContext(), "Clicked product id =" + view.getTag(), Toast.LENGTH_SHORT).show();
-                                ParseQuery<ParseObject> query = ParseQuery.getQuery("VehicleTable");
+                                ParseQuery<ParseObject> query = ParseQuery.getQuery("RegisteredVehicles");
                                 query.getInBackground(view.getTag().toString(), new GetCallback<ParseObject>() {
                                     public void done(ParseObject vt, ParseException e) {
                                         if (e == null) {
-                                            vt.put("isViewed", true);
+                                            vt.put("isViewedSharer", true);
                                             vt.saveInBackground();
                                         }
                                     }
                                 });
 
-                                VehicleDataStore item = mProductList_shares.get(position);
+                                ShareDataStore item = mProductList_shares.get(position);
                                 mProductList_shares.remove(item);
 
-                                adapter_shares = new VehicleAdaptor(getApplicationContext(), mProductList_shares, 3);
+                                adapter_shares = new ShareAdaptor(getApplicationContext(), mProductList_shares, 3);
                                 lvProduct_shares.setAdapter(adapter_shares);
 
 
@@ -237,7 +237,7 @@ public class MyAccountController extends AppCompatActivity {
 
 
         });
-        */
+
 
         lvProduct_rents = (ListView)findViewById(R.id.listView_rents);
         mProductList_rents = new ArrayList<>();
@@ -282,7 +282,7 @@ public class MyAccountController extends AppCompatActivity {
                                 query.getInBackground(view.getTag().toString(), new GetCallback<ParseObject>() {
                                     public void done(ParseObject vt, ParseException e) {
                                         if (e == null) {
-                                            vt.put("isViewed", true);
+                                            vt.put("isViewedRenter", true);
                                             vt.saveInBackground();
                                         }
                                     }
