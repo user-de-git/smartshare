@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -23,7 +22,6 @@
         tools:context=".controller.MyAccountController">
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,13 +32,11 @@
             android:padding="7dp">
 
 
-
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:src="@drawable/register" />
-
 
 
             <TextView
@@ -77,15 +73,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+
 
                         <LinearLayout
                             android:id="@+id/tab1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
+
+                            <ScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    >
+
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -162,6 +168,7 @@
                                 </TableLayout>
 
                             </LinearLayout>
+
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -282,10 +289,11 @@
                                 android:layout_marginTop="20dp"
                                 android:onClick="updateAccount"
                                 android:text="Update Account" />
-
+                        </LinearLayout>
+                    </ScrollView>
                         </LinearLayout>
 
-                    </ScrollView>
+
 
 
                     <LinearLayout
@@ -294,11 +302,53 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <ListView
-                            android:id="@+id/listView_shares"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
+
+                            <TableLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginTop="10dp"
+                                android:stretchColumns="1">
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:background="@drawable/rev_back"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="20dp"
+                                    android:paddingTop="7dp">
+
+                                    <Spinner
+                                        android:id="@+id/spinner_shares"
+                                        android:layout_width="0dip"
+                                        android:layout_height="30dp"
+                                        android:layout_marginRight="10dp"
+                                        android:layout_marginTop="2.5dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/spinner_back_3" />
+
+                                    <TextView
+                                        android:id="@+id/get_expected_revenue"
+                                        android:layout_width="0dip"
+                                        android:layout_height="30dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/tv_back" />
+                                </TableRow>
+
+
+                            </TableLayout>
+
+                            <ListView
+                                android:id="@+id/listView_shares"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -325,20 +375,20 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/emailIdToTrack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="center_horizontal"
                 android:text="User Email"
-                android:id="@+id/emailIdToTrack"
-                android:layout_gravity="center_horizontal" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
+                android:id="@+id/trackUserButtonClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Track User"
+                android:layout_gravity="center_horizontal"
                 android:onClick="trackUserButtonClick"
-                android:id="@+id/trackUserButtonClick"
-                android:layout_gravity="center_horizontal" />
+                android:text="Track User" />
 
 
         </LinearLayout>

@@ -23,12 +23,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -40,6 +43,7 @@ import com.mss.group3.smartshare.model.RentAdaptor;
 import com.mss.group3.smartshare.model.RentDataStore;
 import com.mss.group3.smartshare.model.ShareAdaptor;
 import com.mss.group3.smartshare.model.ShareDataStore;
+import com.mss.group3.smartshare.model.ShareListItem;
 import com.mss.group3.smartshare.model.UserSingleton;
 import com.mss.group3.smartshare.model.VehicleAdaptor;
 import com.mss.group3.smartshare.model.VehicleDataStore;
@@ -53,6 +57,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,13 +72,30 @@ public class MyAccountController extends AppCompatActivity {
     final Context context = this;
     private ListView lvProduct_shares,lvProduct_rents;
     private ShareAdaptor adapter_shares;
+
+    private ShareAdaptor adapter_shares_weekly;
+    private ShareAdaptor adapter_shares_monthly;
+    //private ShareAdaptor adapter_shares_all;
+
     private RentAdaptor adapter_rents;
     private List<ShareDataStore> mProductList_shares;
+
+    private List<ShareDataStore> mProductList_shares_weekly = new ArrayList<>();
+    private List<ShareDataStore> mProductList_shares_monthly = new ArrayList<>();
+    //private List<ShareDataStore> mProductList_shares_all;
+
     private List<RentDataStore> mProductList_rents;
+    private  ArrayList<ShareListItem> share_list = new ArrayList<ShareListItem>();
     ParseQuery<ParseObject> query_shares = new ParseQuery<ParseObject>("RegisteredVehicles");
     ParseQuery<ParseObject> query_rents  = new ParseQuery<ParseObject>("RegisteredVehicles");
     static TabHost host;
     String EnddateString = null;
+    Double base_rev_weekly = 0.0;
+    Double base_rev_monthly =0.0;
+    Double total_rev = 0.0;
+    static Boolean first = false;
+
+    TextView tv_get_expected_revenue;
 
     private static final String[] INITIAL_PERMS={
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -95,6 +117,8 @@ public class MyAccountController extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        tv_get_expected_revenue = (TextView) findViewById(R.id.get_expected_revenue);
 
         host = (TabHost)findViewById(R.id.tabHost);
         host.setup();
@@ -139,6 +163,62 @@ public class MyAccountController extends AppCompatActivity {
             // show the signup or login screen
         }
 
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_shares);
+
+        List<String> categories = new ArrayList<String>();
+        categories.add("All");
+        categories.add("Weekly");
+        categories.add("Monthly");
+
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                // pv.setVehicle_type((String) parent.getItemAtPosition(pos));
+                String selection = (String) parent.getItemAtPosition(pos);
+                //Toast.makeText(getApplicationContext(), (String) parent.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
+                if(first) {
+                    String rev = null;
+                    if (selection.equals("All")) {
+                        rev = new DecimalFormat("0.##").format(total_rev);
+
+                        tv_get_expected_revenue.setText(rev);
+                        adapter_shares = new ShareAdaptor(getApplicationContext(), mProductList_shares, 2);
+                        lvProduct_shares.setAdapter(adapter_shares);
+                    } else if (selection.equals("Weekly")) {
+                        rev = new DecimalFormat("0.##").format(base_rev_weekly);
+
+                        tv_get_expected_revenue.setText(rev);
+                        adapter_shares_weekly = new ShareAdaptor(getApplicationContext(), mProductList_shares_weekly, 2);
+                        lvProduct_shares.setAdapter(adapter_shares_weekly);
+                    } else {
+                        rev = new DecimalFormat("0.##").format(base_rev_monthly);
+
+                        tv_get_expected_revenue.setText(rev);
+                        adapter_shares_monthly = new ShareAdaptor(getApplicationContext(), mProductList_shares_monthly, 2);
+                        lvProduct_shares.setAdapter(adapter_shares_monthly);
+                    }
+                }
+                first = true;
+
+
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         //int count_shared_vehicles = User.vehicle_list.size();
@@ -146,6 +226,7 @@ public class MyAccountController extends AppCompatActivity {
         for (int i = 0; i < User.vehicle_list.size(); i++) {
             query_shares.whereEqualTo("PlateNumber", User.vehicle_list.get(i));
             final int finalI = i;
+            /*
             List<ParseObject> rented_list = new ArrayList<ParseObject>();
             try {
                 rented_list = query_shares.find();
@@ -175,35 +256,76 @@ public class MyAccountController extends AppCompatActivity {
                 adapter_shares = new ShareAdaptor(getApplicationContext(), mProductList_shares, 2);
                 lvProduct_shares.setAdapter(adapter_shares);
             }
+            */
 
-            /*
             query_shares.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> list, ParseException e) {
                     for (ParseObject p : list) {
-                        if (!p.getBoolean("isViewed")) {
-                            mProductList_shares.add(new RentDataStore(
+                        if (!p.getBoolean("isViewedSharer")) {
+                            mProductList_shares.add(new ShareDataStore(
                                     p.getObjectId(),
                                     p.getString("PlateNumber"),
                                     p.getString("SourceAddress"),
                                     p.getString("DestinationAddress"),
                                     p.getDate("StartDate"),
-                                    p.getDate("EndDate")
+                                    p.getDate("EndDate"),
+                                    p.getDouble("BaseCost"),
+                                    p.getString("RenterEmail"),
+                                    p.getBoolean("TripDone")
                             ));
                         }
+
+                        if( isDateInCurrentWeek(p.getDate("StartDate")) ) {
+                            base_rev_weekly+=p.getDouble("BaseCost");
+                            if(!p.getBoolean("isViewedSharer")) {
+                                mProductList_shares_weekly.add(new ShareDataStore(
+                                        p.getObjectId(),
+                                        p.getString("PlateNumber"),
+                                        p.getString("SourceAddress"),
+                                        p.getString("DestinationAddress"),
+                                        p.getDate("StartDate"),
+                                        p.getDate("EndDate"),
+                                        p.getDouble("BaseCost"),
+                                        p.getString("RenterEmail"),
+                                        p.getBoolean("TripDone")
+                                ));
+                            }
+                        }
+
+
+
+                        if( isDateInCurrentMonth(p.getDate("StartDate")) ) {
+                            base_rev_monthly+=p.getDouble("BaseCost");
+                            if(!p.getBoolean("isViewedSharer")) {
+                                mProductList_shares_monthly.add(new ShareDataStore(
+                                        p.getObjectId(),
+                                        p.getString("PlateNumber"),
+                                        p.getString("SourceAddress"),
+                                        p.getString("DestinationAddress"),
+                                        p.getDate("StartDate"),
+                                        p.getDate("EndDate"),
+                                        p.getDouble("BaseCost"),
+                                        p.getString("RenterEmail"),
+                                        p.getBoolean("TripDone")
+                                ));
+                            }
+                        }
+
+
+
+                        total_rev+=p.getDouble("BaseCost");
                     }
 
                     if(finalI ==User.vehicle_list.size()-1) {
-                        //adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 2);
-
-                        adapter_shares = new RentAdaptor(getApplicationContext(), mProductList_shares, 2);
+                        adapter_shares = new ShareAdaptor(getApplicationContext(), mProductList_shares, 2);
                         lvProduct_shares.setAdapter(adapter_shares);
+                        String rev = new DecimalFormat("0.##").format(total_rev);
+                        tv_get_expected_revenue.setText(rev);
                     }
 
                 }
             });
-
-            */
         }
 
 
@@ -304,12 +426,19 @@ public class MyAccountController extends AppCompatActivity {
                                                           @Override
                                                           public void onClick(View v) {
 
+                                                              if(EnddateString==null) {
+                                                                  Toast.makeText(getApplicationContext(), "Date & Time missing", Toast.LENGTH_SHORT).show();
+                                                                  return;
+                                                              }
+
                                                               ParseQuery<ParseObject> query = ParseQuery.getQuery("RegisteredVehicles");
                                                               query.getInBackground(view.getTag().toString(), new GetCallback<ParseObject>() {
                                                                   public void done(ParseObject object, ParseException e) {
                                                                       if (e == null) {
                                                                           Date start = object.getDate("StartDate");
                                                                           Date _cancel = InputValidation.DateSetter(EnddateString);
+                                                                          Log.d("start",start.toString());
+                                                                          Log.d("_cancel",_cancel.toString());
                                                                           if(_cancel.before(start)) {
 
                                                                               try {
@@ -320,7 +449,7 @@ public class MyAccountController extends AppCompatActivity {
                                                                                   adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 3);
                                                                                   lvProduct_rents.setAdapter(adapter_rents);
                                                                               } catch (ParseException ec) {
-
+                                                                                    Log.d("exception",ec.toString());
                                                                               }
 
                                                                           } else {
@@ -330,7 +459,7 @@ public class MyAccountController extends AppCompatActivity {
                                                                       }
                                                                   }
                                                               });
-
+                                                              dialog.dismiss();
                                                           }
                                                       });
 
@@ -377,8 +506,8 @@ public class MyAccountController extends AppCompatActivity {
 
                                         Double Total_cost = additional_cost + baseCost;
 
-                                        Log.d("hrs",hrs.toString());
-                                        Log.d("Total_cost", Total_cost.toString());
+                                        // Log.d("hrs",hrs.toString());
+                                        // Log.d("Total_cost", Total_cost.toString());
 
                                         vt.put("TripDone", true);
                                         vt.put("TotalCost", Total_cost);
@@ -563,6 +692,27 @@ public class MyAccountController extends AppCompatActivity {
                 PackageManager.PERMISSION_GRANTED);
     }
 
+    public boolean isDateInCurrentWeek(Date date) {
+        Calendar currentCalendar = Calendar.getInstance();
+        int week = currentCalendar.get(Calendar.WEEK_OF_YEAR);
+        int year = currentCalendar.get(Calendar.YEAR);
+        Calendar targetCalendar = Calendar.getInstance();
+        targetCalendar.setTime(date);
+        int targetWeek = targetCalendar.get(Calendar.WEEK_OF_YEAR);
+        int targetYear = targetCalendar.get(Calendar.YEAR);
+        return week == targetWeek && year == targetYear;
+    }
+
+    public boolean isDateInCurrentMonth(Date date) {
+        Calendar currentCalendar = Calendar.getInstance();
+        int month = currentCalendar.get(Calendar.MONTH);
+        int year = currentCalendar.get(Calendar.YEAR);
+        Calendar targetCalendar = Calendar.getInstance();
+        targetCalendar.setTime(date);
+        int targetmonth = targetCalendar.get(Calendar.MONTH);
+        int targetYear = targetCalendar.get(Calendar.YEAR);
+        return month== targetmonth && year == targetYear;
+    }
 
 
     public void trackUserButtonClick(View view) {
