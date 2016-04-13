@@ -288,6 +288,8 @@ public class MyAccountController extends AppCompatActivity {
                 dialog.setContentView(R.layout.return_dialog);
                 final Calendar calendar = Calendar.getInstance();
                 Button dialogButtonreturn = (Button) dialog.findViewById(R.id.button_return);
+                Button dialogButtoncancel = (Button) dialog.findViewById(R.id.button_cancel);
+
                 ImageView iv = (ImageView) dialog.findViewById(R.id.img_left);
 
                 iv.setOnClickListener(new View.OnClickListener() {
@@ -297,6 +299,40 @@ public class MyAccountController extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
+                dialogButtoncancel.setOnClickListener(new View.OnClickListener() {
+                                                          @Override
+                                                          public void onClick(View v) {
+
+                                                              ParseQuery<ParseObject> query = ParseQuery.getQuery("RegisteredVehicles");
+                                                              query.getInBackground(view.getTag().toString(), new GetCallback<ParseObject>() {
+                                                                  public void done(ParseObject object, ParseException e) {
+                                                                      if (e == null) {
+                                                                          Date start = object.getDate("StartDate");
+                                                                          Date _cancel = InputValidation.DateSetter(EnddateString);
+                                                                          if(_cancel.before(start)) {
+
+                                                                              try {
+                                                                                  object.delete();
+                                                                                  RentDataStore item = mProductList_rents.get(position);
+                                                                                  mProductList_rents.remove(item);
+
+                                                                                  adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 3);
+                                                                                  lvProduct_rents.setAdapter(adapter_rents);
+                                                                              } catch (ParseException ec) {
+
+                                                                              }
+
+                                                                          } else {
+                                                                              Toast.makeText(getApplicationContext(), "Transaction is process, cancellation aborted", Toast.LENGTH_SHORT).show();
+
+                                                                          }
+                                                                      }
+                                                                  }
+                                                              });
+
+                                                          }
+                                                      });
 
                 dialogButtonreturn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -314,12 +350,14 @@ public class MyAccountController extends AppCompatActivity {
                                     Date end = vt.getDate("EndDate");
                                     Date start = vt.getDate("StartDate");
                                     Double baseCost = vt.getDouble("BaseCost");
+                                    Boolean returned= false;
 
                                     Date _return = InputValidation.DateSetter(EnddateString);
 
                                     if( _return.after(start) && _return.before(end) ) {
                                         vt.put("TripDone", true);
                                         vt.saveInBackground();
+                                        returned = true;
                                     } else if(_return.after(end)) {
                                         long diff = _return.getTime() - end.getTime();
                                         long diffHours = diff; /// (60 * 60 * 1000);
@@ -331,38 +369,37 @@ public class MyAccountController extends AppCompatActivity {
                                         } catch (ParseException ex) {
                                             ex.printStackTrace();
                                         }
-                                        //long Cost = overDueRate*diffHours;
 
-                                        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(diff);
-                                        long diffInHours = TimeUnit.MILLISECONDS.toHours(diff);
+                                        int diffInSeconds = (int) TimeUnit.MILLISECONDS.toSeconds(diff);
 
-                                        Log.d("diffInMinutes", Integer.toString((int)diffInMinutes));
-                                        Log.d("diffInMinutes to hours ", Integer.toString( ((int)diffInMinutes%60)/60 ));
+                                        Double hrs =  diffInSeconds*1.0 / (3600.00);
+                                        Double additional_cost = overDueRate * hrs;
 
-                                        Log.d("diffInHours", Integer.toString((int)diffInHours));
+                                        Double Total_cost = additional_cost + baseCost;
 
-                                        int Cost = overDueRate*( (int)diffHours + (((int)diffInMinutes)%60)/60 );
-                                        Log.d("addition of time in hrs",
-                                                Integer.toString((int)diffHours + (((int)diffInMinutes)%60)/60));
+                                        Log.d("hrs",hrs.toString());
+                                        Log.d("Total_cost", Total_cost.toString());
 
-                                        Log.d("OverdueRate", Integer.toString(overDueRate));
-
-                                        Toast.makeText(getApplicationContext(), "Total Cost -> "+Cost, Toast.LENGTH_LONG).show();
-                                        Log.d("Cost", Long.toString(Cost));
-
-
-
-
-
+                                        vt.put("TripDone", true);
+                                        vt.put("TotalCost", Total_cost);
+                                        vt.saveInBackground();
+                                        returned = true;
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Return date & time Invalid", Toast.LENGTH_SHORT).show();
                                         return;
-
                                     }
 
 
-                                    //vt.put("TripDone", true);
-                                    //vt.saveInBackground();
+                                    if(returned) {
+                                        RentDataStore item = mProductList_rents.get(position);
+                                        mProductList_rents.remove(item);
+
+                                        adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 3);
+                                        lvProduct_rents.setAdapter(adapter_rents);
+                                    }
+
+
+
                                 }
                             }
                         });
@@ -532,7 +569,7 @@ public class MyAccountController extends AppCompatActivity {
 
         ParseQuery<ParseObject> query1 = new ParseQuery<ParseObject>("LocationTracking");
         String pp = ((EditText) findViewById(R.id.emailIdToTrack)).getText().toString();
-        query1.whereEqualTo("Email",pp );
+        query1.whereEqualTo("Email", pp);
 
 
         query1.findInBackground(new FindCallback<ParseObject>() {
