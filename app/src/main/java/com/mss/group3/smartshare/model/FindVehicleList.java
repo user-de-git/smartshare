@@ -259,9 +259,9 @@ public class FindVehicleList extends AppCompatActivity {
                     parseObject.put("EndDate", objVehicleSingleton.arrivalDate.getTime());
                     parseObject.put("RenterEmail", userName.emailAddress);
                     parseObject.put("isViewedSharer", false);
-                    parseObject.put("isViewedRenter", false);
                     parseObject.put("TripDone", false);
                     parseObject.put("BaseCost",(objVehicleSingleton.distance/1000 * pricePerKm) );
+                    parseObject.put("TotalCost", (objVehicleSingleton.distance/1000 * pricePerKm));
                 } catch (Exception e) {
 
                 }

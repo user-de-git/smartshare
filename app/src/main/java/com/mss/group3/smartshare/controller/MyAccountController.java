@@ -4,8 +4,12 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TabActivity;
+import android.app.TimePickerDialog;
 import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,16 +18,22 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
+import com.mss.group3.smartshare.common.InputValidation;
 import com.mss.group3.smartshare.common.SaveSharedPreference;
 import com.mss.group3.smartshare.common.User;
 import com.mss.group3.smartshare.model.RentAdaptor;
@@ -44,7 +54,12 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static android.content.DialogInterface.*;
 
 
 public class MyAccountController extends AppCompatActivity {
@@ -58,6 +73,7 @@ public class MyAccountController extends AppCompatActivity {
     ParseQuery<ParseObject> query_shares = new ParseQuery<ParseObject>("RegisteredVehicles");
     ParseQuery<ParseObject> query_rents  = new ParseQuery<ParseObject>("RegisteredVehicles");
     static TabHost host;
+    String EnddateString = null;
 
     private static final String[] INITIAL_PERMS={
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -201,7 +217,7 @@ public class MyAccountController extends AppCompatActivity {
                 alertDialogBuilder
                         .setMessage("Remove from history ?")
                         .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Yes", new OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 //Toast.makeText(getApplicationContext(), "Clicked product id =" + view.getTag(), Toast.LENGTH_SHORT).show();
                                 ParseQuery<ParseObject> query = ParseQuery.getQuery("RegisteredVehicles");
@@ -224,7 +240,7 @@ public class MyAccountController extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("No", new OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // if this button is clicked, just close
                                 // the dialog box and do nothing
@@ -248,7 +264,7 @@ public class MyAccountController extends AppCompatActivity {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 for (ParseObject p : list) {
-                    if(!p.getBoolean("isViewed")) {
+                    if(!p.getBoolean("TripDone")) {
                         mProductList_rents.add(new RentDataStore(
                                 p.getObjectId(),
                                 p.getString("PlateNumber"),
@@ -268,64 +284,127 @@ public class MyAccountController extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.return_dialog);
+                final Calendar calendar = Calendar.getInstance();
+                Button dialogButtonreturn = (Button) dialog.findViewById(R.id.button_return);
+                ImageView iv = (ImageView) dialog.findViewById(R.id.img_left);
 
-                alertDialogBuilder.setTitle("Confirm Status");
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                alertDialogBuilder
-                        .setMessage("Remove from history ?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                ParseQuery<ParseObject> query = ParseQuery.getQuery("RegisteredVehicles");
-                                query.getInBackground(view.getTag().toString(), new GetCallback<ParseObject>() {
-                                    public void done(ParseObject vt, ParseException e) {
-                                        if (e == null) {
-                                            vt.put("isViewedRenter", true);
-                                            vt.saveInBackground();
+                        dialog.dismiss();
+                    }
+                });
+
+                dialogButtonreturn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(EnddateString==null) {
+                            Toast.makeText(getApplicationContext(), "Return Date & Time missing", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("RegisteredVehicles");
+                        query.getInBackground(view.getTag().toString(), new GetCallback<ParseObject>() {
+                            public void done(ParseObject vt, ParseException e) {
+                                if (e == null) {
+                                    Date end = vt.getDate("EndDate");
+                                    Date start = vt.getDate("StartDate");
+                                    Double baseCost = vt.getDouble("BaseCost");
+
+                                    Date _return = InputValidation.DateSetter(EnddateString);
+
+                                    if( _return.after(start) && _return.before(end) ) {
+                                        vt.put("TripDone", true);
+                                        vt.saveInBackground();
+                                    } else if(_return.after(end)) {
+                                        long diff = _return.getTime() - end.getTime();
+                                        long diffHours = diff; /// (60 * 60 * 1000);
+                                        Integer overDueRate = -1;
+                                        ParseQuery<ParseObject> query = ParseQuery.getQuery("VehicleTable");
+                                        query.whereEqualTo("Plate_number", vt.getString("PlateNumber"));
+                                        try {
+                                            overDueRate = query.getFirst().getInt("Overdue_hr_rate");
+                                        } catch (ParseException ex) {
+                                            ex.printStackTrace();
                                         }
+                                        //long Cost = overDueRate*diffHours;
+
+                                        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+                                        long diffInHours = TimeUnit.MILLISECONDS.toHours(diff);
+
+                                        Log.d("diffInMinutes", Integer.toString((int)diffInMinutes));
+                                        Log.d("diffInMinutes to hours ", Integer.toString( ((int)diffInMinutes%60)/60 ));
+
+                                        Log.d("diffInHours", Integer.toString((int)diffInHours));
+
+                                        int Cost = overDueRate*( (int)diffHours + (((int)diffInMinutes)%60)/60 );
+                                        Log.d("addition of time in hrs",
+                                                Integer.toString((int)diffHours + (((int)diffInMinutes)%60)/60));
+
+                                        Log.d("OverdueRate", Integer.toString(overDueRate));
+
+                                        Toast.makeText(getApplicationContext(), "Total Cost -> "+Cost, Toast.LENGTH_LONG).show();
+                                        Log.d("Cost", Long.toString(Cost));
+
+
+
+
+
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Return date & time Invalid", Toast.LENGTH_SHORT).show();
+                                        return;
+
                                     }
-                                });
 
-                                RentDataStore item = mProductList_rents.get(position);
-                                mProductList_rents.remove(item);
 
-                                adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 3);
-                                lvProduct_rents.setAdapter(adapter_rents);
-                                dialog.cancel();
-                            }
-
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // if this button is clicked, just close
-                                // the dialog box and do nothing
-                                dialog.cancel();
+                                    //vt.put("TripDone", true);
+                                    //vt.saveInBackground();
+                                }
                             }
                         });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                        dialog.dismiss();
+                    }
+                });
+
+                Button button_setReturnDateTime = (Button) dialog.findViewById(R.id.button_setReturnDateTime);
+                final EditText get_ReturnDateTime = (EditText) dialog.findViewById(R.id.get_ReturnDateTime);
+
+                button_setReturnDateTime.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        new DatePickerDialog(context,
+                                new DatePickerDialog.OnDateSetListener() {
+                                    @Override public void onDateSet(DatePicker view,
+                                                                    int year, int month, int day) {
+                                        EnddateString = (month+1) +"/" + day + "/" + year;
+                                        new TimePickerDialog(context,
+                                                new TimePickerDialog.OnTimeSetListener() {
+                                                    @Override public void onTimeSet(TimePicker view,
+                                                                                    int hour, int min) {
+                                                        EnddateString+=" "+hour + ":"+min;
+                                                        get_ReturnDateTime.setText(EnddateString);
+                                                    }
+                                                }, calendar.get(Calendar.HOUR_OF_DAY),
+                                                    calendar.get(Calendar.MINUTE),
+                                                    android.text.format.DateFormat.is24HourFormat(context)).show();
+
+                                    }
+                                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                                calendar.get(Calendar.DAY_OF_MONTH)).show();
+                    }
+                });
+
+
+
+                dialog.show();
             }
-
-
-
         });
-    //});
-/*
-        host.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
 
-            @Override
-            public void onTabChanged(String tabId) {
-                if ("Tab One".equals(tabId)) {
-                    Toast.makeText(getApplicationContext(), "Tab One Pressed", Toast.LENGTH_SHORT).show();
-                } else if ("Tab Two".equals(tabId)) {
-                    Toast.makeText(getApplicationContext(), "Tab Two Pressed", Toast.LENGTH_SHORT).show();
-                } else {
-                }
-            }
-        });
-        */
     }
 
     @Override

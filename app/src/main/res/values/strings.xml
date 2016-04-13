@@ -30,4 +30,6 @@
         <item>45</item>
     </string-array>
     <string name="google_app_id">1033831487737</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_return_vehicle_controller">ReturnVehicleController</string>
 </resources>
