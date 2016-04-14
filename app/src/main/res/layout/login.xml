@@ -40,8 +40,8 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
 
-        android:fontFamily="sans-serif-medium"
-        android:text="Smartshare"
+        android:fontFamily="sans-serif-light"
+        android:text="SMARTSHARE"
         android:textColor="#ffffff"
         android:textSize="35dp"
         android:textStyle="bold" />

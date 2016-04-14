@@ -262,10 +262,7 @@ public class UpdateVehicleController extends AppCompatActivity{
         Date end = InputValidation.DateSetter(fields[4]);
         //Date now = new Date();
 
-        if(start.before(new Date(System.currentTimeMillis()-24*60*60*1000))) {
-            Toast.makeText(getApplicationContext(), "Please enter valid start date", Toast.LENGTH_SHORT).show();
-            return;
-        }
+
         if(end.before(start)) {
             Toast.makeText(getApplicationContext(), "Please enter valid end date", Toast.LENGTH_SHORT).show();
             return;
