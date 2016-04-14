@@ -26,6 +26,7 @@ import com.mss.group3.smartshare.common.SaveSharedPreference;
 import com.mss.group3.smartshare.model.Login;
 import com.mss.group3.smartshare.model.PostVehicle;
 import com.mss.group3.smartshare.model.UserSingleton;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -35,6 +36,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class UpdateVehicleController extends AppCompatActivity{
 
@@ -330,15 +332,62 @@ public class UpdateVehicleController extends AppCompatActivity{
         final ParseQuery<ParseObject> testObject = ParseQuery.getQuery("VehicleTable");
 
         testObject.getInBackground(Vehicle_Id, new GetCallback<ParseObject>() {
-            public void done(ParseObject tObject, ParseException e) {
+            public void done(final ParseObject tObject, ParseException e) {
                 if (e == null) {
-                    try {
-                        tObject.delete();
-                    } catch (ParseException e1) {
-                        e1.printStackTrace();
-                    }
-                    Intent myIntent = new Intent(UpdateVehicleController.this, OwnerController.class);
-                    startActivity(myIntent);
+
+                    String plate_num = tObject.getString("Plate_number");
+
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("RegisteredVehicles");
+                    query.whereEqualTo("PlateNumber", plate_num);
+                    query.findInBackground(new FindCallback<ParseObject>() {
+                        public void done(List<ParseObject> list, ParseException e) {
+                            if (e == null) {
+
+                                if (list.size() == 0) {
+                                    try {
+                                        tObject.delete();
+                                        Intent myIntent = new Intent(UpdateVehicleController.this, OwnerController.class);
+                                        startActivity(myIntent);
+                                    } catch (ParseException ex) {
+
+                                    }
+                                } else {
+                                    Boolean trip_in_progress = false;
+                                    for(ParseObject object : list) {
+                                        if(!object.getBoolean("TripDone")) {
+                                            trip_in_progress = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!trip_in_progress) {
+                                        try {
+                                            tObject.delete();
+                                            Intent myIntent = new Intent(UpdateVehicleController.this, OwnerController.class);
+                                            startActivity(myIntent);
+                                        } catch (ParseException ex) {
+
+                                        }
+
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Vehicle currently booked", Toast.LENGTH_SHORT).show();
+
+                                    }
+
+                                }
+
+
+                            }
+
+                        }
+                    });
+
+
+
+
+
+
+
+
                 }
             }
         });

@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mss.group3.smartshare"
-    >
+    package="com.mss.group3.smartshare">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <permission
         android:name="in.wptrafficanalyzer.locationdistancetimemapv2.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="in.wptrafficanalyzer.locationdistancetimemapv2.permission.MAPS_RECEIVE" />
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
+        android:required="true" />
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:supportsRtl="true"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <meta-data
             android:name="com.parse.APPLICATION_ID"
@@ -46,31 +42,28 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".controller.LoginController" />
+        <activity android:name=".controller.FindVehicleController" />
+        <activity android:name=".model.FindVehicleList" />
+        <activity android:name=".controller.MyAccountController" />
+        <activity android:name=".controller.UserTypeController" />
+        <activity android:name=".controller.PostVehicleController" />
+        <activity android:name=".controller.OwnerController" />
+        <activity android:name=".controller.UpdateVehicleController" />
+        <activity android:name=".controller.UserRegistrationController" />
+        <activity android:name=".controller.RecoveryController" />
+        <activity android:name=".common.Success" />
 
-
-        <activity android:name=".controller.LoginController"></activity>
-        <activity  android:name=".controller.FindVehicleController"></activity>
-        <activity android:name=".model.FindVehicleList"></activity>
-        <activity android:name=".controller.MyAccountController"></activity>
-        <activity android:name=".controller.UserTypeController"></activity>
-        <activity android:name=".controller.PostVehicleController"></activity>
-        <activity android:name=".controller.OwnerController"></activity>
-        <activity android:name=".controller.UpdateVehicleController"></activity>
-        <activity android:name=".controller.UserRegistrationController"></activity>
-        <activity android:name=".controller.RecoveryController"></activity>
-        <activity android:name=".common.Success"></activity>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC1Y7YQUw35u2WhQ84wnwQOz2mZCxvmfJM" />
-
-
 
     </application>
 
