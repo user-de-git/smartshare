@@ -1,0 +1,178 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/list_item_back_1"
+    android:paddingLeft="10dp"
+    android:paddingBottom="15dp"
+    android:paddingTop="15dp"
+    android:id="@+id/list_item_template"
+    >
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:shrinkColumns="*">
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_weight="1.9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+
+                android:src="@drawable/car_icon_2" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="8.1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+           >
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:shrinkColumns="*"
+
+                >
+                <TableRow
+                    android:id="@+id/tableRo1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:id="@+id/car_type"
+                        android:layout_weight="6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Car_type"
+                        android:textColor="@color/colorBlack"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRoqa1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="215dp"
+                        android:layout_height="2dip"
+                        android:background="#ccccb3" />
+
+                    </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableR1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1.5dp"
+                    >
+                    <TextView
+                        android:id="@+id/tv_dateFrom"
+                        android:layout_weight="4.5"
+                        android:layout_width="0dp"
+                        android:textColor="@color/colorBlack"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:text="Date"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/tv_dash"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:textColor="@color/colorBlack"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:text=" - "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/tv_dateTo"
+                        android:layout_weight="4.5"
+                        android:layout_width="0dp"
+                        android:textColor="@color/colorBlack"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:text="Date"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+                    </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/tableRoq1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1.5dp"
+                    >
+                    <TextView
+                        android:id="@+id/tv_dateSource"
+                        android:layout_weight="4.5"
+                        android:layout_width="0dp"
+                        android:textColor="@color/colorBlack"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:text="Source"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/tv_dash1"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:textColor="@color/colorBlack"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:text=" - "
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <TextView
+                        android:id="@+id/tv_dateDestination"
+                        android:layout_weight="4.5"
+                        android:layout_width="0dp"
+                        android:textColor="@color/colorBlack"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:text="Destination"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                </TableRow>
+
+
+
+            </TableLayout>
+
+
+
+
+
+            </LinearLayout>
+
+    </TableRow>
+
+
+    </TableLayout>
+    </LinearLayout>
+
+
+
+
+
