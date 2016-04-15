@@ -2,11 +2,9 @@ package com.mss.group3.smartshare.controller;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TabActivity;
 import android.app.TimePickerDialog;
 import android.content.Context;
 
@@ -43,15 +41,11 @@ import com.mss.group3.smartshare.model.RentAdaptor;
 import com.mss.group3.smartshare.model.RentDataStore;
 import com.mss.group3.smartshare.model.ShareAdaptor;
 import com.mss.group3.smartshare.model.ShareDataStore;
-import com.mss.group3.smartshare.model.ShareListItem;
 import com.mss.group3.smartshare.model.UserSingleton;
-import com.mss.group3.smartshare.model.VehicleAdaptor;
-import com.mss.group3.smartshare.model.VehicleDataStore;
 import com.mss.group3.smartshare.utility.LocationServices;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -85,7 +79,6 @@ public class MyAccountController extends AppCompatActivity {
     //private List<ShareDataStore> mProductList_shares_all;
 
     private List<RentDataStore> mProductList_rents;
-    private  ArrayList<ShareListItem> share_list = new ArrayList<ShareListItem>();
     ParseQuery<ParseObject> query_shares = new ParseQuery<ParseObject>("RegisteredVehicles");
     ParseQuery<ParseObject> query_rents  = new ParseQuery<ParseObject>("RegisteredVehicles");
     static TabHost host;
