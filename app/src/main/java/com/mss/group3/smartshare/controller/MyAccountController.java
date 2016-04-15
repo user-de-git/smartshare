@@ -629,10 +629,6 @@ public class MyAccountController extends AppCompatActivity {
 
     //get current location
     private void getLocation(String address) {
-
-
-
-
         LocationServices mLocationServices = new LocationServices(this);
         mLocationServices.getLocation();
         if (mLocationServices.isLocationAvailable == false) {

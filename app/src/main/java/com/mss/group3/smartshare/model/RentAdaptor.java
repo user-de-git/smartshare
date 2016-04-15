@@ -77,7 +77,7 @@ public class RentAdaptor extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        final View v = View.inflate(mContext, R.layout.listitemvehicle, null);
+        final View v = View.inflate(mContext, R.layout.listitemvehicle_rents, null);
         Drawable  drawable = null;//new Image that was added to the res folder
 
         drawable = ContextCompat.getDrawable(mContext, R.drawable.list_item_back_3);
@@ -86,22 +86,17 @@ public class RentAdaptor extends BaseAdapter {
             v.setBackground(drawable);
         }
 
-        TextView tv = (TextView)v.findViewById(R.id.tv_dateFrom);
-        LinearLayout.LayoutParams loparams = (LinearLayout.LayoutParams) tv.getLayoutParams();
-        loparams.weight = 10;
-        tv.setLayoutParams(loparams);
+        TextView tv_from = (TextView)v.findViewById(R.id.tv_dateFrom);
+        
+        TextView tv_to = (TextView)v.findViewById(R.id.tv_dateTo);
 
-        TextView tv1 = (TextView)v.findViewById(R.id.tv_dateTo);
-        LinearLayout.LayoutParams loparams1 = (LinearLayout.LayoutParams) tv1.getLayoutParams();
-        loparams1.weight = 10;
-        tv.setLayoutParams(loparams1);
+        TextView tv_Source = (TextView)v.findViewById(R.id.tv_dateSource);
+
+        TextView tv_destination = (TextView)v.findViewById(R.id.tv_dateDestination);
 
         final TextView car_type = (TextView)v.findViewById(R.id.car_type);
-        TextView car_capacity = (TextView)v.findViewById(R.id.car_capacity);
-        final TextView tv_dateFrom = (TextView)v.findViewById(R.id.tv_dateFrom);
-        final TextView tv_dateTo = (TextView)v.findViewById(R.id.tv_dateTo);
-        TextView tv_price = (TextView)v.findViewById(R.id.tv_price);
 
+        TextView tv_price = (TextView)v.findViewById(R.id.tv_price);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("VehicleTable");
         query.whereEqualTo("Plate_number", mProductList.get(position).getPlateNumber());
@@ -111,7 +106,6 @@ public class RentAdaptor extends BaseAdapter {
             e.printStackTrace();
         }
 
-        //while(vehicle_type.equals("")) {}
         car_type.setText(vehicle_type);
         String from = DateSetter(mProductList.get(position).getStartDateTime().toString());
         String to = DateSetter(mProductList.get(position).getEndDateTime().toString());
@@ -120,10 +114,11 @@ public class RentAdaptor extends BaseAdapter {
         String endAddress = mProductList.get(position).getEndAddress();
         //DecimalFormat format = new DecimalFormat("0.##");
 
+        tv_from.setText(from);
+        tv_to.setText(to);
 
-
-        tv_dateFrom.setText(from+" - "+to);
-        tv_dateTo.setText(startAddress+ " - "+endAddress );
+        tv_Source.setText(startAddress );
+        tv_destination.setText(endAddress );
 
 
 
