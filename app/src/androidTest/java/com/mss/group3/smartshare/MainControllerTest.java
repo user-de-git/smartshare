@@ -8,6 +8,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
+import android.test.suitebuilder.annotation.MediumTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,21 +30,40 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
+@MediumTest
 public class MainControllerTest {
-
 
     @Rule
     public ActivityTestRule<MainController> booksActivityTestRule =
             new ActivityTestRule<>(MainController.class);
 
     @Test
-    public void Login_Password_Submit_Displayed() {
+    public void AcceptTerms_Navigate_LoginScreen() {
+
+        acceptTerms();
+
         /*
-        onView(withId(R.id.userName)).check(matches(isDisplayed()));
+        onView(withId(R.id.userName)).
+                perform(typeText("sandy@gmail.com"));
+        onView(withId(R.id.userPassword)).
+                perform(typeText("sandy"));
+        onView(withText("Login")).
+                perform(click());
+       // onView(withId(R.id.userPassword)).check(matches(isDisplayed()));
+       // onView(withId(R.id.buttonLogin)).check(matches(isDisplayed()));
+       // */
+    }
+
+    public void acceptTerms() {
+
+        onView(withId(R.id.acceptbuttonid)).check(matches(isDisplayed()));
+
+        onView(withId(R.id.acceptbuttonid)).
+                perform(click());
+
         onView(withId(R.id.userPassword)).check(matches(isDisplayed()));
         onView(withId(R.id.buttonLogin)).check(matches(isDisplayed()));
-        */
+
     }
 
     @Test
