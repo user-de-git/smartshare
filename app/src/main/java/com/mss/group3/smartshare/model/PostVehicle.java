@@ -1,21 +1,13 @@
 package com.mss.group3.smartshare.model;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import com.mss.group3.smartshare.R;
 import com.mss.group3.smartshare.common.User;
-import com.mss.group3.smartshare.interfaces.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class PostVehicle extends User implements ILocation, ISchedule, IVehicle {
+public class PostVehicle extends User {
     Integer overDueCharges;
     String plate_number;
     Double  price_km;
