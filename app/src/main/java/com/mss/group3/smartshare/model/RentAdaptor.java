@@ -87,7 +87,7 @@ public class RentAdaptor extends BaseAdapter {
         }
 
         TextView tv_from = (TextView)v.findViewById(R.id.tv_dateFrom);
-        
+
         TextView tv_to = (TextView)v.findViewById(R.id.tv_dateTo);
 
         TextView tv_Source = (TextView)v.findViewById(R.id.tv_dateSource);

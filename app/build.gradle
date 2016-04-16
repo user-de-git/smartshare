@@ -6,6 +6,8 @@ android {
 
     defaultConfig {
         multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
 
     defaultConfig {
@@ -31,6 +33,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+
+
+
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
@@ -42,6 +47,14 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile 'com.google.android.gms:play-services-identity:8.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
+
+    androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.1"
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:2.2.1"
+    androidTestCompile "com.android.support.test.espresso:espresso-contrib:2.2.1"
+    androidTestCompile "com.android.support.test:runner:0.4.1"
+    androidTestCompile "com.android.support.test:rules:0.4.1"
+    androidTestCompile 'com.android.support:support-annotations:23.1.1'
+
 }
 
 
