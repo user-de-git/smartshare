@@ -5,18 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="60dp"
-    android:paddingRight="60dp"
     android:paddingTop="30dp"
-    tools:context=".controller.MainController">
+    tools:context=".controller.MainController"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="The application is designed to help users to share their vehicle. We are not responible for any misshappening. We approximated the vehicle arrival time but may not reach at right time.  Powered by group3"
+        android:id="@+id/textView2"
+        android:layout_weight="0.11"
+        android:background="#ffffff"
+        android:layout_margin="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:textAlignment="center"
+        android:singleLine="false"
+        android:textStyle="bold|italic"
+        android:translationZ="@dimen/abc_action_bar_progress_bar_size" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Accept"
         android:id="@+id/acceptbuttonid"
-        android:layout_gravity="center_horizontal"
-        android:onClick="AcceptAgreementButtonClick"/>
+        android:onClick="AcceptAgreementButtonClick"
+        android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="wrap_content"
