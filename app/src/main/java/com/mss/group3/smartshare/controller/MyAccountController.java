@@ -56,6 +56,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.DialogInterface.*;
@@ -72,14 +73,16 @@ public class MyAccountController extends AppCompatActivity {
     //private ShareAdaptor adapter_shares_all;
 
     private RentAdaptor adapter_rents;
-    private List<ShareDataStore> mProductList_shares;
+    //private List<ShareDataStore> mProductList_shares;
+
+    CopyOnWriteArrayList<ShareDataStore> mProductList_shares = new CopyOnWriteArrayList<ShareDataStore>();
 
     private List<ShareDataStore> mProductList_shares_weekly = new ArrayList<>();
     private List<ShareDataStore> mProductList_shares_monthly = new ArrayList<>();
     //private List<ShareDataStore> mProductList_shares_all;
 
     private List<RentDataStore> mProductList_rents;
-    ParseQuery<ParseObject> query_shares = new ParseQuery<ParseObject>("RegisteredVehicles");
+    //ParseQuery<ParseObject> query_shares = new ParseQuery<ParseObject>("RegisteredVehicles");
     ParseQuery<ParseObject> query_rents  = new ParseQuery<ParseObject>("RegisteredVehicles");
     static TabHost host;
     String EnddateString = null;
@@ -106,7 +109,7 @@ public class MyAccountController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_acount);
         lvProduct_shares = (ListView)findViewById(R.id.listView_shares);
-        mProductList_shares = new ArrayList<>();
+        //mProductList_shares = new ArrayList<>();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -136,7 +139,7 @@ public class MyAccountController extends AppCompatActivity {
 
         int callingActivity = getIntent().getIntExtra("calling-activity", 0);
         if(callingActivity == 1001)
-        host.setCurrentTabByTag("Rents");
+            host.setCurrentTabByTag("Rents");
 
 
         cUser = ParseUser.getCurrentUser();
@@ -178,7 +181,7 @@ public class MyAccountController extends AppCompatActivity {
                 // pv.setVehicle_type((String) parent.getItemAtPosition(pos));
                 String selection = (String) parent.getItemAtPosition(pos);
                 //Toast.makeText(getApplicationContext(), (String) parent.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
-                if(first) {
+                if (first) {
                     String rev = null;
                     if (selection.equals("All")) {
                         rev = new DecimalFormat("0.##").format(total_rev);
@@ -216,8 +219,12 @@ public class MyAccountController extends AppCompatActivity {
         UserSingleton userSingleton = UserSingleton.getInstance();
         //int count_shared_vehicles = User.vehicle_list.size();
         mProductList_shares.clear();
+        //= new ParseQuery<ParseObject>("RegisteredVehicles");
+        int size = User.vehicle_list.size();
+        ParseQuery[] query_shares = new ParseQuery[size];
         for (int i = 0; i < User.vehicle_list.size(); i++) {
-            query_shares.whereEqualTo("PlateNumber", User.vehicle_list.get(i));
+            query_shares[i] = new ParseQuery<ParseObject>("RegisteredVehicles");
+            query_shares[i].whereEqualTo("PlateNumber", User.vehicle_list.get(i));
             final int finalI = i;
             /*
             List<ParseObject> rented_list = new ArrayList<ParseObject>();
@@ -251,7 +258,7 @@ public class MyAccountController extends AppCompatActivity {
             }
             */
 
-            query_shares.findInBackground(new FindCallback<ParseObject>() {
+            query_shares[i].findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> list, ParseException e) {
                     for (ParseObject p : list) {
@@ -416,45 +423,45 @@ public class MyAccountController extends AppCompatActivity {
                 });
 
                 dialogButtoncancel.setOnClickListener(new View.OnClickListener() {
-                                                          @Override
-                                                          public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
 
-                                                              if(EnddateString==null) {
-                                                                  Toast.makeText(getApplicationContext(), "Date & Time missing", Toast.LENGTH_SHORT).show();
-                                                                  return;
-                                                              }
+                        if(EnddateString==null) {
+                            Toast.makeText(getApplicationContext(), "Date & Time missing", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                                                              ParseQuery<ParseObject> query = ParseQuery.getQuery("RegisteredVehicles");
-                                                              query.getInBackground(view.getTag().toString(), new GetCallback<ParseObject>() {
-                                                                  public void done(ParseObject object, ParseException e) {
-                                                                      if (e == null) {
-                                                                          Date start = object.getDate("StartDate");
-                                                                          Date _cancel = InputValidation.DateSetter(EnddateString);
-                                                                          Log.d("start",start.toString());
-                                                                          Log.d("_cancel",_cancel.toString());
-                                                                          if(_cancel.before(start)) {
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("RegisteredVehicles");
+                        query.getInBackground(view.getTag().toString(), new GetCallback<ParseObject>() {
+                            public void done(ParseObject object, ParseException e) {
+                                if (e == null) {
+                                    Date start = object.getDate("StartDate");
+                                    Date _cancel = InputValidation.DateSetter(EnddateString);
+                                    Log.d("start",start.toString());
+                                    Log.d("_cancel",_cancel.toString());
+                                    if(_cancel.before(start)) {
 
-                                                                              try {
-                                                                                  object.delete();
-                                                                                  RentDataStore item = mProductList_rents.get(position);
-                                                                                  mProductList_rents.remove(item);
+                                        try {
+                                            object.delete();
+                                            RentDataStore item = mProductList_rents.get(position);
+                                            mProductList_rents.remove(item);
 
-                                                                                  adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 3);
-                                                                                  lvProduct_rents.setAdapter(adapter_rents);
-                                                                              } catch (ParseException ec) {
-                                                                                    Log.d("exception",ec.toString());
-                                                                              }
+                                            adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 3);
+                                            lvProduct_rents.setAdapter(adapter_rents);
+                                        } catch (ParseException ec) {
+                                            Log.d("exception",ec.toString());
+                                        }
 
-                                                                          } else {
-                                                                              Toast.makeText(getApplicationContext(), "Transaction is process, cancellation aborted", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Transaction is process, cancellation aborted", Toast.LENGTH_SHORT).show();
 
-                                                                          }
-                                                                      }
-                                                                  }
-                                                              });
-                                                              dialog.dismiss();
-                                                          }
-                                                      });
+                                    }
+                                }
+                            }
+                        });
+                        dialog.dismiss();
+                    }
+                });
 
                 dialogButtonreturn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -549,8 +556,8 @@ public class MyAccountController extends AppCompatActivity {
                                                         get_ReturnDateTime.setText(EnddateString);
                                                     }
                                                 }, calendar.get(Calendar.HOUR_OF_DAY),
-                                                    calendar.get(Calendar.MINUTE),
-                                                    android.text.format.DateFormat.is24HourFormat(context)).show();
+                                                calendar.get(Calendar.MINUTE),
+                                                android.text.format.DateFormat.is24HourFormat(context)).show();
 
                                     }
                                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
