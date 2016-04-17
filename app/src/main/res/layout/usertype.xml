@@ -37,6 +37,7 @@
             android:background="#000000" />
 
         <TextView
+            android:id="@+id/Share_Vehicle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Share Vehicle"
@@ -72,6 +73,7 @@
             android:background="#ffffff" />
 
         <TextView
+            android:id="@+id/Find_Vehicle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" Find Vehicle "
@@ -109,6 +111,7 @@
             android:background="#000000" />
 
         <TextView
+            android:id="@+id/My_Account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" My Account  "
