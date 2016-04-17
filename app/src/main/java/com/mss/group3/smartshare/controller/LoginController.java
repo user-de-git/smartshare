@@ -91,7 +91,8 @@ public class LoginController extends Activity {
                     startActivity(myIntent);
 
                 } else {
-                    finish();
+                    SaveSharedPreference.setUserName(LoginController.this, "");
+                    SaveSharedPreference.setPassword(LoginController.this, "");
                     Toast.makeText(getApplicationContext(), "Please enter correct information", Toast.LENGTH_SHORT).show();
                 }
             }
