@@ -77,8 +77,8 @@ public class MyAccountController extends AppCompatActivity {
 
     CopyOnWriteArrayList<ShareDataStore> mProductList_shares = new CopyOnWriteArrayList<ShareDataStore>();
 
-    private List<ShareDataStore> mProductList_shares_weekly = new ArrayList<>();
-    private List<ShareDataStore> mProductList_shares_monthly = new ArrayList<>();
+    CopyOnWriteArrayList<ShareDataStore> mProductList_shares_weekly = new CopyOnWriteArrayList<ShareDataStore>();
+    CopyOnWriteArrayList<ShareDataStore> mProductList_shares_monthly = new CopyOnWriteArrayList<ShareDataStore>();
     //private List<ShareDataStore> mProductList_shares_all;
 
     private List<RentDataStore> mProductList_rents;

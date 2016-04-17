@@ -75,6 +75,8 @@ public class LoginController extends Activity {
                     SaveSharedPreference.setPassword(LoginController.this, login.getUserPassword());
                     Toast.makeText(getApplicationContext(), "User found in DB", Toast.LENGTH_SHORT).show();
 
+                    User.vehicle_list.clear();
+
                     ParseQuery<ParseObject> query_shares = new ParseQuery<ParseObject>("VehicleTable");
                     query_shares.whereEqualTo("Owner_email", login.getUserName());
                     query_shares.findInBackground(new FindCallback<ParseObject>() {
