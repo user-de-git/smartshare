@@ -15,10 +15,6 @@
         />
 
 
-
-
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -153,7 +149,7 @@
                 android:layout_weight="1"
                 android:layout_marginRight="10dp"
                 android:background="#fcfcfc"
-                android:hint="Share Range"
+                android:hint="Share Range (KM)"
                 android:inputType="number"
                 android:padding="5dp" />
 

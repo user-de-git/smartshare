@@ -369,29 +369,7 @@
             </LinearLayout>
         </TabHost>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/emailIdToTrack"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="User Email"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Button
-                android:id="@+id/trackUserButtonClick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:onClick="trackUserButtonClick"
-                android:text="Track User" />
-
-
-        </LinearLayout>
 
 
     </LinearLayout>
