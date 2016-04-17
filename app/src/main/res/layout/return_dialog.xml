@@ -83,5 +83,12 @@
         android:id="@+id/button_cancel" />
 </LinearLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feedback now!"
+        android:id="@+id/button_feedback"
+        android:layout_gravity="center_horizontal" />
+
 
 </LinearLayout>
