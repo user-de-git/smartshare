@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="?attr/colorPrimary"
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".controller.PostVehicleController">
@@ -173,7 +173,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_weight="1"
-                    android:background="#000000"
                     android:clickable="true"
                     android:onClick="refreshLocation"
                     android:padding="4dp"
@@ -181,7 +180,9 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#ffffff"
                     android:textSize="10dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:autoText="false"
+                     />
 
 
             </TableRow>
@@ -255,6 +256,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:onClick="userRegistrationButtonPress"
-        android:text="Sign up !" />
+        android:text="Sign up !"
+        android:background="#0a0909"
+        android:textColor="#fffefe" />
 
 </LinearLayout>

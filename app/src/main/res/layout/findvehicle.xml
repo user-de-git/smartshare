@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+
     xmlns:android="http://schemas.android.com/apk/res/android">
 <android.support.v7.widget.Toolbar
     android:id="@+id/my_toolbar"
@@ -21,8 +22,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
     android:orientation="vertical"
+    android:background="?attr/colorPrimary"
     android:padding="20dp"
     tools:context=".controller.FindVehicleController">
 

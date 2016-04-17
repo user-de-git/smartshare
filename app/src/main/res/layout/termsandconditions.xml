@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="30dp"
+    android:background="?attr/colorPrimary"
     tools:context=".controller.MainController"
     android:weightSum="1">
 
@@ -15,7 +16,7 @@
         android:text="The application is designed to help users to share their vehicle. We are not responible for any misshappening. We approximated the vehicle arrival time but may not reach at right time.  Powered by group3"
         android:id="@+id/textView2"
         android:layout_weight="0.11"
-        android:background="#ffffff"
+        android:background="#fbf298"
         android:layout_margin="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
