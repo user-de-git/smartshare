@@ -445,6 +445,7 @@ public class FindVehicleList extends AppCompatActivity {
             query.whereLessThanOrEqualTo("FromDate", objVehicleSingleton.departureDate.getTime());
             query.whereGreaterThanOrEqualTo("ToDate", objVehicleSingleton.arrivalDate.getTime());
             query.whereEqualTo("Capacity", objVehicleSingleton.capacity);
+            query.whereNotEqualTo("Owner_email", UserSingleton.getInstance().emailAddress);
             query.setLimit(10000);
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
@@ -459,7 +460,7 @@ public class FindVehicleList extends AppCompatActivity {
                             distance = distance + distance * .5;
                             if (getGeo.distanceInKilometersTo(getCurrentGeoPoint) < p.getInt("vehicle_range")) {
                                 vehicleWithRangeListArray.add(new VehicleWithRangeList(p.getObjectId(), p.getString("Plate_number"), p.getString("Vehicle_type"),
-                                        p.getInt("lateCharges"), p.getInt("vehicle_range"), p.getString("Address") +" "+ p.getString("PostalCode"),
+                                        p.getInt("Overdue_hr_rate"), p.getInt("vehicle_range"), p.getString("Address") +" "+ p.getString("PostalCode"),
                                         p.getDate("FromDate"), p.getDate("ToDate"), p.getInt("Price_km"), p.getString("Owner_email"), getGeo));
                                 plateNumber.add(p.getString("Plate_number"));
                             }
