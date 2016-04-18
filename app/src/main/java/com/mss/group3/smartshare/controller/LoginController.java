@@ -88,6 +88,27 @@ public class LoginController extends Activity {
                         }
                     });
 
+                    if(!user.getBoolean("Credit_created")) {
+
+                        ParseObject credit_object = new ParseObject("UserCredit");
+                        credit_object.put("user_email", login.getUserName());
+                        credit_object.put("user_credit", 1000);
+                        try {
+                            credit_object.save();
+                        } catch (ParseException eux) {
+                            eux.printStackTrace();
+                        }
+
+                        user.put("Credit_created",true);
+                        try {
+                            user.save();
+                        } catch (ParseException e1) {
+                            e1.printStackTrace();
+                        }
+
+
+                    }
+
                     Intent myIntent = new Intent(LoginController.this, UserTypeController.class);
 
                     startActivity(myIntent);

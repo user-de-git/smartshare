@@ -47,7 +47,8 @@ public class SignUp {
 
         //get table
         ParseUser currentUser = ParseUser.getCurrentUser();
-        currentUser.logOut();
+        if(currentUser.isAuthenticated())
+            currentUser.logOut();
         ParseUser userTable = new ParseUser();
 
         //store values
@@ -63,6 +64,8 @@ public class SignUp {
         userTable.put("userCountryName", userCountryName);
         userTable.put("userCountryName", userCountryName);
         userTable.put("userPostalCode", userPostalCode);
+        userTable.put("Credit_created", false);
+
 
 
 
