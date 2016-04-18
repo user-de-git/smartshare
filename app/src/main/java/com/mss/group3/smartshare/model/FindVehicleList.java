@@ -266,7 +266,9 @@ public class FindVehicleList extends AppCompatActivity {
 
                 }
                 builder.setTitle("Confirm");
-                builder.setMessage("Total Cost = " + String.format("%1.2f",(objVehicleSingleton.distance/1000 * pricePerKm)) + " $ " +"/Hour late Charges "+perHourLateCharges+" $" + "Are you ok?");
+                builder.setMessage("Total Cost = " + String.format("%1.2f", (objVehicleSingleton.distance / 1000 * pricePerKm)) +
+                        " $                        " +
+                        "           " + "Per Hour late Charges " + perHourLateCharges + " $" +"                     "+ "Are you ok?");
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, int which) {
 
