@@ -74,6 +74,7 @@ public class MyAccountController extends AppCompatActivity {
     private ListView lvProduct_shares,lvProduct_rents;
     private ShareAdaptor adapter_shares;
     private SmsManager smsManager = SmsManager.getDefault();
+    private String selection_dropdown = "All";
 
     private ShareAdaptor adapter_shares_weekly;
     private ShareAdaptor adapter_shares_monthly;
@@ -192,21 +193,24 @@ public class MyAccountController extends AppCompatActivity {
                 if (first) {
                     String rev = null;
                     if (selection.equals("All")) {
+                        selection_dropdown = "All";
                         rev = new DecimalFormat("0.##").format(total_rev);
 
-                        tv_get_expected_revenue.setText(rev);
+                        tv_get_expected_revenue.setText(rev+" CAD");
                         adapter_shares = new ShareAdaptor(getApplicationContext(), mProductList_shares, 2);
                         lvProduct_shares.setAdapter(adapter_shares);
                     } else if (selection.equals("Weekly")) {
+                        selection_dropdown = "Weekly";
                         rev = new DecimalFormat("0.##").format(base_rev_weekly);
 
-                        tv_get_expected_revenue.setText(rev);
+                        tv_get_expected_revenue.setText(rev+" CAD");
                         adapter_shares_weekly = new ShareAdaptor(getApplicationContext(), mProductList_shares_weekly, 2);
                         lvProduct_shares.setAdapter(adapter_shares_weekly);
                     } else {
+                        selection_dropdown = "Monthly";
                         rev = new DecimalFormat("0.##").format(base_rev_monthly);
 
-                        tv_get_expected_revenue.setText(rev);
+                        tv_get_expected_revenue.setText(rev+" CAD");
                         adapter_shares_monthly = new ShareAdaptor(getApplicationContext(), mProductList_shares_monthly, 2);
                         lvProduct_shares.setAdapter(adapter_shares_monthly);
                     }
@@ -325,7 +329,7 @@ public class MyAccountController extends AppCompatActivity {
                         adapter_shares = new ShareAdaptor(getApplicationContext(), mProductList_shares, 2);
                         lvProduct_shares.setAdapter(adapter_shares);
                         String rev = new DecimalFormat("0.##").format(total_rev);
-                        tv_get_expected_revenue.setText(rev);
+                        tv_get_expected_revenue.setText(rev+" CAD");
                     }
 
                 }
@@ -355,12 +359,41 @@ public class MyAccountController extends AppCompatActivity {
                                         }
                                     }
                                 });
+                                String Obj_ID = null;
+                                if(selection_dropdown.equals("All")) {
+                                    Obj_ID = mProductList_shares.get(position).getId();
+                                    ShareDataStore item = mProductList_shares.get(position);
+                                    mProductList_shares.remove(item);
 
-                                ShareDataStore item = mProductList_shares.get(position);
-                                mProductList_shares.remove(item);
+                                    adapter_shares = new ShareAdaptor(getApplicationContext(), mProductList_shares, 3);
+                                    lvProduct_shares.setAdapter(adapter_shares);
 
-                                adapter_shares = new ShareAdaptor(getApplicationContext(), mProductList_shares, 3);
-                                lvProduct_shares.setAdapter(adapter_shares);
+                                    removeItem_mProductList_shares_weekly(Obj_ID);
+                                    removeItem_mProductList_shares_monthly(Obj_ID);
+                                } else if(selection_dropdown.equals("Weekly")) {
+                                    Obj_ID = mProductList_shares_weekly.get(position).getId();
+                                    ShareDataStore item = mProductList_shares_weekly.get(position);
+                                    mProductList_shares_weekly.remove(item);
+
+                                    adapter_shares_weekly = new ShareAdaptor(getApplicationContext(), mProductList_shares_weekly, 3);
+                                    lvProduct_shares.setAdapter(adapter_shares_weekly);
+
+                                    removeItem_mProductList_shares(Obj_ID);
+                                    removeItem_mProductList_shares_monthly(Obj_ID);
+
+                                } else {
+
+                                    Obj_ID = mProductList_shares_monthly.get(position).getId();
+                                    ShareDataStore item = mProductList_shares_monthly.get(position);
+                                    mProductList_shares_monthly.remove(item);
+
+                                    adapter_shares_monthly = new ShareAdaptor(getApplicationContext(), mProductList_shares_monthly, 3);
+                                    lvProduct_shares.setAdapter(adapter_shares_monthly);
+
+                                    removeItem_mProductList_shares_weekly(Obj_ID);
+                                    removeItem_mProductList_shares(Obj_ID);
+
+                                }
 
 
                                 dialog.cancel();
@@ -735,6 +768,36 @@ public class MyAccountController extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return true;
+    }
+
+    public void removeItem_mProductList_shares(String OBj_ID) {
+        for(int i=0;i<mProductList_shares.size();i++) {
+            ShareDataStore item = mProductList_shares.get(i);
+            if(OBj_ID.equals(mProductList_shares.get(i).getId())) {
+                mProductList_shares.remove(item);
+                return;
+            }
+        }
+    }
+
+    public void removeItem_mProductList_shares_weekly(String OBj_ID) {
+        for(int i=0;i<mProductList_shares_weekly.size();i++) {
+            ShareDataStore item = mProductList_shares_weekly.get(i);
+            if(OBj_ID.equals(mProductList_shares_weekly.get(i).getId())) {
+                mProductList_shares_weekly.remove(item);
+                return;
+            }
+        }
+    }
+
+    public void removeItem_mProductList_shares_monthly(String OBj_ID) {
+        for(int i=0;i<mProductList_shares_monthly.size();i++) {
+            ShareDataStore item = mProductList_shares_monthly.get(i);
+            if(OBj_ID.equals(mProductList_shares_monthly.get(i).getId())) {
+                mProductList_shares_monthly.remove(item);
+                return;
+            }
+        }
     }
 
     @Override

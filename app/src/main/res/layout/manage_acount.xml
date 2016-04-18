@@ -336,6 +336,9 @@
                                         android:layout_width="0dip"
                                         android:layout_height="30dp"
                                         android:layout_weight="1"
+                                        android:layout_marginTop="2.5dp"
+
+                                        android:gravity="center"
                                         android:background="@drawable/tv_back" />
                                 </TableRow>
 
@@ -344,6 +347,7 @@
 
                             <ListView
                                 android:id="@+id/listView_shares"
+                                android:layout_marginTop="4.5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
