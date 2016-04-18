@@ -45,6 +45,9 @@ import com.mss.group3.smartshare.model.UserSingleton;
 import com.mss.group3.smartshare.utility.LocationServices;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.LogInCallback;
+import com.parse.ParseACL;
+import com.parse.ParseAnonymousUtils;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -143,6 +146,7 @@ public class MyAccountController extends AppCompatActivity {
 
 
         cUser = ParseUser.getCurrentUser();
+        cUser.getSessionToken();
         if (cUser != null) {
 
             ((EditText) findViewById(R.id.contactText)).setText(cUser.getString("userContactNumber"));
@@ -216,7 +220,7 @@ public class MyAccountController extends AppCompatActivity {
 
 
 
-        UserSingleton userSingleton = UserSingleton.getInstance();
+        final UserSingleton userSingleton = UserSingleton.getInstance();
         //int count_shared_vehicles = User.vehicle_list.size();
         mProductList_shares.clear();
         //= new ParseQuery<ParseObject>("RegisteredVehicles");
@@ -472,19 +476,24 @@ public class MyAccountController extends AppCompatActivity {
                             return;
                         }
 
-                        ParseQuery<ParseObject> query = ParseQuery.getQuery("RegisteredVehicles");
+                        final ParseQuery<ParseObject> query = ParseQuery.getQuery("RegisteredVehicles");
                         query.getInBackground(view.getTag().toString(), new GetCallback<ParseObject>() {
                             public void done(ParseObject vt, ParseException e) {
                                 if (e == null) {
                                     Date end = vt.getDate("EndDate");
                                     Date start = vt.getDate("StartDate");
                                     Double baseCost = vt.getDouble("BaseCost");
+                                    String plate_number = vt.getString("PlateNumber");
                                     Boolean returned= false;
+                                    Double Total_cost = 0.0;
 
                                     Date _return = InputValidation.DateSetter(EnddateString);
 
                                     if( _return.after(start) && _return.before(end) ) {
                                         vt.put("TripDone", true);
+                                        Total_cost = baseCost;
+                                        Toast.makeText(getApplicationContext(), "Cost :"+Total_cost.toString()+" $ CAD", Toast.LENGTH_SHORT).show();
+
                                         vt.saveInBackground();
                                         returned = true;
                                     } else if(_return.after(end)) {
@@ -504,10 +513,13 @@ public class MyAccountController extends AppCompatActivity {
                                         Double hrs =  diffInSeconds*1.0 / (3600.00);
                                         Double additional_cost = overDueRate * hrs;
 
-                                        Double Total_cost = additional_cost + baseCost;
+                                        Total_cost = additional_cost + baseCost;
 
                                         // Log.d("hrs",hrs.toString());
                                         // Log.d("Total_cost", Total_cost.toString());
+
+                                        Toast.makeText(getApplicationContext(), "Cost :"+Total_cost.toString()+" $ CAD", Toast.LENGTH_SHORT).show();
+
 
                                         vt.put("TripDone", true);
                                         vt.put("TotalCost", Total_cost);
@@ -525,10 +537,58 @@ public class MyAccountController extends AppCompatActivity {
 
                                         adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 3);
                                         lvProduct_rents.setAdapter(adapter_rents);
+
+                                        ParseQuery<ParseObject> query_renter = ParseQuery.getQuery("UserCredit");
+                                        query_renter.whereEqualTo("user_email", userSingleton.emailAddress);
+
+                                        final Double finalTotal_cost = Total_cost;
+                                        query_renter.getFirstInBackground(
+                                                new GetCallback<ParseObject>() {
+                                                    public void done( ParseObject object, ParseException e) {
+                                                        if(e==null) {
+                                                            Double final_credit = object.getDouble("user_credit") - finalTotal_cost;
+                                                            Log.d("Current Credit", final_credit.toString());
+                                                            object.put("user_credit", final_credit);
+                                                            object.saveInBackground();
+                                                        } else {
+                                                            Log.d("ERROR -> ", "Error finding user");
+
+                                                        }
+                                                    }
+                                                }
+                                        );
+
+
+//
+                                        ParseQuery<ParseObject> query = ParseQuery.getQuery("VehicleTable");
+                                        query.whereEqualTo("Plate_number", plate_number);
+                                        String Owner_email= null;
+                                        try {
+                                            Owner_email = query.getFirst().getString("Owner_email");
+                                            Log.d("Owner_email", Owner_email);
+
+                                            ParseQuery<ParseObject> query_sharer = ParseQuery.getQuery("UserCredit");
+                                            query_sharer.whereEqualTo("user_email", Owner_email);
+
+                                            query_sharer.getFirstInBackground(
+                                                    new GetCallback<ParseObject>() {
+                                                        public void done(ParseObject object, ParseException e) {
+                                                            if (e == null) {
+                                                                Double final_credit = object.getDouble("user_credit") + finalTotal_cost;
+                                                                Log.d("Current Credit", final_credit.toString());
+                                                                object.put("user_credit", final_credit);
+                                                                object.saveInBackground();
+                                                            } else {
+                                                                Log.d("ERROR -> ", "Error finding user");
+                                                            }
+                                                        }
+                                                    }
+                                            );
+
+                                        } catch (com.parse.ParseException ec) {
+                                            ec.printStackTrace();
+                                        }
                                     }
-
-
-
                                 }
                             }
                         });

@@ -17,6 +17,8 @@ import com.mss.group3.smartshare.common.InputValidation;
 import com.mss.group3.smartshare.model.SignUp;
 import com.mss.group3.smartshare.utility.LocationServices;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
@@ -165,6 +167,15 @@ public class UserRegistrationController extends Activity {
         signUpModel.context = getApplicationContext();
         signUpModel.uRegisterationCon = this;
         signUpModel.registerUser();
+
+        ParseObject credit_object = new ParseObject("VehicleTable");
+        credit_object.put("user_email", signUpModel.userEmailAddress);
+        credit_object.put("user_credit", 1000);
+        try {
+            credit_object.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
     }
