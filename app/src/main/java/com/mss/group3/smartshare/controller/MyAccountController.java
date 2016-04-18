@@ -415,7 +415,7 @@ public class MyAccountController extends AppCompatActivity {
                 final Calendar calendar = Calendar.getInstance();
                 Button dialogButtonreturn = (Button) dialog.findViewById(R.id.button_return);
                 Button dialogButtoncancel = (Button) dialog.findViewById(R.id.button_cancel);
-                Button dialogButtonFeedback = (Button) dialog.findViewById(R.id.button_feedback);
+                ImageView dialogButtonFeedback = (ImageView) dialog.findViewById(R.id.img_right);
 
                 ImageView iv = (ImageView) dialog.findViewById(R.id.img_left);
 
