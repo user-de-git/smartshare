@@ -30,6 +30,7 @@ public class MainController extends AppCompatActivity {
             ParseACL defaultACL = new ParseACL();
             defaultACL.setPublicReadAccess(true);
             defaultACL.setPublicWriteAccess(true);
+           // ParseUser.getCurrentUser().saveInBackground();
             ParseACL.setDefaultACL(defaultACL, true);
         }
 
