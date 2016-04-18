@@ -11,11 +11,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +39,7 @@ import com.mss.group3.smartshare.R;
 import com.mss.group3.smartshare.common.InputValidation;
 import com.mss.group3.smartshare.common.SaveSharedPreference;
 import com.mss.group3.smartshare.common.User;
+import com.mss.group3.smartshare.model.FindVehiclelistSingleton;
 import com.mss.group3.smartshare.model.RentAdaptor;
 import com.mss.group3.smartshare.model.RentDataStore;
 import com.mss.group3.smartshare.model.ShareAdaptor;
@@ -64,12 +67,13 @@ import java.util.concurrent.TimeUnit;
 
 import static android.content.DialogInterface.*;
 
-
 public class MyAccountController extends AppCompatActivity {
     ParseUser cUser;
+    String emailAddress;
     final Context context = this;
     private ListView lvProduct_shares,lvProduct_rents;
     private ShareAdaptor adapter_shares;
+    private SmsManager smsManager = SmsManager.getDefault();
 
     private ShareAdaptor adapter_shares_weekly;
     private ShareAdaptor adapter_shares_monthly;
@@ -235,9 +239,7 @@ public class MyAccountController extends AppCompatActivity {
             try {
                 rented_list = query_shares.find();
             } catch(ParseException e) {
-
             }
-
             for (ParseObject p : rented_list) {
                 if (!p.getBoolean("isViewedSharer")) {
                     mProductList_shares.add(new ShareDataStore(
@@ -253,10 +255,8 @@ public class MyAccountController extends AppCompatActivity {
                     ));
                 }
             }
-
             if(finalI ==User.vehicle_list.size()-1) {
                 //adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 2);
-
                 adapter_shares = new ShareAdaptor(getApplicationContext(), mProductList_shares, 2);
                 lvProduct_shares.setAdapter(adapter_shares);
             }
@@ -415,6 +415,7 @@ public class MyAccountController extends AppCompatActivity {
                 final Calendar calendar = Calendar.getInstance();
                 Button dialogButtonreturn = (Button) dialog.findViewById(R.id.button_return);
                 Button dialogButtoncancel = (Button) dialog.findViewById(R.id.button_cancel);
+                Button dialogButtonFeedback = (Button) dialog.findViewById(R.id.button_feedback);
 
                 ImageView iv = (ImageView) dialog.findViewById(R.id.img_left);
 
@@ -446,6 +447,19 @@ public class MyAccountController extends AppCompatActivity {
                                     if(_cancel.before(start)) {
 
                                         try {
+
+
+                                            ParseQuery<ParseObject> query2 = ParseQuery.getQuery("VehicleTable");
+                                            query2.whereEqualTo("Plate_number", mProductList_rents.get(position).getPlateNumber());
+                                            try {
+                                                emailAddress = query2.getFirst().getString("Owner_email");
+                                                sendSMS(emailAddress,mProductList_rents.get(position).getPlateNumber()+ "Vehicle booking is cancelled from " +
+                                                        mProductList_rents.get(position).getStartDateTime() +"   To " +mProductList_rents.get(position).getEndDateTime());
+                                            } catch (ParseException ex) {
+                                                ex.printStackTrace();
+                                            }
+
+
                                             object.delete();
                                             RentDataStore item = mProductList_rents.get(position);
                                             mProductList_rents.remove(item);
@@ -532,8 +546,20 @@ public class MyAccountController extends AppCompatActivity {
 
 
                                     if(returned) {
+
+                                        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("VehicleTable");
+                                        query2.whereEqualTo("Plate_number", mProductList_rents.get(position).getPlateNumber());
+                                        try {
+                                            emailAddress = query2.getFirst().getString("Owner_email");
+                                            sendSMS(emailAddress, "Vehicle is returned " + mProductList_rents.get(position).getPlateNumber());
+                                        } catch (ParseException ex) {
+                                            ex.printStackTrace();
+                                        }
+
                                         RentDataStore item = mProductList_rents.get(position);
                                         mProductList_rents.remove(item);
+
+
 
                                         adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 3);
                                         lvProduct_rents.setAdapter(adapter_rents);
@@ -595,6 +621,78 @@ public class MyAccountController extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
+
+                /////feedback function
+
+                dialogButtonFeedback.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        RentDataStore item = mProductList_rents.get(position);
+                        String plateNumber = item.getPlateNumber();
+
+
+                ParseQuery<ParseObject> query2 = ParseQuery.getQuery("VehicleTable");
+                        query2.whereEqualTo("Plate_number", plateNumber);
+                try {
+                            emailAddress = query2.getFirst().getString("Owner_email");
+                        } catch (ParseException ex) {
+                            ex.printStackTrace();
+                        }
+
+                        dialog.dismiss();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle("Feedback Now!");
+
+// Set up the input
+                        final EditText input = new EditText(context);
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                        input.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                        builder.setView(input);
+
+// Set up the buttons
+                        builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String message = input.getText().toString();
+
+                                Intent email = new Intent(Intent.ACTION_SEND);
+                                email.setType("plain/text");
+                                email.putExtra(Intent.EXTRA_EMAIL, new String[] { emailAddress });
+
+
+                                email.putExtra(Intent.EXTRA_SUBJECT, "Feedback from SmartShare");
+                                email.putExtra(Intent.EXTRA_TEXT, message);
+
+                                //need this to prompts email client only
+                                email.setType("message/rfc822");
+
+                                startActivity(Intent.createChooser(email, "Choose a client"));
+
+
+                                dialog.dismiss();
+
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        builder.show();
+
+                    }
+
+
+                });
+
+////////////feedback end
+
+
 
                 Button button_setReturnDateTime = (Button) dialog.findViewById(R.id.button_setReturnDateTime);
                 final EditText get_ReturnDateTime = (EditText) dialog.findViewById(R.id.get_ReturnDateTime);
@@ -770,7 +868,29 @@ public class MyAccountController extends AppCompatActivity {
         return month== targetmonth && year == targetYear;
     }
 
+    public void sendSMS(String email, final String Message) {
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.whereContains("username", email);
+        query.findInBackground(new FindCallback<ParseUser>() {
 
+            @Override
+            public void done(List<ParseUser> objects, com.parse.ParseException e) {
+                if (e == null) {
+                    try {
+                        for (ParseUser p : objects) {
+                            smsManager.sendTextMessage("+1" + p.getString("userContactNumber"), null,
+                                    Message +"--  by " +UserSingleton.getInstance().emailAddress , null, null);
+                        }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                } else {
+                    // Something went wrong.
+                }
+            }
+
+        });
+    }
 
 
 }
