@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,7 @@ import com.mss.group3.smartshare.R;
 import com.mss.group3.smartshare.common.InputValidation;
 import com.mss.group3.smartshare.common.SaveSharedPreference;
 import com.mss.group3.smartshare.common.User;
+import com.mss.group3.smartshare.model.FindVehiclelistSingleton;
 import com.mss.group3.smartshare.model.RentAdaptor;
 import com.mss.group3.smartshare.model.RentDataStore;
 import com.mss.group3.smartshare.model.ShareAdaptor;
@@ -68,6 +70,7 @@ public class MyAccountController extends AppCompatActivity {
     final Context context = this;
     private ListView lvProduct_shares,lvProduct_rents;
     private ShareAdaptor adapter_shares;
+    private SmsManager smsManager = SmsManager.getDefault();
 
     private ShareAdaptor adapter_shares_weekly;
     private ShareAdaptor adapter_shares_monthly;
@@ -440,6 +443,19 @@ public class MyAccountController extends AppCompatActivity {
                                     if(_cancel.before(start)) {
 
                                         try {
+
+
+                                            ParseQuery<ParseObject> query2 = ParseQuery.getQuery("VehicleTable");
+                                            query2.whereEqualTo("Plate_number", mProductList_rents.get(position).getPlateNumber());
+                                            try {
+                                                emailAddress = query2.getFirst().getString("Owner_email");
+                                                sendSMS(emailAddress,mProductList_rents.get(position).getPlateNumber()+ "Vehicle booking is cancelled from " +
+                                                        mProductList_rents.get(position).getStartDateTime() +"   To " +mProductList_rents.get(position).getEndDateTime());
+                                            } catch (ParseException ex) {
+                                                ex.printStackTrace();
+                                            }
+
+
                                             object.delete();
                                             RentDataStore item = mProductList_rents.get(position);
                                             mProductList_rents.remove(item);
@@ -518,8 +534,20 @@ public class MyAccountController extends AppCompatActivity {
 
 
                                     if(returned) {
+
+                                        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("VehicleTable");
+                                        query2.whereEqualTo("Plate_number", mProductList_rents.get(position).getPlateNumber());
+                                        try {
+                                            emailAddress = query2.getFirst().getString("Owner_email");
+                                            sendSMS(emailAddress, "Vehicle is returned " + mProductList_rents.get(position).getPlateNumber());
+                                        } catch (ParseException ex) {
+                                            ex.printStackTrace();
+                                        }
+
                                         RentDataStore item = mProductList_rents.get(position);
                                         mProductList_rents.remove(item);
+
+
 
                                         adapter_rents = new RentAdaptor(getApplicationContext(), mProductList_rents, 3);
                                         lvProduct_rents.setAdapter(adapter_rents);
@@ -574,7 +602,7 @@ public class MyAccountController extends AppCompatActivity {
                                 email.setType("plain/text");
                                 email.putExtra(Intent.EXTRA_EMAIL, new String[] { emailAddress });
 
-                              
+
                                 email.putExtra(Intent.EXTRA_SUBJECT, "Feedback from SmartShare");
                                 email.putExtra(Intent.EXTRA_TEXT, message);
 
@@ -779,5 +807,30 @@ public class MyAccountController extends AppCompatActivity {
         int targetYear = targetCalendar.get(Calendar.YEAR);
         return month== targetmonth && year == targetYear;
     }
+
+    public void sendSMS(String email, final String Message) {
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.whereContains("username", email);
+        query.findInBackground(new FindCallback<ParseUser>() {
+
+            @Override
+            public void done(List<ParseUser> objects, com.parse.ParseException e) {
+                if (e == null) {
+                    try {
+                        for (ParseUser p : objects) {
+                            smsManager.sendTextMessage("+1" + p.getString("userContactNumber"), null,
+                                    Message +"--  by " +UserSingleton.getInstance().emailAddress , null, null);
+                        }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                } else {
+                    // Something went wrong.
+                }
+            }
+
+        });
+    }
+
 
 }
