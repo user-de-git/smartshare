@@ -168,7 +168,7 @@ public class UserRegistrationController extends Activity {
         signUpModel.uRegisterationCon = this;
         signUpModel.registerUser();
 
-        ParseObject credit_object = new ParseObject("VehicleTable");
+        ParseObject credit_object = new ParseObject("UserCredit");
         credit_object.put("user_email", signUpModel.userEmailAddress);
         credit_object.put("user_credit", 1000);
         try {
