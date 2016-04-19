@@ -39,7 +39,7 @@ public class AControllerTest {
 
     @Test
     public void AcceptTerms_Navigate_LoginScreen() {
-        //acceptTerms();
+        acceptTerms();
     }
 
     public void acceptTerms() {
@@ -52,25 +52,5 @@ public class AControllerTest {
         onView(withId(R.id.buttonLogin)).check(matches(isDisplayed()));
     }
 
-    @Test
-    public void Valid_User_Login() {
-        acceptTerms();
 
-        onView(withId(R.id.userName)).
-                perform(typeText("bmanhas007@hotmail.com"));
-        onView(withId(R.id.userPassword)).
-                perform(typeText("sandy"));
-        onView(withText("Login")).
-                perform(click());
-
-        try {
-            Thread.sleep(3500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        onView(withId(R.id.Share_Vehicle)).check(matches(isDisplayed()));
-        onView(withId(R.id.Find_Vehicle)).check(matches(isDisplayed()));
-        onView(withId(R.id.My_Account)).check(matches(isDisplayed()));
-    }
 }

@@ -66,11 +66,6 @@ public class SignUp {
         userTable.put("userPostalCode", userPostalCode);
         userTable.put("Credit_created", false);
 
-
-
-
-
-
         userTable.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {

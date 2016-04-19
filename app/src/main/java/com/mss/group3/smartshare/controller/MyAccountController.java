@@ -320,8 +320,6 @@ public class MyAccountController extends AppCompatActivity {
                             }
                         }
 
-
-
                         total_rev+=p.getDouble("BaseCost");
                     }
 
