@@ -7,13 +7,17 @@ import android.widget.EditText;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.Assert.*;
 import org.junit.runner.RunWith;
 
 import com.mss.group3.smartshare.controller.LoginController;
+import com.mss.group3.smartshare.controller.OwnerController;
 import com.mss.group3.smartshare.controller.PostVehicleController;
 import com.mss.group3.smartshare.controller.UserTypeController;
+import com.mss.group3.smartshare.model.VehicleDataStore;
 import com.parse.Parse;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
@@ -21,9 +25,14 @@ import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.swipeUp;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
+import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -47,6 +56,12 @@ public class DControllerTest {
 
         onView(withId(R.id.button)).check(matches(isDisplayed()));
 
+//        onData(is(instanceOf(VehicleDataStore.class))) // We are using the position so don't need to specify a data matcher
+//                .inAdapterView(withId(R.id.listView)) // Specify the explicit id of the ListView
+//                .atPosition(0) // Explicitly specify the adapter item to use
+//                .perform(click()); // Standard ViewAction
+
+
         onView(withId(R.id.button)).perform(click());
 
         try {
@@ -64,21 +79,17 @@ public class DControllerTest {
         onView(withId(R.id.et_pricekm)).
                 perform(typeText("2"));
 
+        onView(withId(R.id.et_vehiclerange)).
+                perform(typeText("100"));
+
         onView(withId(R.id.get_StartDateTime)).
                 perform(typeText("5/20/2016 15:15"));
 
         onView(withId(R.id.get_EndDateTime)).
                 perform(typeText("5/25/2016 15:15"));
 
-        //swipeDown();
-
-
         onView(withId(R.id.button_addModifyVehicle)).
                 perform(scrollTo());
-
-
-
-
 
         onView(withId(R.id.et_address)).
                 perform(typeText("6559 131 st"));
@@ -92,10 +103,21 @@ public class DControllerTest {
         onView(withId(R.id.et_province)).
                 perform(typeText("BC"));
 
-        onView(withId(R.id.et_vehiclerange)).
-                perform(typeText("100"));
 
-        onView(withId(R.id.button_addModifyVehicle)).perform(click());
+
+        onView(withId(R.id.button_addModifyVehicle)).
+                perform(click());
+
+        try {
+            Thread.sleep(4750);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onData(is(instanceOf(VehicleDataStore.class))) // We are using the position so don't need to specify a data matcher
+                .inAdapterView(withId(R.id.listView)) // Specify the explicit id of the ListView
+                .atPosition(1) // Explicitly specify the adapter item to use
+                .perform(click()); // Standard ViewAction
 
 
 
