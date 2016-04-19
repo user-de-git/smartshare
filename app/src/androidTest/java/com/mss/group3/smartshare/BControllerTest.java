@@ -1,3 +1,4 @@
+
 package com.mss.group3.smartshare;
 
 import android.support.test.rule.ActivityTestRule;
@@ -21,7 +22,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
-public class LoginControllerTest {
+public class BControllerTest {
 
     @Rule
     public ActivityTestRule<LoginController> lController =
@@ -30,6 +31,11 @@ public class LoginControllerTest {
     @Test
     public void Login_Valid_User() {
 
+        try {
+            Thread.sleep(2750);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         onView(withId(R.id.userName)).
                 perform(typeText("bmanhas007@hotmail.com"));
