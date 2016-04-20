@@ -285,7 +285,12 @@ public class MyAccountController extends AppCompatActivity {
                         }
 
                         if( isDateInCurrentWeek(p.getDate("StartDate")) ) {
-                            base_rev_weekly+=p.getDouble("BaseCost");
+
+                            if(p.getBoolean("TripDone"))
+                                base_rev_weekly+=p.getDouble("TotalCost");
+                            else
+                                base_rev_weekly+=p.getDouble("BaseCost");
+
                             if(!p.getBoolean("isViewedSharer")) {
                                 mProductList_shares_weekly.add(new ShareDataStore(
                                         p.getObjectId(),
@@ -304,7 +309,12 @@ public class MyAccountController extends AppCompatActivity {
 
 
                         if( isDateInCurrentMonth(p.getDate("StartDate")) ) {
-                            base_rev_monthly+=p.getDouble("BaseCost");
+
+                            if(p.getBoolean("TripDone"))
+                                base_rev_monthly+=p.getDouble("TotalCost");
+                            else
+                                base_rev_monthly+=p.getDouble("BaseCost");
+
                             if(!p.getBoolean("isViewedSharer")) {
                                 mProductList_shares_monthly.add(new ShareDataStore(
                                         p.getObjectId(),
@@ -320,7 +330,10 @@ public class MyAccountController extends AppCompatActivity {
                             }
                         }
 
-                        total_rev+=p.getDouble("BaseCost");
+                        if(p.getBoolean("TripDone"))
+                            total_rev+=p.getDouble("TotalCost");
+                        else
+                            total_rev+=p.getDouble("BaseCost");
                     }
 
                     if(finalI ==User.vehicle_list.size()-1) {
