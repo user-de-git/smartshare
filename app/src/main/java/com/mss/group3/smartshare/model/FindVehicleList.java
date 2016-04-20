@@ -306,6 +306,11 @@ public class FindVehicleList extends AppCompatActivity {
                                                         Toast.makeText(getApplicationContext(), "Booked", Toast.LENGTH_SHORT).show();
                                                         dialog.dismiss();
 
+                                                        try {
+                                                            Thread.sleep(2000);
+                                                        } catch (InterruptedException e1) {
+                                                            e1.printStackTrace();
+                                                        }
                                                         //Move to home page
                                                         Intent myIntent = new Intent(FindVehicleList.this, MyAccountController.class);
                                                         myIntent.putExtra("calling-activity", 1001);

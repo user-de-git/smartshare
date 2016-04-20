@@ -33,6 +33,8 @@ public class RentAdaptor extends BaseAdapter {
     private Context mContext;
     private List<RentDataStore> mProductList;
     static String vehicle_type = "";
+    static String arriving_from= "";
+
     private Integer list_item_back;
 
     //Constructor
@@ -98,10 +100,14 @@ public class RentAdaptor extends BaseAdapter {
 
         TextView tv_price = (TextView)v.findViewById(R.id.tv_price);
 
+        TextView tv_arriving_from = (TextView)v.findViewById(R.id.arriving_from);
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("VehicleTable");
         query.whereEqualTo("Plate_number", mProductList.get(position).getPlateNumber());
         try {
             vehicle_type = query.getFirst().getString("Vehicle_type");
+            arriving_from = query.getFirst().getString("Address")+", "+
+                            query.getFirst().getString("City");
         } catch (com.parse.ParseException e) {
             e.printStackTrace();
         }
@@ -119,6 +125,7 @@ public class RentAdaptor extends BaseAdapter {
 
         tv_Source.setText(startAddress );
         tv_destination.setText(endAddress );
+        tv_arriving_from.setText(arriving_from);
 
 
 

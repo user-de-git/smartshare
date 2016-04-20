@@ -75,7 +75,7 @@ public class LoginController extends Activity {
 
                         SaveSharedPreference.setUserName(LoginController.this, login.getUserName());
                     SaveSharedPreference.setPassword(LoginController.this, login.getUserPassword());
-                    Toast.makeText(getApplicationContext(), "User found in DB", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Wecome back !", Toast.LENGTH_SHORT).show();
 
                     User.vehicle_list.clear();
 

@@ -13,7 +13,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="The application is designed to help users to share their vehicle. We are not responible for any misshappening. We approximated the vehicle arrival time but may not reach at right time.  Powered by group3"
+        android:text="
+These terms and conditions govern your use of this application; by using this application, you accept these terms and conditions in full and without reservation. If you disagree with these terms and conditions or any part of these terms and conditions, you must not use this application.
+You must be at least 18 [eighteen] years of age to use this application. By using this application and by agreeing to these terms and conditions, you warrant and represent that you are at least 18 years of age.
+Terms and Conditions:
+Smartshare and its affiliates [developers] are not responsible for any legal actions that may result via use of the application
+Smartshare uses third party services to store data and is not responsible for any data that may be comprised"
         android:id="@+id/textView2"
         android:layout_weight="0.11"
         android:background="#fbf298"
