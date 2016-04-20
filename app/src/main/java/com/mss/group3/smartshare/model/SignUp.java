@@ -81,7 +81,7 @@ public class SignUp {
 
                 } else {
 
-                    Toast.makeText( context, "Registration Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText( context, "Email registered", Toast.LENGTH_SHORT).show();
 
                 }
             }

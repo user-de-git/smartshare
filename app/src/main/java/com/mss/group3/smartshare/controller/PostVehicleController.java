@@ -206,6 +206,10 @@ public class PostVehicleController extends AppCompatActivity{
         fields[8] = ((EditText) findViewById(R.id.et_province)).getText().toString();
         fields[9] = ((EditText) findViewById(R.id.et_vehiclerange)).getText().toString();
 
+        if(InputValidation.postInputValidation(fields[0],fields[1],fields[9],fields[2],this)){
+            return;
+        }
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("VehicleTable");
         query.whereEqualTo("Plate_number", fields[1]);
         if(query.count()==1) {

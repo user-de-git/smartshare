@@ -66,6 +66,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.DialogInterface.*;
+import static com.mss.group3.smartshare.common.InputValidation.myAccountInputValidation;
 
 public class MyAccountController extends AppCompatActivity {
     ParseUser cUser;
@@ -835,14 +836,29 @@ public class MyAccountController extends AppCompatActivity {
 
     public void updateAccount(View view) {
 
-        cUser.put("userContactNumber", ((EditText) findViewById(R.id.contactText)).getText().toString());
-        cUser.put("userLastName",((EditText) findViewById(R.id.lastNameText)).getText().toString());
-        cUser.put("userFirstName",((EditText) findViewById(R.id.firstNameText)).getText().toString());
-        cUser.put("email",((EditText) findViewById(R.id.emailText)).getText().toString());
-        cUser.put("userAddressLineOne",((EditText) findViewById(R.id.addressLineOneText)).getText().toString());
-        cUser.put("userCityName",((EditText) findViewById(R.id.cityNameText)).getText().toString());
-        cUser.put("userPostalCode",((EditText) findViewById(R.id.postalCodeText)).getText().toString());
-        cUser.put("userCountryName", ((EditText) findViewById(R.id.countryNameText)).getText().toString());
+        String userContactNumber=((EditText) findViewById(R.id.contactText)).getText().toString();
+        String userLastName=((EditText) findViewById(R.id.lastNameText)).getText().toString();
+        String userFirstName=((EditText) findViewById(R.id.firstNameText)).getText().toString();
+        String emailAddress=((EditText) findViewById(R.id.emailText)).getText().toString();
+        String userAddressLineOne=((EditText) findViewById(R.id.addressLineOneText)).getText().toString();
+        String userCityName=((EditText) findViewById(R.id.cityNameText)).getText().toString();
+        String userPostalCode=((EditText) findViewById(R.id.postalCodeText)).getText().toString();
+        String userCountryName=((EditText) findViewById(R.id.countryNameText)).getText().toString();
+
+        if(myAccountInputValidation(userFirstName,userLastName,emailAddress,userContactNumber,userAddressLineOne,userCityName,userCountryName,userPostalCode,this)){
+            return;
+        }
+
+
+        cUser.put("userContactNumber", userContactNumber);
+        cUser.put("userLastName",userLastName);
+        cUser.put("userFirstName",userFirstName);
+        cUser.put("email",emailAddress);
+        cUser.put("userAddressLineOne",userAddressLineOne);
+        cUser.put("userCityName",userCityName);
+        cUser.put("userPostalCode",userPostalCode);
+        cUser.put("userCountryName", userCountryName);
+
 
         cUser.saveInBackground(new SaveCallback() {
             public void done(ParseException e) {

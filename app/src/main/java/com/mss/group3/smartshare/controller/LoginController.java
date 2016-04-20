@@ -71,7 +71,9 @@ public class LoginController extends Activity {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     //login screen initialization
-                    SaveSharedPreference.setUserName(LoginController.this, login.getUserName());
+                    if (user.getBoolean("emailVerified") == true) {
+
+                        SaveSharedPreference.setUserName(LoginController.this, login.getUserName());
                     SaveSharedPreference.setPassword(LoginController.this, login.getUserPassword());
                     Toast.makeText(getApplicationContext(), "User found in DB", Toast.LENGTH_SHORT).show();
 
@@ -113,6 +115,13 @@ public class LoginController extends Activity {
 
                     startActivity(myIntent);
 
+                    }
+
+                    else if(user.getBoolean("emailVerified") == false){
+
+                        Toast.makeText(getApplicationContext(), "Please verify your email!", Toast.LENGTH_SHORT).show();
+
+                    }
                 } else {
                     SaveSharedPreference.setUserName(LoginController.this, "");
                     SaveSharedPreference.setPassword(LoginController.this, "");

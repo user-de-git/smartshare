@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mss.group3.smartshare.R;
 import com.mss.group3.smartshare.common.InputValidation;
 import com.mss.group3.smartshare.common.Success;
+import com.parse.ParseException;
+import com.parse.RequestPasswordResetCallback;
 
 
 import static com.parse.ParseUser.requestPasswordResetInBackground;
@@ -37,10 +40,21 @@ public class RecoveryController extends Activity {
             return;
         }
 
-        requestPasswordResetInBackground(email);
+        requestPasswordResetInBackground(email,
+                new RequestPasswordResetCallback() {
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            Intent myIntent = new Intent(RecoveryController.this, Success.class);
+                            startActivity(myIntent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Email not registered!", Toast.LENGTH_SHORT).show();
 
-        Intent myIntent = new Intent(RecoveryController.this , Success.class);
-        startActivity(myIntent);
+                            return;
+
+                        }
+                    }
+
+                });
 
 
     }

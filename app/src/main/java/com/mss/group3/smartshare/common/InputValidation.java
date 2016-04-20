@@ -415,20 +415,20 @@ public class InputValidation {
     }
 
 
-    public static boolean postInputValidation(String vinNumber, String plate, String range, String price, String addressArrival, String cityArrival, String countryArrival, String postalArrival, Context applicationContext) {
+    public static boolean postInputValidation(String overdueCharge, String plate, String range, String price, Context applicationContext) {
 
         String text;
 
-        if (vinNumber.isEmpty()){
-            text = "Please input the Vin number";
+        if (overdueCharge.isEmpty()){
+            text = "Please input the overdueCharge";
             Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
             return true;
 
         }
 
-        else if(!isValidVin(vinNumber)){
+        else if(!isDouble(overdueCharge)){
 
-            text = "Vin number not valid";
+            text = "overdueCharge not valid";
             Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
             return true;
 
@@ -456,7 +456,7 @@ public class InputValidation {
             return true;
         }
 
-        else if(!isInt(range)){
+        else if(!isDouble(range)){
 
             text = "Range not valid";
             Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
@@ -480,62 +480,7 @@ public class InputValidation {
 
         }
 
-        else if (addressArrival.isEmpty()){
-            text = "Please input the arrival address";
-            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
-            return true;
 
-        }
-
-
-        else if (cityArrival.isEmpty()){
-
-            text = "Please input the Arrival city";
-            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
-            return true;
-        }
-
-
-        else if (!isValidCityCountry(cityArrival)){
-
-            text = "Arrival city is not valid";
-            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
-            return true;
-
-        }
-
-
-        else if (countryArrival.isEmpty()){
-
-            text = "Please input the Arrival country";
-            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
-            return true;
-        }
-
-
-        else if (!isValidCityCountry(countryArrival)){
-
-            text = "Arrival country is not valid";
-            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
-            return true;
-
-        }
-
-
-        else if (postalArrival.isEmpty()){
-
-            text = "Please input the Arrival postal code";
-            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
-            return true;
-        }
-
-
-        else if (!isValidPostalCode(postalArrival)) {
-
-            text = "Arrival Postal code number is not valid";
-            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
-            return true;
-        }
 
         return false;
     }
@@ -543,36 +488,142 @@ public class InputValidation {
 
 
 
+//
+//    public static boolean resetPass(String firstPass, String secondPass, Context applicationContext) {
+//
+//        String text;
+//
+//        if (firstPass.isEmpty()){
+//
+//            text = "Please input the password";
+//            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+//            return true;
+//        }
+//
+//        else if (secondPass.isEmpty()){
+//
+//            text = "Please confirm the password";
+//            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+//            return true;
+//        }
+//
+//        else if (!firstPass.equals(secondPass)){
+//
+//            text = "Password does not match";
+//            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+//            return true;
+//        }
+//
+//        return false;
+//    }
 
-    public static boolean resetPass(String firstPass, String secondPass, Context applicationContext) {
+    public static boolean myAccountInputValidation(String firstName, String lastName, String email, String phone, String address,
+                                                   String city, String country, String postalCode,
+                                                   Context applicationContext) {
 
         String text;
 
-        if (firstPass.isEmpty()){
+        if (firstName.isEmpty()){
+            text = "Please input the first name";
+            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+            return true;
 
-            text = "Please input the password";
+        }
+
+        else if (lastName.isEmpty()){
+
+            text = "Please input the last name";
             Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
             return true;
         }
 
-        else if (secondPass.isEmpty()){
+        else if (email.isEmpty()){
 
-            text = "Please confirm the password";
+            text = "Please input the email address";
             Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
             return true;
         }
 
-        else if (!firstPass.equals(secondPass)){
 
-            text = "Password does not match";
+        else if (!isValidEmailAddress(email)){
+
+            text = "Email address is not valid";
             Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
             return true;
         }
+
+        else if (phone.isEmpty()){
+
+            text = "Please input the phone number";
+            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+        else if (!isValidPhone(phone)){
+
+            text = "Phone number is not valid";
+            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+
+        else if (address.isEmpty()){
+
+            text = "Please input the address";
+            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+
+        else if (city.isEmpty()){
+
+            text = "Please input the city";
+            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+
+        else if (!isValidCityCountry(city)){
+
+            text = "city is not valid";
+            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+
+        else if (country.isEmpty()){
+
+            text = "Please input the country";
+            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+        else if (!isValidCityCountry(country)){
+
+            text = "Country is not valid";
+            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+
+        else if (postalCode.isEmpty()){
+
+            text = "Please input the postal code";
+            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+        else if (!isValidPostalCode(postalCode)){
+
+            text = "Postal code number is not valid";
+            Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show();
+            return true;
+        }
+
 
         return false;
+
     }
-
-
 
 
 
