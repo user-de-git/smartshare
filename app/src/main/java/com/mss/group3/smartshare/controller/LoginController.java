@@ -58,7 +58,7 @@ public class LoginController extends Activity {
 
     public void loginButtonClick(View view ) {
 
-        String userName=((EditText) findViewById(R.id.userName)).getText().toString();
+        String userName=((EditText) findViewById(R.id.userName)).getText().toString().toLowerCase();
         login.setUserName(userName);
         String userPassword= ((EditText) findViewById(R.id.userPassword)).getText().toString();
         login.setUserPassword(userPassword);

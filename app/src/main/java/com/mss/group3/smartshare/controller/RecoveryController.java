@@ -33,7 +33,7 @@ public class RecoveryController extends Activity {
 
     public void recoveryButtonPress(View view) {
 
-        String email=((EditText) findViewById(R.id.emailText)).getText().toString();
+        String email=((EditText) findViewById(R.id.emailText)).getText().toString().toLowerCase();
 
         if(InputValidation.recoveryInputValidation(email,this)){
 

@@ -52,9 +52,9 @@ public class SignUp {
         ParseUser userTable = new ParseUser();
 
         //store values
-        userTable.setUsername(userEmailAddress);
+        userTable.setUsername(userEmailAddress.toLowerCase());
         userTable.setPassword(userPasswordSecond);
-        userTable.setEmail(userEmailAddress);
+        userTable.setEmail(userEmailAddress.toLowerCase());
 
         userTable.put("userFirstName", userFirstName);
         userTable.put("userLastName", userLastName);
