@@ -1,3 +1,5 @@
+
+
 package com.mss.group3.smartshare;
 
 import android.support.test.rule.ActivityTestRule;
@@ -83,4 +85,5 @@ public class CControllerTest {
         pressBack();
 
     }
+
 }
