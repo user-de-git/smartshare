@@ -1,3 +1,5 @@
+
+
 package com.mss.group3.smartshare;
 
 import android.support.test.rule.ActivityTestRule;
@@ -127,12 +129,7 @@ public class DControllerTest  {
                 .atPosition(1)// We are using the position so don't need to specify a data matcher
                 .check(matches(isDisplayed()));
 
-    /*
-        .inAdapterView(withId(R.id.listView)) // Specify the explicit id of the ListView
-                .atPosition(1) // Explicitly specify the adapter item to use
-                .perform(click()); // Standard ViewAction
 
-    */
 
 
 
@@ -141,3 +138,8 @@ public class DControllerTest  {
 
 
 }
+
+
+
+
+

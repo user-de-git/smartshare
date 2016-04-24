@@ -1,3 +1,4 @@
+
 package com.mss.group3.smartshare;
 
 import android.content.Intent;
@@ -34,9 +35,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
 import static org.hamcrest.core.IsNot.not;
 
-/**
- * Created by Bhupinder on 4/22/2016.
- */
+
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class EControllerTest{
@@ -85,3 +84,4 @@ public class EControllerTest{
 
 
 }
+

@@ -1,3 +1,5 @@
+
+
 package com.mss.group3.smartshare;
 
 import android.content.Intent;
@@ -41,9 +43,7 @@ import static org.hamcrest.Matchers.startsWith;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Bhupinder on 4/22/2016.
- */
+
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class FControllerTest {
@@ -112,15 +112,8 @@ public class FControllerTest {
             }
         }));
 
-
         assertEquals("size decreae by one", counts_before[0]-counts_after[0], 1);
-
-       /*
-        onData(anything()) // We are using the position so don't need to specify a data matcher
-                .inAdapterView(withId(R.id.listView)) // Specify the explicit id of the ListView
-                .atPosition(1) // Explicitly specify the adapter item to use
-                .check(matches(not(isDisplayed())));
-                */
-
     }
 }
+
+
