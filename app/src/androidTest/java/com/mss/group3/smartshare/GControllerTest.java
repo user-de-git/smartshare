@@ -62,6 +62,12 @@ public class GControllerTest {
                 perform(scrollTo());
 
         onView(withId(R.id.registrationButton)).perform(click());
+        
+         try {
+            Thread.sleep(1750);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
