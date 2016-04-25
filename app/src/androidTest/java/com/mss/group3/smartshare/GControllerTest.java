@@ -2,18 +2,24 @@ package com.mss.group3.smartshare;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
+import android.test.suitebuilder.annotation.MediumTest;
+
 import com.mss.group3.smartshare.controller.UserTypeController;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.nio.charset.Charset;
 import java.util.Random;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -25,6 +31,10 @@ import static org.hamcrest.Matchers.containsString;
 /**
  * Created by Bhupinder on 4/23/2016.
  */
+
+
+@RunWith(AndroidJUnit4.class)
+@MediumTest
 public class GControllerTest {
 
     @Rule
@@ -48,7 +58,7 @@ public class GControllerTest {
             s+=c;
         }
 
-        onView(withId(R.id.firstNameText)).perform(clearText(), typeText(s));
+        onView(withId(R.id.firstNameText)).perform(clearText(), typeText(s),closeSoftKeyboard());
 
         onView(withId(R.id.registrationButton)).
                 perform(scrollTo());
@@ -67,9 +77,9 @@ public class GControllerTest {
 
 
         onView(withId(R.id.userName)).
-                perform(typeText("bmanhas007@hotmail.com"));
+                perform(typeText("bmanhas007@hotmail.com"),closeSoftKeyboard());
         onView(withId(R.id.userPassword)).
-                perform(typeText("sandy"));
+                perform(typeText("sandy"),closeSoftKeyboard());
         onView(withText("Login")).
                 perform(click());
 
@@ -83,6 +93,7 @@ public class GControllerTest {
 
         onView(withId(R.id.firstNameText)).check(matches(withText(s)));
 
+        //pressBack();
 
     }
 }

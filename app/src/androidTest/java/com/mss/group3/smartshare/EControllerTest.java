@@ -20,6 +20,7 @@ import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -58,7 +59,7 @@ public class EControllerTest{
         }
 
         onView(withId(R.id.et_pricekm)).
-                perform(clearText(), typeText("4"));
+                perform(clearText(), typeText("4"),closeSoftKeyboard());
 
         onView(withId(R.id.button_addModifyVehicle)).
                 perform(scrollTo());
@@ -72,16 +73,11 @@ public class EControllerTest{
             e.printStackTrace();
         }
 
-
         onData(anything())
                 .inAdapterView(withId(R.id.listView))
                 .atPosition(0)
                 .check(matches(hasDescendant(allOf(withId(R.id.tv_price), withText(containsString("$ 4 /km"))))));
-
     }
-
-
-
 
 }
 
