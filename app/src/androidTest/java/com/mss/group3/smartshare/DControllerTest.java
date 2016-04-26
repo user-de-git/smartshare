@@ -1,3 +1,5 @@
+
+
 package com.mss.group3.smartshare;
 
 import android.support.test.rule.ActivityTestRule;
@@ -25,6 +27,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.swipeUp;
@@ -49,14 +52,14 @@ public class DControllerTest  {
 
 
     @Rule
-    public ActivityTestRule<OwnerController> lController =
-            new ActivityTestRule<>(OwnerController.class);
+    public ActivityTestRule<UserTypeController> lController =
+            new ActivityTestRule<>(UserTypeController.class);
 
     @Test
     public void Post_Vehicle() {
 
-        //onView(withText("Share Vehicle")).
-        //        perform(click());
+        onView(withText("Share Vehicle")).
+                perform(click());
 
         try {
             Thread.sleep(2750);
@@ -77,37 +80,37 @@ public class DControllerTest  {
             }
 
             onView(withId(R.id.et_overduecharges)).
-                    perform(typeText("100"));
+                    perform(typeText("100"),closeSoftKeyboard());
 
             onView(withId(R.id.et_platenumber)).
-                    perform(typeText("tcar"+i));
+                    perform(typeText("tcar"+i),closeSoftKeyboard());
 
             onView(withId(R.id.et_pricekm)).
-                    perform(typeText("2"));
+                    perform(typeText("2"),closeSoftKeyboard());
 
             onView(withId(R.id.et_vehiclerange)).
-                    perform(typeText("100"));
+                    perform(typeText("100"),closeSoftKeyboard());
 
             onView(withId(R.id.get_StartDateTime)).
-                    perform(typeText("5/20/2016 15:15"));
+                    perform(typeText("5/20/2016 15:15"),closeSoftKeyboard());
 
             onView(withId(R.id.get_EndDateTime)).
-                    perform(typeText("5/25/2016 15:15"));
+                    perform(typeText("5/25/2016 15:15"),closeSoftKeyboard());
 
             onView(withId(R.id.button_addModifyVehicle)).
                     perform(scrollTo());
 
             onView(withId(R.id.et_address)).
-                    perform(typeText("6559 131 st"));
+                    perform(typeText("6559 131 st"),closeSoftKeyboard());
 
             onView(withId(R.id.et_city)).
-                    perform(typeText("Surrey"));
+                    perform(typeText("Surrey"),closeSoftKeyboard());
 
             onView(withId(R.id.et_postalCode)).
-                    perform(typeText("v3w 8g3"));
+                    perform(typeText("v3w 8g3"),closeSoftKeyboard());
 
             onView(withId(R.id.et_province)).
-                    perform(typeText("BC"));
+                    perform(typeText("BC"),closeSoftKeyboard());
 
             onView(withId(R.id.button_addModifyVehicle)).
                     perform(click());
@@ -127,12 +130,7 @@ public class DControllerTest  {
                 .atPosition(1)// We are using the position so don't need to specify a data matcher
                 .check(matches(isDisplayed()));
 
-    /*
-        .inAdapterView(withId(R.id.listView)) // Specify the explicit id of the ListView
-                .atPosition(1) // Explicitly specify the adapter item to use
-                .perform(click()); // Standard ViewAction
 
-    */
 
 
 
@@ -141,3 +139,8 @@ public class DControllerTest  {
 
 
 }
+
+
+
+
+
