@@ -1,5 +1,4 @@
 package com.mss.group3.smartshare;
-
 import android.content.Intent;
 import android.support.test.espresso.ViewAssertion;
 import android.support.test.rule.ActivityTestRule;
@@ -12,8 +11,10 @@ import android.widget.TextView;
 
 import com.mss.group3.smartshare.controller.FindVehicleController;
 import com.mss.group3.smartshare.controller.OwnerController;
+import com.mss.group3.smartshare.model.FindVehicleList;
 import com.mss.group3.smartshare.model.FindVehiclelistSingleton;
 import com.mss.group3.smartshare.model.VehicleDataStore;
+import com.mss.group3.smartshare.model.VehicleWithRangeList;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
@@ -53,100 +54,42 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 @MediumTest
-public class GControllerTest {
+public class HControllerTest {
+
 
     @Rule
-    public ActivityTestRule<FindVehicleController> lController =
-            new ActivityTestRule<>(FindVehicleController.class);
+    public ActivityTestRule<FindVehicleList> lController =
+            new ActivityTestRule<>(FindVehicleList.class);
 
     @Test
-    public void Search_Vehicle() {
+    public void Reserve_Vehicle() {
 
         try {
-            Thread.sleep(2550);
+            Thread.sleep(4750);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        onView(withId(R.id.departureAddressLineOneText)).
-                perform(typeText("6425 windsor St"),closeSoftKeyboard());
+        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(1).perform(click());
 
 
-        onView(withId(R.id.departureAddressCityNameText)).
-                perform(typeText("vancouver"),closeSoftKeyboard());
-
-        onView(withId(R.id.departureAddressCountryNameText)).
-                perform(typeText("Canada"),closeSoftKeyboard());
-
-        onView(withId(R.id.departureAddressPostalCodeText)).
-                perform(typeText("v5w 3j4"), closeSoftKeyboard());
-
-
-        onView(withId(R.id.arrivalAddressLineOneText)).
-                perform(typeText("33463 11th Ave"),closeSoftKeyboard());
-
-        onView(withId(R.id.arrivalAddressCityNameText)).
-                perform(typeText("Mission"),closeSoftKeyboard());
-
-        onView(withId(R.id.arrivalAddressCountryNameText)).
-                perform(typeText("Canada"), closeSoftKeyboard());
-
-        onView(withId(R.id.arrivalAddressPostalCodeText)).
-                perform(typeText("V2V 6Z5"), closeSoftKeyboard());
-
-                try {
-            Thread.sleep(2000);
+        try {
+            Thread.sleep(9750);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        onView(withId(R.id.getFromDate)).
-                perform(typeText("4/21/2016 15:15"), closeSoftKeyboard());
 
-        onView(withId(R.id.getFromDateButton)).
-                perform(scrollTo());
-
-        onView(withId(R.id.getFromDateButton)).
-                perform(click());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        onView(withText("OK")).perform(click()) ;
+        onView(withText("YES")).perform(click());
 
         try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        onView(withText("OK")).perform(click());
-
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-        onView(withId(R.id.findVehicleProceedButton)).
-                perform(click());
-
-        try {
-            Thread.sleep(4000);
+            Thread.sleep(9750);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
     }
-
 
 
 }
