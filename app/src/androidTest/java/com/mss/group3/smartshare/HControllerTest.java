@@ -53,7 +53,7 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 @MediumTest
-public class GControllerTest {
+public class HControllerTest {
 
     @Rule
     public ActivityTestRule<FindVehicleController> lController =
