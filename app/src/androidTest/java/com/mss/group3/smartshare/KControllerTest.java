@@ -55,7 +55,7 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 @MediumTest
-public class IControllerTest {
+public class KControllerTest {
 
     @Rule
     public ActivityTestRule<MyAccountController> lController =
