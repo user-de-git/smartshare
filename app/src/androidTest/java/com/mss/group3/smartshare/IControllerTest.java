@@ -54,7 +54,7 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 @MediumTest
-public class HControllerTest {
+public class IControllerTest {
 
 
     @Rule
